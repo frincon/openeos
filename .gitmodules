@@ -1,0 +1,6 @@
+[submodule "external-dependencies/hibernate-tools"]
+	path = external-dependencies/hibernate-tools
+	url = git@github.com:frincon/hibernate-tools.git
+[submodule "external-dependencies/jbpm"]
+	path = external-dependencies/jbpm
+	url = git@github.com:frincon/jbpm.git

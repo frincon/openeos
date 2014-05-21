@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<bean id="unoPostgresqlDataSource" class="org.postgresql.ds.PGPoolingDataSource" destroy-method="close">
+		<property name="dataSourceName" value="unoPostgresqlDataSource" />
+		<property name="serverName" value="localHost" />
+		<property name="databaseName" value="uno1" />
+		<property name="user" value="frincon" />
+		<property name="password" value=".,mart1n" /> <!-- TODO Change password source -->
+		<property name="maxConnections" value="10" /> <!-- TODO Change properties source -->
+		<property name="initialConnections" value="1" />
+	</bean>
+
+
+	<service activation="eager" interface="javax.sql.DataSource" ref="unoPostgresqlDataSource">
+		<service-properties>
+			<entry key="osgi.jndi.service.name" value="unoDataSource" />
+		</service-properties>
+	</service>
+
+</blueprint>

@@ -1,0 +1,6 @@
+-removeheaders: Ignore-Package
+Bundle-SymbolicName: org.jbpm.flow-persistence-jpa;singleton:=true
+Import-Package: *
+Export-Package: org.jbpm.persistence.*
+DynamicImport-Package: *
+

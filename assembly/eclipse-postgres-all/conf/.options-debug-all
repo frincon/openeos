@@ -1,0 +1,100 @@
+#### Debugging options for org.eclipse.osgi
+
+# Turn on general debugging for org.eclipse.osgi
+org.eclipse.osgi/debug=true
+# Prints out class loading debug information
+org.eclipse.osgi/debug/loader=true
+# Prints out event (FrameworkEvent/BundleEvent/ServiceEvent) and listener debug information
+org.eclipse.osgi/debug/events=true
+# Prints out OSGi service debug information (registration/getting/ungetting etc.)
+org.eclipse.osgi/debug/services=true
+# Prints out bundle manifest parsing debug information
+org.eclipse.osgi/debug/manifest=true
+# Prints out LDAP filter debug information
+org.eclipse.osgi/debug/filter=true
+# Prints out security (PermissionAdmin service) debug information
+org.eclipse.osgi/debug/security=true
+# Prints out start level service debug information
+org.eclipse.osgi/debug/startlevel=true
+# Prints out package admin service debug information
+org.eclipse.osgi/debug/packageadmin=true
+# Prints out timing information for bundle activation
+org.eclipse.osgi/debug/bundleTime=true
+# Debug the loading of message bundles
+org.eclipse.osgi/debug/messageBundles=true
+# Debug the object pool additions
+org.eclipse.osgi/debug/objectPool/adds=true
+# Debug the object pool duplications
+org.eclipse.osgi/debug/objectPool/dups=true
+
+# Eclipse adaptor options
+org.eclipse.osgi/eclipseadaptor/debug = true
+org.eclipse.osgi/eclipseadaptor/debug/location = true
+org.eclipse.osgi/eclipseadaptor/debug/cachedmanifest = true
+org.eclipse.osgi/eclipseadaptor/debug/platformadmin=true
+org.eclipse.osgi/eclipseadaptor/debug/platformadmin/resolver=true
+org.eclipse.osgi/eclipseadaptor/converter/debug = true
+
+### OSGi resolver options
+# Turns on debugging for the resolver
+org.eclipse.osgi/resolver/debug = true
+# Prints out wiring information after the resolver has completed the resolve process
+org.eclipse.osgi/resolver/wiring = true
+# Prints out Import-Package information
+org.eclipse.osgi/resolver/imports = true
+# Prints out Require-Bundle information
+org.eclipse.osgi/resolver/requires = true
+# Prints out debug information form the "uses" clause
+org.eclipse.osgi/resolver/uses = true
+# Prints out cycle information
+org.eclipse.osgi/resolver/cycles = true
+# Prints out Eclipse-GenericRequire information
+org.eclipse.osgi/resolver/generics = true
+
+#### Profile settings
+org.eclipse.osgi/profile/startup = true
+org.eclipse.osgi/profile/benchmark = true
+org.eclipse.osgi/profile/debug = true
+
+# Override the default implemenation 
+org.eclipse.osgi/profile/impl = org.eclipse.osgi.internal.profile.DefaultProfileLogger
+
+# Append all profile messages to the filename specified
+org.eclipse.osgi/defaultprofile/logfilename = 
+
+# Output all profile log messages synchronously to the jvm console.
+# By default, all log messages are cached until the log buffer is
+# requested.
+org.eclipse.osgi/defaultprofile/logsynchronously = true
+
+# Specify the size of the default profile implementation log buffer.
+org.eclipse.osgi/defaultprofile/buffersize = 256
+
+#### Monitoring settings
+# monitor class loading
+org.eclipse.osgi/monitor/classes=true
+
+# monitor bundle activation
+org.eclipse.osgi/monitor/activation=true
+
+# monitor resource bundle (*.properties) loading
+org.eclipse.osgi/monitor/resources=true
+
+
+#### Trace settings
+# trace class loading - snapshot the execution stack when a class is loaded
+org.eclipse.osgi/trace/classLoading=true
+
+# trace location - file in which execution traces are written
+org.eclipse.osgi/trace/filename=runtime.traces
+
+# trace filters - Java properties file defining which classes should 
+# be traced (if trace/classLoading is true)
+# File format:
+# plugins=<comma separated list of plugins whose classes to trace>
+# packages=<comma separated list of package prefixes of classes to trace>
+# Note that there may be many 'plugins' and 'packages' lines in one file.
+org.eclipse.osgi/trace/filters=trace.properties
+
+# trace bundle activation - snapshot the execution stack when a bundle is activated
+org.eclipse.osgi/trace/activation=true

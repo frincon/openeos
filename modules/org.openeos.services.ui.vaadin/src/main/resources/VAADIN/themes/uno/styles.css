@@ -1,0 +1,26 @@
+@IMPORT "../reindeer/styles.css";
+
+
+/* Readonly */
+input.v-textfield-readonly,
+.black input.v-textfield-readonly,
+textarea.v-textarea-readonly,
+.black textarea.v-textarea-readonly {
+	border: none;
+	background: transparent;
+	font-weight: bold;
+}
+
+.background-default,
+.v-panel-content-background-default > div
+{
+	background: #f5f5f5;
+}
+
+.background-transparent,
+.v-panel-content-background-transparent > div
+{
+	background: transparent;
+}
+
+

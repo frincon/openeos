@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+
+
+	<table-filter match-schema="public" match-name="nu_sequence" exclude="false" />
+	<table-filter match-schema="public" match-name="nu_sequence_instance" exclude="false" />
+	<table-filter match-schema="public" match-name=".*" exclude="true" />
+	<table schema="public" name="nu_sequence" class="org.openeos.numeration.model.Sequence">
+		<column name="numeration_resolver_id">
+			<meta attribute="property-type">org.openeos.numeration.model.list.NumerationResolverListItem</meta>
+		</column>
+		<column name="patternforresolver" property="pattertForResolver" />
+	</table>
+	<table schema="public" name="nu_sequence_instance" class="org.openeos.numeration.model.SequenceInstance">
+		<foreign-key constraint-name="nu_sequence_instance_fk1">
+			<many-to-one property="sequence" />
+			<set property="sequenceInstanceList" cascade="all" />
+		</foreign-key>
+	</table>
+</hibernate-reverse-engineering>

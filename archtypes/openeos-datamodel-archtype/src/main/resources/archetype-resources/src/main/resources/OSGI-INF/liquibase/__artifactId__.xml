@@ -1,0 +1,28 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+	<property dbms="postgresql" name="varchar" value="VARCHAR" />
+	<property dbms="derby" name="varchar" value="VARCHAR" />
+	<property dbms="postgresql" name="char" value="CHAR" />
+	<property dbms="derby" name="char" value="CHAR" />
+	<property dbms="postgresql" name="boolean" value="BOOLEAN" />
+	<property dbms="derby" name="boolean" value="BOOLEAN" />
+	<property dbms="postgresql" name="timestamp" value="TIMESTAMP" />
+	<property dbms="derby" name="timestamp" value="TIMESTAMP" />
+	<property dbms="postgresql" name="date" value="DATE" />
+	<property dbms="derby" name="date" value="DATE" />
+	<property dbms="postgresql" name="decimal" value="DECIMAL" />
+	<property dbms="derby" name="decimal" value="DECIMAL(31,8)" />
+	<property dbms="postgresql" name="integer" value="INTEGER" />
+	<property dbms="derby" name="integer" value="INTEGER" />
+	<property dbms="postgresql" name="blob" value="BYTEA" />
+	<property dbms="derby" name="blob" value="BLOB" />
+	<property name="id" value="${varchar}(32)" />
+
+
+
+</databaseChangeLog>

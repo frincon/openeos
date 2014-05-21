@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+	<property dbms="postgresql" name="varchar" value="VARCHAR" />
+	<property dbms="derby" name="varchar" value="VARCHAR" />
+	<property dbms="postgresql" name="char" value="CHAR" />
+	<property dbms="derby" name="char" value="CHAR" />
+	<property dbms="postgresql" name="boolean" value="BOOLEAN" />
+	<property dbms="derby" name="boolean" value="BOOLEAN" />
+	<property dbms="postgresql" name="timestamp" value="TIMESTAMP" />
+	<property dbms="derby" name="timestamp" value="TIMESTAMP" />
+	<property dbms="postgresql" name="date" value="DATE" />
+	<property dbms="derby" name="date" value="DATE" />
+	<property dbms="postgresql" name="decimal" value="DECIMAL" />
+	<property dbms="derby" name="decimal" value="DECIMAL(31,8)" />
+	<property dbms="postgresql" name="integer" value="INTEGER" />
+	<property dbms="derby" name="integer" value="INTEGER" />
+	<property dbms="postgresql" name="blob" value="BYTEA" />
+	<property dbms="derby" name="blob" value="BLOB" />
+	<property name="id" value="${varchar}(32)" />
+	
+	<!-- Specific type for column  content -->
+	<property dbms="postgresql" name="content_type" value="OID" />
+	<property dbms="derby" name="content_type" value="BLOB" />
+
+
+	<changeSet id="attachments-1" author="frincon">
+		<createTable tableName="att_attachment">
+			<column name="att_attachment_id" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="att_attachment_key" />
+			</column>
+			<column name="entity_class" type="${varchar}(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="entity_id" type="${id}">
+				<constraints nullable="false" />
+			</column>
+			<column name="name" type="${varchar}(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="creation_date" type="${timestamp}">
+				<constraints nullable="false" />
+			</column>
+			<column name="modified_date" type="${timestamp}">
+				<constraints nullable="false" />
+			</column>
+			<column name="attachment_type" type="${varchar}(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="mime_type" type="${varchar}(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="content" type="${content_type}" />
+		</createTable>
+		<addUniqueConstraint tableName="att_attachment" columnNames="entity_class, entity_id, name" constraintName="att_attachment_uq1" />
+	</changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<reference availability="mandatory" id="windowManagerService" interface="org.openeos.services.ui.WindowManagerService" />
+	<reference availability="mandatory" id="customActionManagerService" interface="org.openeos.services.ui.CustomActionManagerService" />
+
+	<bean id="vaadinMenuContributor" class="org.openeos.services.ui.vaadin.internal.VaadinMenuContributor">
+		<argument ref="windowManagerService" />
+		<argument ref="customActionManagerService" />
+		<argument ref="windowFactory" />
+		<argument ref="uiApplicationFactory" />
+	</bean>
+
+	<bean id="uiApplicationFactory" class="org.openeos.services.ui.vaadin.internal.CachedApplicationFactoryDecorator">
+		<argument>
+			<bean class="org.openeos.services.ui.vaadin.internal.BlueprintUIVaadinApplicationFactory">
+				<argument ref="blueprintContainer" />
+				<argument value="uiApplication" />
+				<argument value="vaadinApplication" />
+			</bean>
+		</argument>
+	</bean>
+
+	<bean id="uiApplication" class="org.openeos.services.ui.vaadin.internal.UIApplicationImpl" scope="prototype">
+		<argument ref="formRegistryService" />
+		<argument ref="uiBeanBindingToolkit" />
+		<argument ref="commonBindingToolkit" />
+		<argument ref="vaadinBindingFormToolkit" />
+		<argument ref="uidaoService" />
+	</bean>
+
+	<!-- 
+	<bean id="windowFactory" class="org.openeos.services.ui.vaadin.internal.DefaultVaadinERPWindowFactory">
+		<argument ref="dictionaryService" />
+		<argument ref="containerFactory" />
+		<argument ref="formFieldFactory" />
+	</bean>
+	 -->
+
+
+	<bean id="vaadinFormToolkit" class="org.openeos.services.ui.vaadin.internal.abstractform.UIVaadinFormToolkit" />
+	<bean id="vaadinFormBuilder" class="org.openeos.services.ui.vaadin.internal.abstractform.AbstractFormVaadinBuilder" />
+	<bean id="vaadinBindingFormToolkit" class="org.abstractform.binding.vaadin.VaadinBindingFormToolkit" factory-method="createFormToolkit"
+		factory-ref="vaadinFormBuilder">
+		<argument ref="vaadinFormToolkit" />
+	</bean>
+	<reference id="uiBeanBindingToolkit" availability="mandatory" interface="org.abstractform.binding.BBindingToolkit"
+		filter="(service.pid=org.openeos.services.ui.form.abstractform.service.SERVICE_UIBEAN_BINDING_PID)" />
+	<reference id="commonBindingToolkit" availability="mandatory" interface="org.abstractform.binding.BBindingToolkit"
+		filter="(service.pid=org.openeos.services.ui.form.abstractform.service.SERVICE_COMMON_BINDING_PID)" />
+
+	<bean id="windowFactory" class="org.openeos.services.ui.vaadin.internal.abstractform.AbstractFormVaadinERPWindowFactory">
+		<argument ref="dictionaryService" />
+		<argument ref="containerFactory" />
+		<argument ref="formFieldFactory" />
+		<argument ref="vaadinBindingFormToolkit" />
+		<argument ref="uiBeanBindingToolkit" />
+		<argument ref="formRegistryService" />
+		<argument ref="uiEntityActionManager" />
+	</bean>
+
+	<reference id="formRegistryService" availability="mandatory" interface="org.openeos.services.ui.form.FormRegistryService" />
+
+	<bean id="formFieldFactory" class="org.openeos.services.ui.vaadin.internal.DefaultVaadinFieldFactory">
+		<argument ref="dictionaryService" />
+		<argument ref="containerFactory" />
+	</bean>
+
+	<bean id="containerFactory" class="org.openeos.services.ui.vaadin.internal.DefaultVaadinContainerFactory">
+		<argument ref="dictionaryService" />
+		<argument ref="uidaoService" />
+	</bean>
+
+	<service interface="org.openeos.vaadin.main.IVaadinMenuContributor" ref="vaadinMenuContributor" />
+
+	<reference-list availability="optional" interface="org.openeos.services.ui.menu.MenuContributor">
+		<reference-listener ref="vaadinMenuContributor" bind-method="bindMenuContributor" unbind-method="unbindMenuContributor" />
+	</reference-list>
+
+
+	<reference-list availability="optional" interface="org.openeos.services.ui.WindowActionContributor">
+		<reference-listener ref="windowFactory" bind-method="bindWindowActionContributor" unbind-method="unbindWindowActionContributor" />
+	</reference-list>
+
+	<reference interface="org.openeos.services.dictionary.IDictionaryService" id="dictionaryService" availability="mandatory" />
+	<reference interface="org.openeos.services.ui.UIDAOService" id="uidaoService" availability="mandatory" />
+	<reference interface="org.openeos.services.ui.action.UIEntityActionManager" id="uiEntityActionManager" availability="mandatory" />
+
+	<service interface="org.openeos.vaadin.main.NotificationManager">
+		<bean class="org.openeos.services.ui.vaadin.internal.notifications.VaadinNotificationManager">
+			<argument>
+				<reference-list availability="optional" interface="org.openeos.services.ui.notifications.NotificationProvider" />
+			</argument>
+			<argument ref="uiApplicationFactory" />
+		</bean>
+	</service>
+
+	<bean class="org.openeos.services.ui.vaadin.internal.staticres.StaticResourceServlet" init-method="start" destroy-method="stop">
+		<argument ref="blueprintBundleContext" />
+		<argument>
+			<reference availability="mandatory" interface="org.osgi.service.http.HttpService" />
+		</argument>
+		<argument value="/VAADIN" />
+	</bean>
+
+	<service interface="org.openeos.vaadin.main.UnoErrorHandler">
+		<bean class="org.openeos.services.ui.vaadin.internal.DefaultErrorHandler">
+			<argument>
+				<reference interface="org.openeos.services.ui.ThrowableToMessageService" />
+			</argument>
+		</bean>
+	</service>
+
+
+
+	<service interface="org.openeos.services.ui.vaadin.ApplicationLifecycleListener" ranking="3000">
+		<bean class="org.openeos.services.ui.vaadin.internal.VaadinContextObjectInitialListener">
+			<argument>
+				<reference-list availability="optional" interface="org.openeos.services.ui.ContextObjectContributor" />
+			</argument>
+		</bean>
+	</service>
+
+	<reference id="sessionFactory" interface="org.hibernate.SessionFactory" />
+	<reference id="sessionObjectService" interface="org.openeos.services.ui.SessionObjectsService" />
+
+	<service interface="org.openeos.services.ui.vaadin.ApplicationLifecycleListener" ranking="3000">
+		<bean class="org.openeos.services.ui.vaadin.internal.ContextObjectListener">
+			<argument ref="sessionObjectService" />
+		</bean>
+	</service>
+
+	<service interface="org.openeos.services.ui.vaadin.ApplicationLifecycleListener" ranking="2000">
+		<bean class="org.openeos.services.ui.vaadin.internal.OpenSessionInViewListener">
+			<argument ref="sessionFactory" />
+		</bean>
+	</service>
+
+	<bean id="vaadinLifecycleManager" class="org.openeos.services.ui.vaadin.internal.OsgiVaadinLifecycleManager" init-method="init"
+		destroy-method="destroy">
+		<argument ref="blueprintBundleContext" />
+	</bean>
+
+	<service interface="org.openeos.vaadin.main.ApplicationLifecycleManager" ref="vaadinLifecycleManager" />
+
+</blueprint>

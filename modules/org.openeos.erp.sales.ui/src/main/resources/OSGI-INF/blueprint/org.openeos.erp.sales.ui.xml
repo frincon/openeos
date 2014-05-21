@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<service interface="org.openeos.services.ui.action.EntityAction">
+		<service-properties>
+			<entry key="org.openeos.services.ui.action.TARGET_ENTITY">
+				<value type="java.lang.Class">org.openeos.erp.sales.model.SalesInvoice</value>
+			</entry>
+		</service-properties>
+		<bean class="org.openeos.erp.sales.ui.actions.PostInvoiceAction">
+			<property name="salesInvoiceService" ref="salesInvoiceService" />
+		</bean>
+	</service>
+
+	<reference id="salesInvoiceService" interface="org.openeos.erp.sales.SalesInvoiceService" />
+
+	<reference id="sessionFactory" interface="org.hibernate.SessionFactory" />
+	<reference id="dictionaryService" interface="org.openeos.services.dictionary.IDictionaryService" />
+	<reference id="entityDocumentService" interface="org.openeos.services.document.EntityDocumentService" />
+
+	<service interface="org.openeos.usertask.ui.UsertaskUI">
+		<bean class="org.openeos.erp.sales.ui.VaadinPrintDocumentUsertaskUI">
+			<argument ref="entityDocumentService" />
+			<argument ref="dictionaryService" />
+			<argument ref="sessionFactory" />
+			<argument value="org.openeos.erp.sales.ui.PrintInvoiceTaskUI" />
+		</bean>
+	</service>
+
+	<service interface="org.openeos.services.ui.ThrowableToMessageResolver" ranking="15000">
+		<bean class="org.openeos.services.ui.ForeignKeyExceptionResolver">
+			<property name="foreignKeyToEntitiesMap">
+				<map>
+					<entry key="C_SALES_INVOICE_FK3" value="Sales Invoice,Bussiness Partner Location" />
+				</map>
+			</property>
+		</bean>
+	</service>
+
+
+</blueprint>

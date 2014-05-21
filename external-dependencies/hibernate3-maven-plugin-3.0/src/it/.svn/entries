@@ -1,0 +1,149 @@
+10
+
+dir
+19412
+http://svn.codehaus.org/mojo/tags/hibernate3-maven-plugin-3.0/src/it
+http://svn.codehaus.org/mojo
+
+
+
+2012-02-03T09:13:42.182261Z
+15860
+dantran
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+52ab4f32-60fc-0310-b215-8acea882cd1b
+
+ann-hbm2ddl-default
+dir
+
+ann-hbm2dao-default
+dir
+
+jpa-hbm2doc-default
+dir
+
+ann-hbm2doc-default
+dir
+
+jpa-query-destfile
+dir
+
+jdbc-hbm2cfgxml-default
+dir
+
+jdbc-hbm2java-default
+dir
+
+mhibernate-89
+dir
+
+jpa-hbm2ddl-repeated-goals
+dir
+
+mhibernate-102
+dir
+
+conf-hbm2ddl-default
+dir
+
+conf-hbm2dao-default
+dir
+
+mhibernate-114
+dir
+
+conf-hbm2doc-default
+dir
+
+jpa-hbm2ddl-envers
+dir
+
+mhibernate-109
+dir
+
+jpa-hbmlint-default
+dir
+
+jpa-hbm2ddl-envers-3.6
+dir
+
+jpa-hbm2hbmxml-default
+dir
+
+ann-hbm2doc-configurationfile
+dir
+
+ann-hbmtemplate-default
+dir
+
+conf-hbm2java-default
+dir
+
+jpa-query-default
+dir
+
+settings.xml
+file
+
+
+
+
+2014-02-14T21:17:14.471767Z
+c77adad764ca832a93912496f43fd428
+2009-04-13T22:59:42.129246Z
+9442
+jreyes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1715
+
+jdbc-hbm2doc-default
+dir
+
+jpa-instrument-default
+dir
+
+jpa-hbm2ddl-default
+dir
+
+jpa-hbm2dao-default
+dir
+
+mhibernate-38
+dir
+
+mhibernate-65
+dir
+

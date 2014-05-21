@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.openeos</groupId>
+	<artifactId>org.openeos.parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<org.springframework.version>3.1.1.RELEASE</org.springframework.version>
+		<spring.security.version>3.1.4.RELEASE</spring.security.version>
+		<sshd.version>0.8.0</sshd.version>
+		<aspectj.version>1.6.12</aspectj.version>
+		<aspectj.spring.version>1.6.12.RELEASE</aspectj.spring.version>
+		<eclipse.gemini.blueprint.version>1.0.2.RELEASE</eclipse.gemini.blueprint.version>
+		<lanterna.version>2.1.5</lanterna.version>
+		<pax.exam.version>3.4.0</pax.exam.version>
+		<pax.url.version>1.6.0</pax.url.version>
+		<logback.version>1.0.7</logback.version>
+		<slf4j.version>1.6.6</slf4j.version>
+		<osgi.version>5.0.0</osgi.version>
+		<abstractform.version>0.0.1-SNAPSHOT</abstractform.version>
+		<eclipse.weaving.hook.version>1.0.200.I20130319-1000</eclipse.weaving.hook.version>
+		<vaadin.version>6.8.14</vaadin.version>
+		<freemarker.version>2.3.20</freemarker.version>
+		<jbpm.version>5.5.0.Final.frincon-mvel-expression-assignment</jbpm.version>
+		<drools.version>5.6.0.Final</drools.version>
+		<apache.commons.codec.version>1.6.0</apache.commons.codec.version>
+		<apache.commons.io.version>1.4.0</apache.commons.io.version>
+		<apache.commons.collections.version>3.2.1</apache.commons.collections.version>
+		<apache.commons.digester.version>2.1</apache.commons.digester.version>
+		<apache.commons.beanutils.version>1.8.0</apache.commons.beanutils.version>
+		<jasperreports.version>5.5.1</jasperreports.version>
+		<mvel.version>2.1.9.Final</mvel.version>
+		<hibernate.version>4.1.12.Final</hibernate.version>
+	</properties>
+
+
+	<modules>
+		<module>archtypes/openeos-datamodel-archtype</module>
+		<module>modules</module>
+		<module>assembly</module>
+	</modules>
+
+	<repositories>
+		<repository>
+			<id>com.springsource.repository.bundles.release</id>
+			<name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name>
+			<url>http://repository.springsource.com/maven/bundles/release</url>
+		</repository>
+
+		<repository>
+			<id>com.springsource.repository.bundles.external</id>
+			<name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
+			<url>http://repository.springsource.com/maven/bundles/external</url>
+		</repository>
+
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>inria</id>
+			<name>public-release</name>
+			<url>http://maven.inria.fr/artifactory/public-release</url>
+		</repository>
+		<repository>
+			<id>Alfresco Maven Repository</id>
+			<url>https://maven.alfresco.com/nexus/content/groups/public/</url>
+		</repository>
+		<repository>
+			<id>vaadin-addons</id>
+			<url>http://maven.vaadin.com/vaadin-addons</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<aggregate>true</aggregate>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+
+</project>

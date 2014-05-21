@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+	<property dbms="postgresql" name="varchar" value="VARCHAR" />
+	<property dbms="derby" name="varchar" value="VARCHAR" />
+	<property dbms="postgresql" name="boolean" value="BOOLEAN" />
+	<property dbms="derby" name="boolean" value="SMALLINT" />
+	<property dbms="postgresql" name="timestamp" value="TIMESTAMP" />
+	<property dbms="derby" name="timestamp" value="TIMESTAMP" />
+	<property dbms="postgresql" name="integer" value="INTEGER" />
+	<property dbms="derby" name="integer" value="INTEGER" />
+	<property dbms="postgresql" name="bigint" value="BIGINT" />
+	<property dbms="derby" name="bigint" value="BIGINT" />
+	<property dbms="postgresql" name="blob" value="BYTEA" />
+	<property dbms="derby" name="blob" value="BLOB" />
+
+
+	<changeSet author="frincon" id="jbpm-1">
+		<createTable tableName="DROOLS_SESSION">
+			<column name="DROOLS_SESSION_ID" type="${varchar}(32)">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="DROOLS_SESSION_KEY" />
+			</column>
+			<column name="DROOLS_INTERNAL_ID" type="${integer}">
+				<constraints nullable="false" unique="true" uniqueConstraintName="DROOLS_SESSION_UN1" />
+			</column>
+			<column name="START_DATE" type="${timestamp}">
+				<constraints nullable="false" />
+			</column>
+			<column name="LAST_MODIFICATION_DATE" type="${timestamp}" />
+			<column name="BYTES" type="${blob}" />
+		</createTable>
+		<createTable tableName="JBPM_PROCESS_INSTANCE">
+			<column name="JBPM_PROCESS_INSTANCE_ID" type="${varchar}(32)">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="JBPM_PROCESS_INSTANCE_KEY" />
+			</column>
+			<column name="JBPM_INTERNAL_ID" type="${bigint}">
+				<constraints nullable="false" unique="true" uniqueConstraintName="JBPM_PROCESS_INSTANCE_UN1" />
+			</column>
+			<column name="PROCESS_ID" type="${varchar}(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="START_DATE" type="${timestamp}">
+				<constraints nullable="false" />
+			</column>
+			<column name="LAST_READ_DATE" type="${timestamp}" />
+			<column name="LAST_MODIFICATION_DATE" type="${timestamp}" />
+			<column name="STATE" type="${integer}">
+				<constraints nullable="false" />
+			</column>
+			<column name="BYTES" type="${blob}" />
+		</createTable>
+		<createTable tableName="JBPM_PROCESS_INSTANCE_EVENT_TYPE">
+			<column name="JBPM_PROCESS_INSTANCE_EVENT_TYPE_ID" type="${varchar}(32)">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="JBPM_PROCESS_INSTANCE_EVENT_TYPE_KEY" />
+			</column>
+			<column name="JBPM_PROCESS_INSTANCE_ID" type="${varchar}(32)">
+				<constraints nullable="false" references="JBPM_PROCESS_INSTANCE(JBPM_PROCESS_INSTANCE_ID)" foreignKeyName="JBPM_PROCESS_INSTANCE_EVENT_TYPE_FK1" />
+			</column>
+			<column name="EVENT_TYPE" type="${varchar}(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createIndex tableName="JBPM_PROCESS_INSTANCE_EVENT_TYPE" indexName="JBPM_PROCESS_INSTANCE_EVENT_TYPE_IDX1">
+			<column name="JBPM_PROCESS_INSTANCE_ID" />
+		</createIndex>
+		<addUniqueConstraint tableName="JBPM_PROCESS_INSTANCE_EVENT_TYPE" columnNames="JBPM_PROCESS_INSTANCE_ID,EVENT_TYPE" />
+	</changeSet>
+	<changeSet id="jbpm-2" author="frincon">
+		<insert tableName="NU_SEQUENCE">
+			<column name="NU_SEQUENCE_ID" value="ff8081813f77bc49013f77bc4f800000" />
+			<column name="VALUE" value="JBPM_PROCESS_INSTANCE_SEQ" />
+			<column name="NAME" value="JBPM_PROCESS_INSTANCE_SEQ" />
+			<column name="DESCRIPTION" value="Sequence for jbpm process instances" />
+			<column name="PATTERN" value="${number}" />
+			<column name="NUMERATION_RESOLVER_ID" value="org.openeos.numeration.internal.DefaultNumerationResolver" />
+		</insert>
+		<insert tableName="NU_SEQUENCE">
+			<column name="NU_SEQUENCE_ID" value="ff8081813f77bc49013f77bc507a0001" />
+			<column name="VALUE" value="DROOLS_SESSION_SEQ" />
+			<column name="NAME" value="DROOLS_SESSION_SEQ" />
+			<column name="DESCRIPTION" value="Sequence for drools sessions" />
+			<column name="PATTERN" value="${number}" />
+			<column name="NUMERATION_RESOLVER_ID" value="org.openeos.numeration.internal.DefaultNumerationResolver" />
+		</insert>
+	</changeSet>
+	<changeSet id="jbpm-3" author="frincon">
+		<createTable tableName="DROOLS_WORK_ITEM">
+			<column name="DROOLS_WORK_ITEM_ID" type="${varchar}(32)">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="DROOLS_WORK_ITEM_KEY" />
+			</column>
+			<column name="DROOLS_INTERNAL_ID" type="${bigint}">
+				<constraints nullable="false" unique="true" uniqueConstraintName="DROOLS_WORK_ITEM_UN1" />
+			</column>
+			<column name="NAME" type="${varchar}(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="${timestamp}">
+				<constraints nullable="false" />
+			</column>
+			<column name="PROCESS_INSTANCE_ID" type="${bigint}">
+				<constraints nullable="false" />
+			</column>
+			<column name="STATE" type="${bigint}">
+				<constraints nullable="false" />
+			</column>
+			<column name="BYTES" type="${blob}" />
+		</createTable>
+		<insert tableName="NU_SEQUENCE">
+			<column name="NU_SEQUENCE_ID" value="ff8081813f77bc49013f77bc507b0005" />
+			<column name="VALUE" value="DROOLS_WORK_ITEM_SEQ" />
+			<column name="NAME" value="DROOLS_WORK_ITEM_SEQ" />
+			<column name="DESCRIPTION" value="Sequence for drools work item" />
+			<column name="PATTERN" value="${number}" />
+			<column name="NUMERATION_RESOLVER_ID" value="org.openeos.numeration.internal.DefaultNumerationResolver" />
+		</insert>
+	</changeSet>
+</databaseChangeLog>

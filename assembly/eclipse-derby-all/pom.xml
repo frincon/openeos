@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.openeos.assembly.eclipse-derby-all</artifactId>
+	<packaging>pom</packaging>
+
+
+	<parent>
+		<groupId>org.openeos</groupId>
+		<artifactId>org.openeos.assembly</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.ops4j</groupId>
+				<artifactId>maven-pax-plugin</artifactId>
+				<version>1.5</version>
+				<configuration>
+					<osgi.framework.extensions>org.eclipse.equinox.weaving.adaptors,org.eclipse.equinox.weaving.hooks,org.eclipse.equinox.service.weaving</osgi.framework.extensions>
+                                        <!-- <profiles>web</profiles> -->
+					<provision>
+						<param>--platform=equinox</param>
+						<param>--log=debug</param>
+<!--
+                                                <param><![CDATA[vmo=-Declipse.ignoreApp=true -Dosgi.framework.extensions=org.eclipse.equinox.weaving.hook -Dorg.aspectj.weaver.showWeaveInfo=true -Dorg.aspectj.osgi.verbose=true -Daj.weaving.verbose=true -Dorg.eclipse.equinox.http.jetty.http.port=8080 -Dequinox.ds.print=flase -Dequinox.ds.debug=false -Dlogback.configurationFile=${project.basedir}/conf/logback.xml]]></param>
+-->
+						<param><![CDATA[--vmo=-Dorg.eclipse.equinox.http.jetty.http.port=8080 -Dosgi.resolveOptional=true -Dosgi.framework.extensions=org.eclipse.equinox.weaving.hook -Dlogback.configurationFile=${project.basedir}/conf/logback.xml -Dorg.aspectj.weaver.showWeaveInfo=true -Dorg.aspectj.osgi.verbose=true -Daj.weaving.verbose=true -Dlogback.statusListenerClass=ch.qos.logback.core.status.OnConsoleStatusListener -Xdebug -Xrunjdwp:transport=dt_socket,address=8998,server=y,suspend=n]]></param>
+						<param>scan-dir:${project.basedir}/plugins@2</param>
+						<param>scan-dir:${project.basedir}/plugins-nostart@nostart</param>
+						<param>mvn:org.eclipse.gemini.blueprint/gemini-blueprint-extender/1.0.2.RELEASE@2</param>
+						<param>mvn:org.liquibase/liquibase-osgi/2.0.5@2</param>
+						<param>mvn:org.openeos/org.openeos.ds.derby/${project.version}@3</param>
+						<param>mvn:org.openeos/org.openeos.hibernate/${project.version}@4</param>
+						<param>mvn:org.openeos/org.openeos.liquibase.extender/${project.version}@3</param>
+						<param>--log=DEBUG</param>
+						<param>--bundleStartLevel=5</param>
+						<param>--startLevel=5</param>
+						<param>--bootDelegation=org.eclipse.equinox.weaving.adaptors,org.eclipse.equinox.weaving.hooks,org.eclipse.equinox.service.weaving,org.xml.sax.helpers,org.xml.sax</param>
+						<param>--systemPackages=org.eclipse.equinox.service.weaving</param>
+						<param>--bcp/a=file://${project.basedir}/plugins-nostart/org.eclipse.equinox.weaving.hook_${eclipse.weaving.hook.version}.jar</param>
+<!--
+                                                <param>scan-bundle:file://${project.basedir}/plugins/org.aspectj.runtime_1.7.0.20120703164200</param>
+                                                <param>scan-bundle:file://${project.basedir}/plugins/org.aspectj.weaver_1.7.0.20120703164200</param>
+-->
+					</provision>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>

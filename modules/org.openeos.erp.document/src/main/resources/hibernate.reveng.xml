@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+<hibernate-reverse-engineering>
+
+	<table-filter match-schema="public" match-name="c_doctype" />
+	<table-filter match-schema="public" match-name="nu_.*" package="nottodo" />
+	<table-filter match-schema="public" match-name="ad_.*" package="nottodo" />
+	<table schema="public" name="c_doctype" class="org.openeos.erp.document.model.DocumentType">
+		<column name="targettype" property="targetType">
+			<meta attribute="property-type">org.openeos.erp.document.model.list.DocumentTypeTargetType</meta>
+		</column>
+		<column name="docnocontrolled" property="docNoControlled" />
+		<foreign-key constraint-name="c_doctype_fk2">
+			<many-to-one property="draftSequence" />
+		</foreign-key>
+		<foreign-key constraint-name="c_doctype_fk3">
+			<many-to-one property="finalSequence" />
+		</foreign-key>
+	</table>
+
+	<!--  TODO Copied from numeration, must be automatic -->
+	<table schema="public" name="nu_sequence" class="org.openeos.numeration.model.Sequence" />
+	<table schema="public" name="nu_sequence_instance" class="org.openeos.numeration.model.SequenceInstance">
+		<foreign-key constraint-name="NU_SEQUENCE_INSTANCE_FK1">
+			<many-to-one property="sequence" />
+			<set property="sequenceInstanceList" exclude="false" />
+		</foreign-key>
+	</table>
+	
+	<!--  TODO Copied from core, must be automatic -->
+	<table schema="public" name="ad_client" class="org.openeos.erp.core.model.Client" />
+	<table schema="public" name="ad_org" class="org.openeos.erp.core.model.Organization" />
+
+
+</hibernate-reverse-engineering>

@@ -1,0 +1,11 @@
+.classpath
+.project
+.settings
+target
+local-plugins/*.jar
+*~
+assembly/*/runner
+derby.log
+external-dependencies/hibernate-tools/testdb/*
+modules/*/META-INF
+modules/*/OSGI-INF

@@ -1,0 +1,24 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+<hibernate-reverse-engineering>
+
+	<table-filter match-schema="public" match-name="ad_client" />
+	<table-filter match-schema="public" match-name="ad_org" />
+	<table-filter match-schema="public" match-name="c_bpartner" />
+	<table-filter match-schema="public" match-name="c_country" />
+	<table-filter match-schema="public" match-name="c_region" />
+	<table-filter match-schema="public" match-name="c_location" />
+	<table-filter match-schema="public" match-name="c_bpartner_location" />
+	<table-filter match-schema="public" match-name=".*" exclude="true" />
+	<table schema="public" name="ad_client" class="${package}.model.Client" />
+	<table schema="public" name="ad_org" class="${package}.model.Organization" />
+	<table schema="public" name="c_bpartner" class="${package}.model.BusinessPartner" />
+	<table schema="public" name="c_country" class="${package}.model.Country" />
+	<table schema="public" name="c_region" class="${package}.model.Region" />
+	<table schema="public" name="c_location" class="${package}.model.Location" />
+	<table schema="public" name="c_bpartner_location" class="${package}.model.BPLocation" />
+
+</hibernate-reverse-engineering>

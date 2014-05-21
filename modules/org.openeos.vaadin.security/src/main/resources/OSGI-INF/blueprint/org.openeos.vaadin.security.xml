@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<reference id="extendedHttpService" interface="org.eclipse.equinox.http.servlet.ExtendedHttpService" availability="mandatory" />
+
+	<bean id="inMemoryUserDetailsManager" class="org.springframework.security.provisioning.InMemoryUserDetailsManager">
+		<argument>
+			<props>
+				<prop key="frincon">martin,ROLE_USER,ROLE_ADMIN</prop>
+				<prop key="fgomez">lombardero,ROLE_USER</prop>
+			</props>
+		</argument>
+	</bean>
+
+	<reference id="unoUserDetailService" interface="org.springframework.security.core.userdetails.UserDetailsService" filter="(service.pid=org.openeos.security.UserDetailsServicePID)" />
+
+	<bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="unoUserDetailService" />
+		<!-- 
+		<property name="saltSource" ref="systemSaltSource" />
+		<property name="passwordEncoder" ref="passwordEncoder" />
+		-->
+	</bean>
+
+	<bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+		<argument>
+			<list>
+				<ref component-id="daoAuthenticationProvider" />
+			</list>
+		</argument>
+	</bean>
+
+
+	<bean id="basicAuthenticationEntryPoint" class="org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint">
+		<property name="realmName" value="RealmName" />
+	</bean>
+
+	<bean id="securityContextPersistenceFilterWithASCTrue" class="org.springframework.security.web.context.SecurityContextPersistenceFilter" />
+
+	<bean id="basicAuthenticationFilter" class="org.springframework.security.web.authentication.www.BasicAuthenticationFilter">
+		<argument ref="authenticationManager" />
+		<argument ref="basicAuthenticationEntryPoint" />
+	</bean>
+
+	<bean id="anonymousAuthenticationFilter" class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
+		<argument value="anonymousAuthenticationFilter" />
+	</bean>
+
+	<bean id="exceptionTranslationFilter" class="org.springframework.security.web.access.ExceptionTranslationFilter">
+		<argument ref="basicAuthenticationEntryPoint" />
+	</bean>
+
+	<bean id="affirmativeBased" class="org.springframework.security.access.vote.AffirmativeBased">
+		<argument>
+			<list>
+				<ref component-id="roleVoter" />
+				<ref component-id="webExpressionVoter" />
+			</list>
+		</argument>
+	</bean>
+	<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter" />
+	<bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter" />
+	<bean id="webExpressionVoter" class="org.springframework.security.web.access.expression.WebExpressionVoter" />
+
+	<bean id="filterInvocationInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="affirmativeBased" />
+		<property name="securityMetadataSource">
+			<bean class="org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource">
+				<argument>
+					<map>
+						<entry>
+							<key>
+								<bean class="org.springframework.security.web.util.AnyRequestMatcher" />
+							</key>
+							<list>
+								<bean class="org.springframework.security.access.SecurityConfig">
+									<argument value="hasRole('ROLE_USER')" />
+								</bean>
+							</list>
+						</entry>
+					</map>
+				</argument>
+				<argument>
+					<bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+				</argument>
+			</bean>
+		</property>
+
+	</bean>
+
+	<bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
+		<argument>
+			<bean class="org.springframework.security.web.DefaultSecurityFilterChain">
+				<argument>
+					<bean class="org.springframework.security.web.util.AntPathRequestMatcher">
+						<argument value="/**" />
+					</bean>
+				</argument>
+				<argument>
+					<list>
+						<ref component-id="securityContextPersistenceFilterWithASCTrue" />
+						<ref component-id="basicAuthenticationFilter" />
+						<ref component-id="anonymousAuthenticationFilter" />
+						<ref component-id="exceptionTranslationFilter" />
+						<ref component-id="filterInvocationInterceptor" />
+					</list>
+				</argument>
+			</bean>
+		</argument>
+	</bean>
+
+	<bean class="org.openeos.vaadin.security.internal.SecurityFilterRegistrar" init-method="register" destroy-method="unregister">
+		<property name="httpService" ref="extendedHttpService" />
+		<property name="securityFilter" ref="filterChainProxy" />
+	</bean>
+
+</blueprint>

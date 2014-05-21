@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3
+END
+Hbm2CfgXmlExporterMojo.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/Hbm2CfgXmlExporterMojo.java
+END
+AbstractHibernateToolMojo.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/AbstractHibernateToolMojo.java
+END
+Hbm2JavaExporterMojo.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/Hbm2JavaExporterMojo.java
+END
+AbstractHibernateMojo.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/AbstractHibernateMojo.java
+END
+GenericExporterMojo.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/GenericExporterMojo.java
+END
+Hbm2DAOExporterMojo.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/Hbm2DAOExporterMojo.java
+END
+Hbm2DDLExporterMojo.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/Hbm2DDLExporterMojo.java
+END
+HbmLintExporterMojo.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/HbmLintExporterMojo.java
+END
+Hbm2DocExporterMojo.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/Hbm2DocExporterMojo.java
+END
+Hbm2HbmXmlExporterMojo.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/Hbm2HbmXmlExporterMojo.java
+END
+RunExporterMojo.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/RunExporterMojo.java
+END
+QueryExporterMojo.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/QueryExporterMojo.java
+END
+HibernateMojo.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/HibernateMojo.java
+END
+InstrumentExporterMojo.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/InstrumentExporterMojo.java
+END

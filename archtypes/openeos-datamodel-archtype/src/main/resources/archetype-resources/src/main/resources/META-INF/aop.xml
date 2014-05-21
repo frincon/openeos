@@ -1,0 +1,17 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0"?>
+<aspectj>
+	<aspects>
+		<!--
+		<aspect name="${package}.model.aspects.ModelIdentificationAspect" />
+		<aspect name="${package}.model.aspects.ModelStandardIdAspect" />
+		<aspect name="${package}.model.aspects.ClientInterfacesAspect" />
+		<aspect name="${package}.model.aspects.BusinessPartnerInterfacesAspect" />
+		<aspect name="${package}.model.aspects.OrganizationInterfaces" />
+		<aspect name="${package}.model.aspects.BPLocationDefaultValues" />
+		<aspect name="${package}.model.aspects.RegionInterfaces" />
+		-->
+	</aspects>
+</aspectj>

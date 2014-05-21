@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/it/mhibernate-65/src/main/resources
+END
+database.properties
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/it/mhibernate-65/src/main/resources/database.properties
+END
+applicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/it/mhibernate-65/src/main/resources/applicationContext.xml
+END
+testdb.script
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/it/mhibernate-65/src/main/resources/testdb.script
+END
+hibernate.cfg.xml
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/it/mhibernate-65/src/main/resources/hibernate.cfg.xml
+END

@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd"
+	logicalFilePath="org.openeos.erp.acct.xml">
+
+	<property dbms="postgresql" name="varchar" value="VARCHAR" />
+	<property dbms="derby" name="varchar" value="VARCHAR" />
+	<property dbms="postgresql" name="char" value="CHAR" />
+	<property dbms="derby" name="char" value="CHAR" />
+	<property dbms="postgresql" name="boolean" value="BOOLEAN" />
+	<property dbms="derby" name="boolean" value="BOOLEAN" />
+	<property dbms="postgresql" name="timestamp" value="TIMESTAMP" />
+	<property dbms="derby" name="timestamp" value="TIMESTAMP" />
+	<property dbms="postgresql" name="date" value="DATE" />
+	<property dbms="derby" name="date" value="DATE" />
+	<property dbms="postgresql" name="decimal" value="DECIMAL" />
+	<property dbms="derby" name="decimal" value="DECIMAL(31,8)" />
+	<property dbms="postgresql" name="integer" value="INTEGER" />
+	<property dbms="derby" name="integer" value="INTEGER" />
+	<property dbms="postgresql" name="blob" value="BYTEA" />
+	<property dbms="derby" name="blob" value="BLOB" />
+	<property name="id" value="${varchar}(32)" />
+
+	<changeSet id="acct-1" author="frincon">
+		<createTable tableName="C_ACCTSCHEMA">
+			<column name="C_ACCTSCHEMA_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="C_ACCTSCHEMA_KEY" />
+			</column>
+			<column name="AD_CLIENT_ID" type="${varchar}(32)">
+				<constraints nullable="false" references="AD_CLIENT(AD_CLIENT_ID)" foreignKeyName="C_ACCTSCHEMA_FK1" />
+			</column>
+			<column name="AD_ORG_ID" type="${id}">
+				<constraints nullable="false" references="AD_ORG(AD_ORG_ID)" foreignKeyName="C_ACCTSCHEMA_FK2" />
+			</column>
+			<column name="NAME" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+		</createTable>
+		<addUniqueConstraint tableName="C_ACCTSCHEMA" columnNames="AD_CLIENT_ID,NAME" constraintName="C_ACCTSCHEMA_UQ1" />
+
+
+		<createTable tableName="C_ELEMENT">
+			<column name="C_ELEMENT_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="C_ELEMENT_KEY" />
+			</column>
+			<column name="AD_CLIENT_ID" type="${varchar}(32)">
+				<constraints nullable="false" references="AD_CLIENT(AD_CLIENT_ID)" foreignKeyName="C_ELEMENT_FK1" />
+			</column>
+			<column name="AD_ORG_ID" type="${id}">
+				<constraints nullable="false" references="AD_ORG(AD_ORG_ID)" foreignKeyName="C_ELEMENT_FK2" />
+			</column>
+			<column name="NAME" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+			<column name="ELEMENTTYPE" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addUniqueConstraint tableName="C_ELEMENT" columnNames="AD_CLIENT_ID,NAME" constraintName="C_ELEMENT_UQ1" />
+
+
+		<createTable tableName="C_ELEMENTVALUE">
+			<column name="C_ELEMENTVALUE_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="C_ELEMENTVALUE_KEY" />
+			</column>
+			<column name="C_ELEMENT_ID" type="${id}">
+				<constraints nullable="false" references="C_ELEMENT(C_ELEMENT_ID)" foreignKeyName="C_ELEMENTVALUE_FK1" />
+			</column>
+			<column name="VALUE" type="${varchar}(40)">
+				<constraints nullable="false" />
+			</column>
+			<column name="NAME" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+		</createTable>
+		<addUniqueConstraint tableName="C_ELEMENTVALUE" columnNames="C_ELEMENT_ID,VALUE" constraintName="C_ELEMENTVALUE_UQ1" />
+		<addUniqueConstraint tableName="C_ELEMENTVALUE" columnNames="C_ELEMENT_ID,NAME" constraintName="C_ELEMENTVALUE_UQ2" />
+
+
+		<createTable tableName="C_CALENDAR">
+			<column name="C_CALENDAR_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="C_CALENDAR_KEY" />
+			</column>
+			<column name="AD_CLIENT_ID" type="${varchar}(32)">
+				<constraints nullable="false" references="AD_CLIENT(AD_CLIENT_ID)" foreignKeyName="C_CALENDAR_FK1" />
+			</column>
+			<column name="AD_ORG_ID" type="${id}">
+				<constraints nullable="false" references="AD_ORG(AD_ORG_ID)" foreignKeyName="C_CALENDAR_FK2" />
+			</column>
+			<column name="NAME" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+		</createTable>
+		<addUniqueConstraint tableName="C_CALENDAR" columnNames="AD_CLIENT_ID,NAME" constraintName="C_CALENDAR_UQ1" />
+
+		<createTable tableName="C_YEAR">
+			<column name="C_YEAR_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="C_YEAR_KEY" />
+			</column>
+			<column name="C_CALENDAR_ID" type="${id}">
+				<constraints nullable="false" references="C_CALENDAR(C_CALENDAR_ID)" foreignKeyName="C_YEAR_FK1" />
+			</column>
+			<column name="NAME" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+		</createTable>
+		<addUniqueConstraint tableName="C_YEAR" columnNames="C_CALENDAR_ID,NAME" constraintName="C_YEAR_UQ1" />
+
+		<createTable tableName="C_PERIOD">
+			<column name="C_PERIOD_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="C_PERIOD_KEY" />
+			</column>
+			<column name="C_YEAR_ID" type="${id}">
+				<constraints nullable="false" references="C_YEAR(C_YEAR_ID)" foreignKeyName="C_PERIOD_FK1" />
+			</column>
+			<column name="NAME" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PERIODNO" type="${integer}">
+				<constraints nullable="false" />
+			</column>
+			<column name="PERIODTYPE" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="STARTDATE" type="${date}">
+				<constraints nullable="false" />
+			</column>
+			<column name="ENDDATE" type="${date}" />
+		</createTable>
+		<addUniqueConstraint tableName="C_PERIOD" columnNames="C_YEAR_ID,NAME" constraintName="C_PERIOD_UQ1" />
+		<addUniqueConstraint tableName="C_PERIOD" columnNames="C_YEAR_ID,PERIODNO" constraintName="C_PERIOD_UQ2" />
+
+		<createTable tableName="C_VALIDCOMBINATION">
+			<column name="C_VALIDCOMBINATION_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="C_VALIDCOMBINATION_KEY" />
+			</column>
+			<column name="AD_ORG_ID" type="${id}">
+				<constraints nullable="false" references="AD_ORG(AD_ORG_ID)" foreignKeyName="C_VALIDCOMBINATION_FK1" />
+			</column>
+			<column name="ALIAS" type="${varchar}(40)">
+				<constraints nullable="false" />
+			</column>
+			<column name="COMBINATION" type="${varchar}(120)" />
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+			<column name="C_ACCTSCHEMA_ID" type="${id}">
+				<constraints nullable="false" references="C_ACCTSCHEMA(C_ACCTSCHEMA_ID)" foreignKeyName="C_VALIDCOMBINATION_FK2" />
+			</column>
+			<column name="ACCOUNT_ID" type="${id}">
+				<constraints nullable="false" references="C_ELEMENTVALUE(C_ELEMENTVALUE_ID)" foreignKeyName="C_VALIDCOMBINATION_FK3" />
+			</column>
+		</createTable>
+
+		<createTable tableName="GL_CATEGORY">
+			<column name="GL_CATEGORY_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="GL_CATEGORY_KEY" />
+			</column>
+			<column name="AD_CLIENT_ID" type="${varchar}(32)">
+				<constraints nullable="false" references="AD_CLIENT(AD_CLIENT_ID)" foreignKeyName="GL_CATEGORY_FK1" />
+			</column>
+			<column name="AD_ORG_ID" type="${id}">
+				<constraints nullable="false" references="AD_ORG(AD_ORG_ID)" foreignKeyName="GL_CATEGORY_FK2" />
+			</column>
+			<column name="NAME" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+			<column name="CATEGORYTYPE" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addUniqueConstraint tableName="GL_CATEGORY" columnNames="AD_CLIENT_ID,NAME" />
+
+		<createTable tableName="GL_JOURNALBATCH">
+			<column name="GL_JOURNALBATCH_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="GL_JOURNALBATCH_KEY" />
+			</column>
+			<column name="AD_ORG_ID" type="${id}">
+				<constraints nullable="false" references="AD_ORG(AD_ORG_ID)" foreignKeyName="GL_JOURNALBATCH_FK2" />
+			</column>
+			<column name="C_DOCTYPE_ID" type="${id}">
+				<constraints nullable="false" references="C_DOCTYPE(C_DOCTYPE_ID)" foreignKeyName="GL_JOURNALBATCH_FK3" />
+			</column>
+			<column name="DOCUMENTNO" type="${varchar}(30)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+			<column name="GL_CATEGORY_ID" type="${id}">
+				<constraints nullable="false" references="GL_CATEGORY(GL_CATEGORY_ID)" foreignKeyName="GL_JOURNALBATCH_FK4" />
+			</column>
+			<column name="TRANSACTIONDATE" type="${date}">
+				<constraints nullable="false" />
+			</column>
+			<column name="ACCTDATE" type="${date}">
+				<constraints nullable="false" />
+			</column>
+			<column name="C_PERIOD_ID" type="${id}">
+				<constraints nullable="true" references="C_PERIOD(C_PERIOD_ID)" foreignKeyName="GL_JOURNALBATCH_FK5" />
+			</column>
+			<column name="TOTALDR" type="${decimal}">
+				<constraints nullable="false" />
+			</column>
+			<column name="TOTALCR" type="${decimal}">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addUniqueConstraint tableName="GL_JOURNALBATCH" columnNames="AD_ORG_ID,DOCUMENTNO" constraintName="GL_JOURNALBATCH_UQ1" />
+
+		<createTable tableName="GL_JOURNAL">
+			<column name="GL_JOURNAL_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="GL_JOURNAL_KEY" />
+			</column>
+			<column name="AD_ORG_ID" type="${id}">
+				<constraints nullable="false" references="AD_ORG(AD_ORG_ID)" foreignKeyName="GL_JOURNAL_FK1" />
+			</column>
+			<column name="GL_JOURNALBATCH_ID" type="${id}">
+				<constraints references="GL_JOURNALBATCH(GL_JOURNALBATCH_ID)" foreignKeyName="GL_JOURNAL_FK2" />
+			</column>
+			<column name="C_DOCTYPE_ID" type="${id}">
+				<constraints nullable="false" references="C_DOCTYPE(C_DOCTYPE_ID)" foreignKeyName="GL_JOURNAL_FK3" />
+			</column>
+			<column name="DOCUMENTNO" type="${varchar}(30)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+			<column name="GL_CATEGORY_ID" type="${id}">
+				<constraints nullable="false" references="GL_CATEGORY(GL_CATEGORY_ID)" foreignKeyName="GL_JOURNAL_FK4" />
+			</column>
+			<column name="TRANSACTIONDATE" type="${date}">
+				<constraints nullable="false" />
+			</column>
+			<column name="ACCTDATE" type="${date}">
+				<constraints nullable="false" />
+			</column>
+			<column name="DRAFT" type="${boolean}">
+				<constraints nullable="false" />
+			</column>
+			<column name="C_PERIOD_ID" type="${id}">
+				<constraints nullable="true" references="C_PERIOD(C_PERIOD_ID)" foreignKeyName="GL_JOURNAL_FK5" />
+			</column>
+			<column name="TOTALDR" type="${decimal}">
+				<constraints nullable="false" />
+			</column>
+			<column name="TOTALCR" type="${decimal}">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addUniqueConstraint tableName="GL_JOURNAL" columnNames="AD_ORG_ID,DOCUMENTNO" constraintName="GL_JOURNAL_UQ1" />
+
+		<createTable tableName="GL_JOURNALLINE">
+			<column name="GL_JOURNALLINE_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="GL_JOURNALLINE_KEY" />
+			</column>
+			<column name="GL_JOURNAL_ID" type="${id}">
+				<constraints nullable="false" references="GL_JOURNAL(GL_JOURNAL_ID)" foreignKeyName="GL_JOURNALLINE_FK1" />
+			</column>
+			<column name="LINE" type="${integer}">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+			<column name="AMTACCTDR" type="${decimal}">
+				<constraints nullable="false" />
+			</column>
+			<column name="AMTACCTCR" type="${decimal}">
+				<constraints nullable="false" />
+			</column>
+			<column name="C_VALIDCOMBINATION_ID" type="${id}">
+				<constraints nullable="false" references="C_VALIDCOMBINATION(C_VALIDCOMBINATION_ID)" foreignKeyName="GL_JOURNALLINE_FK2" />
+			</column>
+		</createTable>
+
+		<createTable tableName="FACT_ACCT">
+			<column name="FACT_ACCT_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="FACT_ACCT_KEY" />
+			</column>
+			<column name="AD_ORG_ID" type="${id}">
+				<constraints nullable="false" references="AD_ORG(AD_ORG_ID)" foreignKeyName="FACT_ACCT_FK1" />
+			</column>
+			<column name="C_ACCTSCHEMA_ID" type="${id}">
+				<constraints nullable="false" references="C_ACCTSCHEMA(C_ACCTSCHEMA_ID)" foreignKeyName="FACT_ACCT_FK2" />
+			</column>
+			<column name="ACCOUNT_ID" type="${id}">
+				<constraints nullable="false" references="C_ELEMENTVALUE(C_ELEMENTVALUE_ID)" foreignKeyName="FACT_ACCT_FK3" />
+			</column>
+			<column name="TRANSACTIONDATE" type="${date}">
+				<constraints nullable="false" />
+			</column>
+			<column name="ACCTDATE" type="${date}">
+				<constraints nullable="false" />
+			</column>
+			<column name="C_PERIOD_ID" type="${id}">
+				<constraints nullable="false" references="C_PERIOD(C_PERIOD_ID)" foreignKeyName="FACT_ACCT_FK4" />
+			</column>
+			<column name="ENTITYNAME" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ENTITYID" type="${id}">
+				<constraints nullable="false" />
+			</column>
+			<column name="GL_CATEGORY_ID" type="${id}">
+				<constraints nullable="false" references="GL_CATEGORY(GL_CATEGORY_ID)" foreignKeyName="FACT_ACCT_FK5" />
+			</column>
+			<column name="AMTACCTDR" type="${decimal}">
+				<constraints nullable="false" />
+			</column>
+			<column name="AMTACCTCR" type="${decimal}">
+				<constraints nullable="false" />
+			</column>
+			<column name="FACT_ACCT_GROUP_ID" type="${id}">
+				<constraints nullable="false" />
+			</column>
+			<column name="SEQNO" type="${integer}">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+</databaseChangeLog>

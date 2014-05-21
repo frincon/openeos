@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+	<property dbms="postgresql" name="varchar" value="VARCHAR" />
+	<property dbms="derby" name="varchar" value="VARCHAR" />
+	<property dbms="postgresql" name="char" value="CHAR" />
+	<property dbms="derby" name="char" value="CHAR" />
+	<property dbms="postgresql" name="boolean" value="BOOLEAN" />
+	<property dbms="derby" name="boolean" value="BOOLEAN" />
+	<property dbms="postgresql" name="timestamp" value="TIMESTAMP" />
+	<property dbms="derby" name="timestamp" value="TIMESTAMP" />
+	<property dbms="postgresql" name="date" value="DATE" />
+	<property dbms="derby" name="date" value="DATE" />
+	<property dbms="postgresql" name="decimal" value="DECIMAL" />
+	<property dbms="derby" name="decimal" value="DECIMAL(31,8)" />
+	<property dbms="postgresql" name="integer" value="INTEGER" />
+	<property dbms="derby" name="integer" value="INTEGER" />
+	<property name="id" value="${varchar}(32)" />
+
+	<changeSet id="org.openeos.erp.sales.0.0.1" author="frincon">
+		<createTable tableName="C_TAXCATEGORY">
+			<column name="C_TAXCATEGORY_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="C_TAXCATEGORY_KEY" />
+			</column>
+			<column name="AD_ORG_ID" type="${varchar}(32)">
+				<constraints nullable="false" foreignKeyName="C_TAXCATEGORY_FK1" references="AD_ORG(AD_ORG_ID)" />
+			</column>
+			<column name="NAME" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+		</createTable>
+		<createTable tableName="C_BP_TAXCATEGORY">
+			<column name="C_BP_TAXCATEGORY_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="C_BP_TAXCATEGORY_KEY" />
+			</column>
+			<column name="AD_ORG_ID" type="${varchar}(32)">
+				<constraints nullable="false" foreignKeyName="C_BP_TAXCATEGORY_FK1" references="AD_ORG(AD_ORG_ID)" />
+			</column>
+			<column name="NAME" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+		</createTable>
+		<createTable tableName="C_TAX">
+			<column name="C_TAX_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="C_TAX_KEY" />
+			</column>
+			<column name="AD_ORG_ID" type="${varchar}(32)">
+				<constraints nullable="false" foreignKeyName="C_TAX_FK1" references="AD_ORG(AD_ORG_ID)" />
+			</column>
+			<column name="NAME" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+			<column name="VALIDFROM" type="${date}">
+				<constraints nullable="false" />
+			</column>
+			<column name="ISSUMMARY" type="${boolean}">
+				<constraints nullable="false" />
+			</column>
+			<column name="RATE" type="${decimal}">
+				<constraints nullable="false" />
+			</column>
+			<column name="PARENT_TAX_ID" type="${id}">
+				<constraints references="C_TAX(C_TAX_ID)" foreignKeyName="C_TAX_FK2" />
+			</column>
+			<column name="C_COUNTRY_ID" type="${id}">
+				<constraints references="C_COUNTRY(C_COUNTRY_ID)" foreignKeyName="C_TAX_FK3" />
+			</column>
+			<column name="C_REGION_ID" type="${id}">
+				<constraints references="C_REGION(C_REGION_ID)" foreignKeyName="C_TAX_FK4" />
+			</column>
+			<column name="TO_C_COUNTRY_ID" type="${id}">
+				<constraints references="C_COUNTRY(C_COUNTRY_ID)" foreignKeyName="C_TAX_FK5" />
+			</column>
+			<column name="TO_C_REGION_ID" type="${id}">
+				<constraints references="C_REGION(C_REGION_ID)" foreignKeyName="C_TAX_FK6" />
+			</column>
+			<column name="C_TAXCATEGORY_ID" type="${id}">
+				<constraints nullable="false" references="C_TAXCATEGORY(C_TAXCATEGORY_ID)" foreignKeyName="C_TAX_FK7" />
+			</column>
+			<column name='"CASCADE"' type="${boolean}">
+				<constraints nullable="false" />
+			</column>
+			<column name="C_BP_TAXCATEGORY_ID" type="${id}">
+				<constraints references="C_BP_TAXCATEGORY(C_BP_TAXCATEGORY_ID)" foreignKeyName="C_TAX_FK8" />
+			</column>
+			<column name="LINE" type="${integer}" />
+		</createTable>
+		<addUniqueConstraint tableName="C_TAX" columnNames="AD_ORG_ID,NAME,PARENT_TAX_ID" constraintName="C_TAX_UQ1" />
+		<createTable tableName="C_SALES_INVOICE">
+			<column name="C_SALES_INVOICE_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="C_SALES_INVOICE_KEY" />
+			</column>
+			<column name="AD_ORG_ID" type="${varchar}(32)">
+				<constraints nullable="false" foreignKeyName="C_SALES_INVOICE_FK1" references="AD_ORG(AD_ORG_ID)" />
+			</column>
+			<column name="C_DOCTYPE_ID" type="${id}">
+				<constraints nullable="false" references="C_DOCTYPE(C_DOCTYPE_ID)" foreignKeyName="C_SALES_INVOICE_FK4" />
+			</column>
+			<column name="DOCUMENTNO" type="${varchar}(30)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+			<column name="TRANSACTIONDATE" type="${date}">
+				<constraints nullable="false" />
+			</column>
+			<column name="C_BPARTNER_ID" type="${id}">
+				<constraints nullable="false" references="C_BPARTNER(C_BPARTNER_ID)" foreignKeyName="C_SALES_INVOICE_FK2" />
+			</column>
+			<column name="C_BPARTNER_LOCATION_ID" type="${id}">
+				<constraints nullable="false" references="C_BPARTNER_LOCATION(C_BPARTNER_LOCATION_ID)" foreignKeyName="C_SALES_INVOICE_FK3" />
+			</column>
+			<column name="GRANDTOTAL" type="${decimal}">
+				<constraints nullable="false" />
+			</column>
+			<column name="TAXDATE" type="${date}">
+				<constraints nullable="false" />
+			</column>
+			<column name="DRAFT" type="${boolean}">
+				<constraints nullable="false" />
+			</column>
+			<column name="POSTED" type="${boolean}">
+				<constraints nullable="false" />
+			</column>
+			<column name="POSTED_WORKFLOW_ID" type="${id}" />
+		</createTable>
+		<createTable tableName="C_SALES_INVOICE_TAX">
+			<column name="C_SALES_INVOICE_TAX_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="C_SALES_INVOICE_TAX_KEY" />
+			</column>
+			<column name="C_SALES_INVOICE_ID" type="${id}">
+				<constraints nullable="false" references="C_SALES_INVOICE(C_SALES_INVOICE_ID)" foreignKeyName="C_SALES_INVOICE_TAX_FK1" />
+			</column>
+			<column name="TAXBASEAMT" type="${decimal}">
+				<constraints nullable="false" />
+			</column>
+			<column name="TAXAMT" type="${decimal}">
+				<constraints nullable="false" />
+			</column>
+			<column name="LINE" type="${integer}" />
+		</createTable>
+		<addColumn tableName="C_BPARTNER">
+			<column name="CUSTOMER" type="${boolean}" valueBoolean="false" defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+			<column name="C_BP_TAXCATEGORY_ID" type="${id}">
+				<constraints references="C_BP_TAXCATEGORY(C_BP_TAXCATEGORY_ID)" foreignKeyName="C_BPARTNER_C_BP_TAXCATEGORY_FK1" />
+			</column>
+		</addColumn>
+
+	</changeSet>
+
+</databaseChangeLog>

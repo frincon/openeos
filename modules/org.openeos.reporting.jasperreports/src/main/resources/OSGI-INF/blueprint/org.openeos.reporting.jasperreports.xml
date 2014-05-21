@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<bean id="jrReportsProvider" class="org.openeos.reporting.jasperreports.internal.JRReportsProvider" />
+
+	<bean id="jasperReportsEngineLifecycle" class="org.openeos.reporting.jasperreports.internal.JasperReportsEngineLifecycleImpl" />
+	<reference-list availability="optional" interface="org.openeos.reporting.jasperreports.JRPreProcessor">
+		<reference-listener ref="jasperReportsEngineLifecycle" bind-method="bindPreProcessor" unbind-method="unbindPreProcessor" />
+	</reference-list>
+	<reference-list availability="optional" interface="org.openeos.reporting.jasperreports.JRPostProcessor">
+		<reference-listener ref="jasperReportsEngineLifecycle" bind-method="bindPostProcessor" unbind-method="unbindPostProcessor" />
+	</reference-list>
+
+
+	<bean id="jasperReportsEngine" class="org.openeos.reporting.jasperreports.internal.JasperReportsEngine">
+		<argument>
+			<map>
+				<entry key="application/pdf">
+					<bean class="org.openeos.reporting.jasperreports.internal.DefaultExporterFactory">
+						<argument value="net.sf.jasperreports.engine.export.JRPdfExporter" />
+					</bean>
+				</entry>
+			</map>
+		</argument>
+		<argument ref="jasperReportsEngineLifecycle" />
+	</bean>
+
+	<service ref="jasperReportsEngine" interface="org.openeos.reporting.ReportingEngine" />
+
+	<service ref="jrReportsProvider">
+		<interfaces>
+			<value>org.openeos.reporting.jasperreports.JRReportsRegistry</value>
+			<value>org.openeos.reporting.ReportsProvider</value>
+		</interfaces>
+	</service>
+
+	<bean id="jrServiceAutoRegister" class="org.openeos.reporting.jasperreports.internal.JRServiceAutoRegister" init-method="init"
+		destroy-method="destroy">
+		<argument ref="blueprintBundleContext" />
+		<argument ref="jrReportsProvider" />
+	</bean>
+
+</blueprint>

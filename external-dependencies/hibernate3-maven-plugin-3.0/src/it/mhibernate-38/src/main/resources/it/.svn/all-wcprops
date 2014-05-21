@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/it/mhibernate-38/src/main/resources/it
+END
+Person.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/it/mhibernate-38/src/main/resources/it/Person.hbm.xml
+END
+Pet.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/it/mhibernate-38/src/main/resources/it/Pet.hbm.xml
+END

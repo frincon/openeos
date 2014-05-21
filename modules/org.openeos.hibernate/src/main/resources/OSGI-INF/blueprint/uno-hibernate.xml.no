@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<bean id="hibernateConfiguration" class="org.hibernate.cfg.Configuration">
+		<property name="properties">
+			<props>
+				<prop key="hibernate.connection.provider_class">org.openeos.hibernate.internal.UnoHibernateConnectionProvider
+				</prop>
+				<!--  <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop> -->
+				<prop key="hibernate.bytecode.provider">null</prop>
+				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="unoModelHibernateProvider" class="org.openeos.hibernate.internal.UnoModelHibernateProvider" depends-on="unoDataSource">
+		<argument ref="hibernateConfiguration" />
+	</bean>
+
+	<reference-list interface="org.openeos.hibernate.IUnoModelContributor" availability="optional">
+		<reference-listener ref="unoModelHibernateProvider" bind-method="bindModelContributor" unbind-method="unbindModelContributor" />
+	</reference-list>
+
+	<!-- SaveOrUpdate Liseners to register  -->
+	<reference-list interface="org.hibernate.event.spi.SaveOrUpdateEventListener" availability="optional">
+		<reference-listener ref="unoModelHibernateProvider" bind-method="bindSaveOrUpdateEventListener" unbind-method="unbindSaveOrUpdateEventListener" />
+	</reference-list>
+
+
+	<service interface="org.openeos.hibernate.IHibernateProvider" ref="unoModelHibernateProvider" />
+
+	<reference interface="javax.sql.DataSource" id="unoDataSource" filter="(osgi.jndi.service.name=unoDataSource)" />
+
+
+</blueprint>

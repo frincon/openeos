@@ -1,0 +1,9 @@
+K 10
+svn:ignore
+V 82
+conf-hbm2ddl-default.iml
+conf-hbm2ddl-default.ipr
+conf-hbm2ddl-default.iws
+target
+
+END

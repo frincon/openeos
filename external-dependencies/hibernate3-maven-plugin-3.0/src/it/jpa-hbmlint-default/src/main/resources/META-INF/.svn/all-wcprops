@@ -1,0 +1,11 @@
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/it/jpa-hbmlint-default/src/main/resources/META-INF
+END
+persistence.xml
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/it/jpa-hbmlint-default/src/main/resources/META-INF/persistence.xml
+END

@@ -1,0 +1,13 @@
+K 10
+svn:ignore
+V 128
+target
+hibernate3-maven-plugin.iml
+hibernate3-maven-plugin.ipr
+hibernate3-maven-plugin.iws
+.classpath
+.project
+.settings
+target
+
+END

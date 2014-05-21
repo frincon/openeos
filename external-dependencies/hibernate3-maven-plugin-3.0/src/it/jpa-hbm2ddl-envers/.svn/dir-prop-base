@@ -1,0 +1,9 @@
+K 10
+svn:ignore
+V 76
+jpa-hbm2ddl-envers.iml
+jpa-hbm2ddl-envers.ipr
+jpa-hbm2ddl-envers.iws
+target
+
+END

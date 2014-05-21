@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<bean id="windowManager" class="org.openeos.services.ui.internal.WindowManagerServiceImpl" />
+	<bean id="windowActionService" class="org.openeos.services.ui.internal.WindowActionServiceImpl" />
+
+	<bean id="defaultWindowActions" class="org.openeos.services.ui.SimpleWindowActionContributor">
+		<property name="windowActionList">
+			<list>
+				<bean class="org.openeos.services.ui.window.action.DeleteWindowAction">
+					<argument ref="uidaoService" />
+				</bean>
+				<bean class="org.openeos.services.ui.window.action.NewWindowAction">
+					<argument ref="dictionaryService" />
+					<argument ref="uidaoService" />
+				</bean>
+				<bean class="org.openeos.services.ui.window.action.SaveWindowAction">
+					<argument ref="uidaoService" />
+				</bean>
+				<bean class="org.openeos.services.ui.window.action.ViewListWindowAction" />
+				<bean class="org.openeos.services.ui.window.action.EditWindowAction">
+					<argument ref="uidaoService" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="formRegistryService" class="org.openeos.services.ui.internal.form.FormRegistryServiceImpl" />
+	<service interface="org.openeos.services.ui.form.FormRegistryService" ref="formRegistryService" />
+
+	<reference-list availability="optional" interface="org.abstractform.binding.BForm">
+		<reference-listener bind-method="bindAbstractBForm" unbind-method="unbindAbstractBForm">
+			<bean class="org.openeos.services.ui.internal.form.abstractform.AbstractFormRegistry">
+				<property name="formRegistryService" ref="formRegistryService" />
+			</bean>
+		</reference-listener>
+
+	</reference-list>
+
+	<bean id="uidaoService" class="org.openeos.services.ui.internal.UIDAOServiceImpl">
+		<property name="dictionaryService" ref="dictionaryService" />
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="abstractFormUIBeanBindingService" class="org.openeos.services.ui.internal.form.abstractform.binding.eclipse.UIBeanEclipseBindingToolkit">
+		<property name="dictionaryService" ref="dictionaryService" />
+	</bean>
+
+	<service ref="windowManager" interface="org.openeos.services.ui.WindowManagerService" />
+	<service ref="uidaoService" interface="org.openeos.services.ui.UIDAOService" />
+	<service ref="defaultWindowActions" interface="org.openeos.services.ui.WindowActionContributor" />
+	<service ref="windowActionService" interface="org.openeos.services.ui.WindowActionService" />
+	<service ref="abstractFormUIBeanBindingService" interface="org.abstractform.binding.BBindingToolkit">
+		<service-properties>
+			<entry key="service.pid" value="org.openeos.services.ui.form.abstractform.service.SERVICE_UIBEAN_BINDING_PID" />
+		</service-properties>
+	</service>
+	<service interface="org.abstractform.binding.BBindingToolkit">
+		<service-properties>
+			<entry key="service.pid" value="org.openeos.services.ui.form.abstractform.service.SERVICE_COMMON_BINDING_PID" />
+		</service-properties>
+		<bean class="org.abstractform.binding.eclipse.EclipseBindingToolkit" />
+	</service>
+
+	<reference interface="org.openeos.services.dictionary.IDictionaryService" id="dictionaryService" availability="mandatory" />
+	<reference interface="org.hibernate.SessionFactory" id="sessionFactory" availability="mandatory" />
+
+	<reference-list availability="optional" interface="org.openeos.services.ui.WindowActionContributor">
+		<reference-listener ref="windowActionService" bind-method="addActionContributor" unbind-method="removeActionContributor" />
+	</reference-list>
+
+	<reference-list availability="optional" interface="org.openeos.services.ui.WindowContributor">
+		<reference-listener ref="windowManager" bind-method="bindWindowContributor" />
+	</reference-list>
+
+	<reference id="listTypeService" interface="org.openeos.dao.ListTypeService" availability="mandatory" />
+
+	<service interface="org.abstractform.binding.fluent.BFFieldFactory" ranking="100">
+		<service-properties>
+			<entry key="service.pid" value="org.openeos.services.ui.form.abstractform.service.SERVICE_FIELD_FACTORY_PID" />
+		</service-properties>
+		<bean class="org.openeos.services.ui.internal.form.abstractform.UIBeanBFFieldFactory">
+			<property name="dictionaryService" ref="dictionaryService" />
+			<property name="sessionFactory" ref="sessionFactory" />
+			<property name="delegateFieldFactory">
+				<bean class="org.abstractform.binding.fluent.DefaultBFFieldFactory" />
+			</property>
+			<property name="uidaoService" ref="uidaoService" />
+			<property name="listTypeService" ref="listTypeService" />
+		</bean>
+	</service>
+
+	<bean id="dictionaryBasedWindowBuilder" class="org.openeos.services.ui.internal.window.DictionaryBasedWindowBuilderImpl">
+		<property name="dictionaryService" ref="dictionaryService" />
+	</bean>
+
+	<service interface="org.openeos.services.ui.window.DictionaryBasedWindowBuilder" ref="dictionaryBasedWindowBuilder" />
+
+	<bean id="menuManagerService" class="org.openeos.services.ui.internal.menu.MenuManagerServiceImpl" />
+
+	<service ref="menuManagerService">
+		<interfaces>
+			<value>org.openeos.services.ui.menu.MenuManagerService</value>
+			<value>org.openeos.services.ui.menu.MenuContributor</value>
+		</interfaces>
+	</service>
+
+	<bean id="entityActionManager" class="org.openeos.services.ui.internal.action.EntityActionManagerImpl" init-method="init"
+		destroy-method="destroy">
+		<argument ref="blueprintBundleContext" />
+	</bean>
+
+	<bean id="uiEntityActionManager" class="org.openeos.services.ui.internal.action.UIEntityActionManagerImpl">
+		<argument ref="entityActionManager" />
+		<argument ref="uidaoService" />
+	</bean>
+
+	<bean id="throwableToMessageService" class="org.openeos.services.ui.internal.ThrowableToMessageServiceImpl" init-method="init"
+		destroy-method="destroy">
+		<argument ref="blueprintBundleContext" />
+	</bean>
+
+
+	<service ref="entityActionManager" interface="org.openeos.services.ui.action.EntityActionManager" />
+	<service ref="uiEntityActionManager" interface="org.openeos.services.ui.action.UIEntityActionManager" />
+	<service ref="throwableToMessageService" interface="org.openeos.services.ui.ThrowableToMessageService" />
+	<service interface="org.openeos.services.ui.ThrowableToMessageResolver" ranking="10000">
+		<bean class="org.openeos.services.ui.internal.UnencapsulateCauseExceptionResolver">
+			<argument ref="throwableToMessageService" />
+		</bean>
+	</service>
+	<service interface="org.openeos.services.ui.ThrowableToMessageResolver" ranking="5000">
+		<bean class="org.openeos.services.ui.internal.NullPointerExceptionResolver" />
+	</service>
+	<service interface="org.openeos.services.ui.ThrowableToMessageResolver" ranking="20000">
+		<bean class="org.openeos.services.ui.internal.PostgreSQLDialectBatchUpdateResolver">
+			<argument ref="throwableToMessageService" />
+			<argument>
+				<reference interface="org.hibernate.exception.spi.ConversionContext" filter="(service.pid=unoDialect)" />
+			</argument>
+		</bean>
+	</service>
+
+	<service interface="org.openeos.services.ui.SessionObjectsService">
+		<bean class="org.openeos.services.ui.internal.SessionObjectServiceThreadLocalImpl" />
+	</service>
+
+	<bean id="customActionManagerService" class="org.openeos.services.ui.internal.CustomActionManagerOsgiService">
+		<argument ref="blueprintBundleContext" />
+	</bean>
+
+	<reference-list availability="optional" interface="org.openeos.services.ui.action.CustomAction">
+		<reference-listener bind-method="bindCustomAction" unbind-method="unbindCustomAction" ref="customActionManagerService" />
+	</reference-list>
+
+	<service interface="org.openeos.services.ui.CustomActionManagerService" ref="customActionManagerService" />
+
+</blueprint>

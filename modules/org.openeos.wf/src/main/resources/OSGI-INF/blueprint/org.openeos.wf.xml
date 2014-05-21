@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<bean id="deploymentDAO" class="org.openeos.wf.internal.dao.DeploymentDAOHibernateImpl" />
+	<bean id="workflowDefinitionDAO" class="org.openeos.wf.internal.dao.WorkflowDefinitionDAOHibernateImpl" />
+
+	<reference availability="mandatory" id="numerationService" interface="org.openeos.numeration.NumerationService" />
+	<reference availability="mandatory" id="eventAdmin" interface="org.osgi.service.event.EventAdmin" />
+
+	<bean id="workflowService" class="org.openeos.wf.internal.DAOWorkflowService">
+		<argument>
+			<bean class="org.openeos.wf.internal.WorkflowServiceListenerNotificatorEventAdmin">
+				<argument ref="eventAdmin" />
+			</bean>
+		</argument>
+		<argument ref="deploymentDAO" />
+		<argument ref="workflowDefinitionDAO" />
+		<argument ref="numerationService" />
+		<argument>
+			<bean class="org.openeos.wf.internal.WorkflowDefinitionValuesExtractorImpl" />
+		</argument>
+	</bean>
+
+	<service ref="workflowService" interface="org.openeos.wf.WorkflowService" />
+
+
+	<bean id="workflowExtender" class="org.openeos.utils.GenericExtender" init-method="init" destroy-method="destroy">
+		<argument>
+			<bean class="org.openeos.wf.internal.WorkflowDefinitionExtenderHandler">
+				<argument ref="workflowService" />
+			</bean>
+		</argument>
+		<argument ref="blueprintBundleContext" />
+		<argument value="60" /> <!--  Bundle.RESOLVED | Bundle.ACTIVE | Bundle.STOPPING | Bundle.STARTING -->
+		<argument>
+			<bean class="org.openeos.utils.ResourceExistsHeaderBundleFilter">
+				<argument value="/OSGI-INF/bpmn/" />
+				<argument value="bpmn" />
+				<argument value="Uno-Workflow-Paths" />
+			</bean>
+		</argument>
+	</bean>
+
+	<reference availability="optional" id="workflowEngine" interface="org.openeos.wf.WorkflowEngine">
+		<reference-listener ref="workflowService" bind-method="bindWorkflowEngine" unbind-method="unbindWorkflowEngine" />
+	</reference>
+
+	<bean id="javaServiceTaskService" class="org.openeos.wf.internal.JavaServiceTaskServiceImpl" />
+
+	<service interface="org.openeos.wf.JavaServiceTaskService" ref="javaServiceTaskService" />
+
+	<bean class="org.openeos.wf.internal.JavaServiceTaskAutoRegister" init-method="open" destroy-method="close"
+		id="javaServiceTaskAutoRegister">
+		<argument ref="blueprintBundleContext" />
+		<argument ref="javaServiceTaskService" />
+	</bean>
+
+</blueprint>

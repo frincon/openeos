@@ -1,0 +1,241 @@
+C_COUNTRY_ID,NAME,DESCRIPTION,COUNTRYCODE,HASREGION,REGIONNAME,HASPOSTAL_ADD,AD_LANGUAGE
+323,Tonga,Tonga,TO,false,State,false,""
+128,Barbados,Barbados,BB,false,State,false,""
+160,Cook Islands,Cook Islands,CK,false,State,false,""
+180,Fiji,Fiji,FJ,false,State,false,""
+170,Dominican Republic,Dominican Republic,DO,false,State,false,es_DO
+242,Marshall Islands,Marshall Islands,MH,false,State,false,""
+318,Tanzania United Republic Of,Tanzania United Republic Of,TZ,false,State,false,""
+254,Mozambique,Mozambique,MZ,false,State,false,""
+161,Costa Rica,Costa Rica,CR,false,State,false,es_CR
+248,Micronesia Federated States Of,Micronesia Federated States Of,FM,false,State,false,""
+268,Northern Mariana Islands,Northern Mariana Islands,MP,false,State,false,""
+269,Norway,Norway,NO,false,State,false,no_NO
+271,Pakistan,Pakistan,PK,false,State,false,""
+145,Cambodia,Cambodia,KH,false,State,false,""
+218,Kazakhstan,Kazakhstan,KZ,false,State,false,""
+228,Lesotho,Lesotho,LS,false,State,false,""
+283,Qatar,Qatar,QA,false,State,false,ar_QA
+313,Sweden,Sweden,SE,false,State,false,sv_SE
+168,Djibouti,Djibouti,DJ,false,State,false,""
+184,French Polynesia,French Polynesia,PF,false,State,false,""
+141,Brunei Darussalam,Brunei Darussalam,BN,false,State,false,""
+204,Honduras,Honduras,HN,false,State,false,es_HN
+188,Georgia,Georgia,GE,false,State,false,""
+136,Bosnia And Herzegovina,Bosnia And Herzegovina,BA,false,State,false,""
+109,Canada,Canada,CA,true,Province,false,en_US
+158,Congo,Congo,CG,false,State,false,""
+257,Nauru,Nauru,NR,false,State,false,""
+118,Antigua And Barbuda,Antigua And Barbuda,AG,false,State,false,""
+273,Palestinian Territory Occupied,Palestinian Territory Occupied,PS,false,State,false,""
+284,Reunion,Reunion,RE,false,State,false,""
+306,South Georgia And The South Sandwich Islands,South Georgia And The South Sandwich Islands,GS,false,State,false,""
+329,Tuvalu,Tuvalu,TV,false,State,false,""
+211,Iraq,Iraq,IQ,false,State,false,ar_IQ
+243,Martinique,Martinique,MQ,false,State,false,""
+301,Slovakia,Slovakia,SK,false,State,false,sk_SK
+191,Gibraltar,Gibraltar,GI,false,State,false,""
+133,Bermuda,Bermuda,BM,false,State,false,""
+140,British Indian Ocean Territory,British Indian Ocean Territory,IO,false,State,false,""
+100,United States,United States of America,US,true,State,false,en_US
+337,Uzbekistan,Uzbekistan,UZ,false,State,false,""
+296,Saudi Arabia,Saudi Arabia,SA,false,State,false,ar_SA
+217,Jordan,Jordan,JO,false,State,false,ar_JO
+148,Cape Verde,Cape Verde,CV,false,State,false,""
+150,Central African Republic,Central African Republic,CF,false,State,false,""
+292,Saint Vincent And The Grenadines,Saint Vincent And The Grenadines,VC,false,State,false,""
+153,China,China,CN,false,State,false,zh_CN
+149,Cayman Islands,Cayman Islands,KY,false,State,false,""
+290,Saint Lucia,Saint Lucia,LC,false,State,false,""
+230,Libyan Arab Jamahiriya,Libyan Arab Jamahiriya,LY,false,State,false,ar_LY
+349,Serbia,Serbia,RS,false,State,false,sr_RS
+289,Saint Kitts And Nevis,Saint Kitts And Nevis,KN,false,State,false,""
+202,Heard Island And Mcdonald Islands,Heard Island And Mcdonald Islands,HM,false,State,false,""
+348,Zimbabwe,Zimbabwe,ZW,false,State,false,""
+287,Rwanda,Rwanda,RW,false,State,false,""
+331,Ukraine,Ukraine,UA,false,State,false,uk_UA
+179,Faroe Islands,Faroe Islands,FO,false,State,false,""
+224,Kyrgyzstan,Kyrgyzstan,KG,false,State,false,""
+216,Japan,Japan,JP,false,State,false,ja_JP
+285,Romania,Romania,RO,false,State,false,ro_RO
+234,Macao,Macao,MO,false,State,false,""
+220,Kiribati,Kiribati,KI,false,State,false,""
+238,Malaysia,Malaysia,MY,false,State,false,""
+240,Mali,Mali,ML,false,State,false,""
+295,Sao Tome And Principe,Sao Tome And Principe,ST,false,State,false,""
+319,Thailand,Thailand,TH,false,State,false,th_TH
+154,Christmas Island,Christmas Island,CX,false,State,false,""
+328,Turks And Caicos Islands,Turks And Caicos Islands,TC,false,State,false,""
+113,American Samoa,American Samoa,AS,false,State,false,""
+258,Nepal,Nepal,NP,false,State,false,""
+265,Nigeria,Nigeria,NG,false,State,false,""
+105,Netherlands,Netherlands,NL,false,State,false,nl_NL
+316,"Taiwan, Province Of China","Taiwan, Province Of China",TW,false,State,false,zh_TW
+223,Kuwait,Kuwait,KW,false,State,false,ar_KW
+135,Bolivia,Bolivia,BO,false,State,false,es_BO
+214,Italy,Italy,IT,false,State,false,it_IT
+200,Guyana,Guyana,GY,false,State,false,""
+163,Croatia,Croatia,HR,false,State,false,hr_HR
+235,"Macedonia, The Former Yugoslav Republic Of","Macedonia, The Former Yugoslav Republic Of",MK,false,State,false,mk_MK
+304,Somalia,Somalia,SO,false,State,false,""
+195,Guadeloupe,Guadeloupe,GP,false,State,false,""
+231,Liechtenstein,Liechtenstein,LI,false,State,false,de_CH
+275,Papua New Guinea,Papua New Guinea,PG,false,State,false,""
+208,India,India,IN,false,State,false,""
+305,South Africa,South Africa,ZA,false,State,false,en_ZA
+110,Afghanistan,Afghanistan,AF,false,State,false,""
+156,Colombia,Colombia,CO,false,State,false,es_CO
+159,Congo The Democratic Republic Of The,Congo The Democratic Republic Of The,CD,false,State,false,""
+139,Brazil,Brazil,BR,false,State,false,pt_BR
+264,Niger,Niger,NE,false,State,false,""
+282,Puerto Rico,Puerto Rico,PR,false,State,false,es_PR
+152,Chile,Chile,CL,false,State,false,es_CL
+340,Viet Nam,Viet Nam,VN,false,State,false,""
+317,Tajikistan,Tajikistan,TJ,false,State,false,""
+126,Bahrain,Bahrain,BH,false,State,false,ar_BH
+197,Guatemala,Guatemala,GT,false,State,false,es_GT
+187,Gambia,Gambia,GM,false,State,false,""
+246,Mayotte,Mayotte,YT,false,State,false,""
+196,Guam,Guam,GU,false,State,false,""
+106,Spain,Spain,ES,true,Provincia,false,es_ES
+252,Montserrat,Montserrat,MS,false,State,false,""
+350,Montenegro,Montenegro,ME,false,State,false,""
+212,Ireland,Ireland,IE,false,State,false,en_IE
+297,Senegal,Senegal,SN,false,State,false,""
+121,Aruba,Aruba,AW,false,State,false,""
+194,Grenada,Grenada,GD,false,State,false,""
+332,United Arab Emirates,United Arab Emirates,AE,false,State,false,ar_AE
+315,Syrian Arab Republic,Syrian Arab Republic,SY,false,State,false,ar_SY
+338,Vanuatu,Vanuatu,VU,false,State,false,""
+247,Mexico,Mexico,MX,false,State,false,es_MX
+335,United States Minor Outlying Islands,United States Minor Outlying Islands,UM,false,State,false,""
+120,Armenia,Armenia,AM,false,State,false,""
+142,Bulgaria,Bulgaria,BG,false,State,false,bg_BG
+221,Korea Democratic People's Republic Of,Korea Democratic People's Republic Of,KP,false,State,false,""
+165,Cyprus,Cyprus,CY,false,State,false,""
+286,Russian Federation,Russian Federation,RU,false,State,false,ru_RU
+276,Paraguay,Paraguay,PY,false,State,false,es_PY
+232,Lithuania,Lithuania,LT,false,State,false,lt_LT
+308,Sri Lanka,Sri Lanka,LK,false,State,false,""
+267,Norfolk Island,Norfolk Island,NF,false,State,false,""
+322,Tokelau,Tokelau,TK,false,State,false,""
+321,Togo,Togo,TG,false,State,false,""
+300,Singapore,Singapore,SG,false,State,false,""
+114,Andorra,Andorra,AD,false,State,false,""
+183,French Guiana,French Guiana,GF,false,State,false,""
+260,Netherlands Antilles,Netherlands Antilles,AN,false,State,false,""
+336,Uruguay,Uruguay,UY,false,State,false,es_UY
+205,Hong Kong,Hong Kong,HK,false,State,false,zh_HK
+251,Mongolia,Mongolia,MN,false,State,false,""
+281,Portugal,Portugal,PT,false,State,false,pt_PT
+249,Moldova,Moldova,MD,false,State,false,""
+341,Virgin Islands British,Virgin Islands British,VG,false,State,false,""
+124,Azerbaijan,Azerbaijan,AZ,false,State,false,""
+311,Svalbard And Jan Mayen,Svalbard And Jan Mayen,SJ,false,State,false,""
+312,Swaziland,Swaziland,SZ,false,State,false,""
+198,Guinea,Guinea,GN,false,State,false,""
+178,Falkland Islands (Malvinas),Falkland Islands (Malvinas),FK,false,State,false,""
+330,Uganda,Uganda,UG,false,State,false,""
+143,Burkina Faso,Burkina Faso,BF,false,State,false,""
+342,Virgin Islands U.S.,Virgin Islands U.S.,VI,false,State,false,""
+229,Liberia,Liberia,LR,false,State,false,""
+250,Monaco,Monaco,MC,false,State,false,fr_FR
+327,Turkmenistan,Turkmenistan,TM,false,State,false,""
+172,Egypt,Egypt,EG,false,State,false,ar_EG
+175,Eritrea,Eritrea,ER,false,State,false,""
+236,Madagascar,Madagascar,MG,false,State,false,""
+279,Pitcairn,Pitcairn,PN,false,State,false,""
+167,Denmark,Denmark,DK,false,State,false,da_DK
+127,Bangladesh,Bangladesh,BD,false,State,false,""
+309,Sudan,Sudan,SD,false,State,false,ar_SD
+116,Anguilla,Anguilla,AI,false,State,false,""
+129,Belarus,Belarus,BY,false,State,false,be_BY
+345,Yemen,Yemen,YE,false,State,false,ar_YE
+164,Cuba,Cuba,CU,false,State,false,""
+207,Iceland,Iceland,IS,false,State,false,is_IS
+222,Korea Republic Of,Korea Republic Of,KR,false,State,false,ko_KR
+169,Dominica,Dominica,DM,false,State,false,""
+122,Australia,Australia,AU,false,State,false,en_AU
+157,Comoros,Comoros,KM,false,State,false,""
+107,Switzerland,Switzerland,CH,false,State,false,de_CH
+298,Seychelles,Seychelles,SC,false,State,false,""
+325,Tunisia,Tunisia,TN,false,State,false,ar_TN
+274,Panama,Panama,PA,false,State,false,es_PA
+209,Indonesia,Indonesia,ID,false,State,false,""
+174,Equatorial Guinea,Equatorial Guinea,GQ,false,State,false,""
+206,Hungary,Hungary,HU,false,State,false,hu_HU
+244,Mauritania,Mauritania,MR,false,State,false,""
+186,Gabon,Gabon,GA,false,State,false,""
+302,Slovenia,Slovenia,SI,false,State,false,sl_SI
+239,Maldives,Maldives,MV,false,State,false,""
+299,Sierra Leone,Sierra Leone,SL,false,State,false,""
+138,Bouvet Island,Bouvet Island,BV,false,State,false,""
+102,France,France,FR,false,State,false,fr_FR
+226,Latvia,Latvia,LV,false,State,false,lv_LV
+219,Kenya,Kenya,KE,false,State,false,""
+144,Burundi,Burundi,BI,false,State,false,""
+162,Cote D'Ivoire,Cote D'Ivoire,CI,false,State,false,""
+177,Ethiopia,Ethiopia,ET,false,State,false,""
+293,Samoa,Samoa,WS,false,State,false,""
+262,New Zealand,New Zealand,NZ,false,State,false,en_NZ
+294,San Marino,San Marino,SM,false,State,false,""
+108,Austria,Osterreich,AT,false,State,false,de_AT
+241,Malta,Malta,MT,false,State,false,""
+215,Jamaica,Jamaica,JM,false,State,false,""
+255,Myanmar,Myanmar,MM,false,State,false,""
+103,Belgium,Belgium,BE,false,State,false,""
+326,Turkey,Turkey,TR,false,State,false,tr_TR
+137,Botswana,Botswana,BW,false,State,false,""
+227,Lebanon,Lebanon,LB,false,State,false,ar_LB
+303,Solomon Islands,Solomon Islands,SB,false,State,false,""
+185,French Southern Territories,French Southern Territories,TF,false,State,false,""
+171,Ecuador,Ecuador,EC,false,State,false,es_EC
+132,Benin,Benin,BJ,false,State,false,""
+261,New Caledonia,New Caledonia,NC,false,State,false,""
+320,Timor-Leste,Timor-Leste,TL,false,State,false,""
+199,Guinea-Bissau,Guinea-Bissau,GW,false,State,false,""
+210,Iran Islamic Republic Of,Iran Islamic Republic Of,IR,false,State,false,""
+280,Poland,Poland,PL,false,State,false,pl_PL
+193,Greenland,Greenland,GL,false,State,false,""
+155,Cocos (Keeling) Islands,Cocos (Keeling) Islands,CC,false,State,false,""
+173,El Salvador,El Salvador,SV,false,State,false,es_SV
+278,Philippines,Philippines,PH,false,State,false,""
+213,Israel,Israel,IL,false,State,false,he_IL
+190,Ghana,Ghana,GH,false,State,false,""
+343,Wallis And Futuna,Wallis And Futuna,WF,false,State,false,""
+119,Argentina,Argentina,AR,false,State,false,es_AR
+310,Suriname,Suriname,SR,false,State,false,""
+101,Germany,Germany,DE,false,State,false,de_DE
+131,Belize,Belize,BZ,false,State,false,""
+253,Morocco,Morocco,MA,false,State,false,ar_MA
+288,Saint Helena,Saint Helena,SH,false,State,false,""
+237,Malawi,Malawi,MW,false,State,false,""
+344,Western Sahara,Western Sahara,EH,false,State,false,""
+203,Holy See (Vatican City State),Holy See (Vatican City State),VA,false,State,false,""
+201,Haiti,Haiti,HT,false,State,false,""
+112,Algeria,Algeria,DZ,false,State,false,ar_DZ
+333,United Kingdom,United Kingdom,GB,true,County,false,en_GB
+181,Finland,Finland,FI,false,State,false,fi_FI
+117,Antarctica,Antarctica,AQ,false,State,false,""
+324,Trinidad And Tobago,Trinidad And Tobago,TT,false,State,false,""
+256,Namibia,Namibia,NA,false,State,false,""
+176,Estonia,Estonia,EE,false,State,false,et_EE
+225,Lao People's Democratic Republic,Lao People's Democratic Republic,LA,false,State,false,""
+263,Nicaragua,Nicaragua,NI,false,State,false,es_NI
+272,Palau,Palau,PW,false,State,false,""
+115,Angola,Angola,AO,false,State,false,""
+192,Greece,Greece,GR,false,State,false,el_GR
+245,Mauritius,Mauritius,MU,false,State,false,""
+266,Niue,Niue,NU,false,State,false,""
+339,Venezuela,Venezuela,VE,false,State,false,es_VE
+277,Peru,Peru,PE,false,State,false,es_PE
+111,Albania,Albania,AL,false,State,false,sq_AL
+151,Chad,Chad,TD,false,State,false,""
+134,Bhutan,Bhutan,BT,false,State,false,""
+146,Cameroon,Cameroon,CM,false,State,false,""
+291,Saint Pierre And Miquelon,Saint Pierre And Miquelon,PM,false,State,false,""
+347,Zambia,Zambia,ZM,false,State,false,""
+233,Luxembourg,Luxembourg,LU,false,State,false,fr_LU
+125,Bahamas,Bahamas,BS,false,State,false,""
+270,Oman,Oman,OM,false,State,false,ar_OM
+166,Czech Republic,Czech Republic,CZ,false,State,false,cs_CZ

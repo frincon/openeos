@@ -1,0 +1,9 @@
+K 10
+svn:ignore
+V 91
+ann-hbmtemplate-default.iml
+ann-hbmtemplate-default.ipr
+ann-hbmtemplate-default.iws
+target
+
+END

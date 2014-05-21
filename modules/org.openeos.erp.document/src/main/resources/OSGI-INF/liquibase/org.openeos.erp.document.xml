@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+	<property dbms="postgresql" name="varchar" value="VARCHAR" />
+	<property dbms="derby" name="varchar" value="VARCHAR" />
+	<property dbms="postgresql" name="char" value="CHAR" />
+	<property dbms="derby" name="char" value="CHAR" />
+	<property dbms="postgresql" name="boolean" value="BOOLEAN" />
+	<property dbms="derby" name="boolean" value="BOOLEAN" />
+	<property dbms="postgresql" name="timestamp" value="TIMESTAMP" />
+	<property dbms="derby" name="timestamp" value="TIMESTAMP" />
+	<property name="id" value="${varchar}(32)" />
+
+	<changeSet id="document-1" author="frincon">
+		<createTable tableName="C_DOCTYPE">
+			<column name="C_DOCTYPE_ID" type="${id}">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="C_DOCTYPE_KEY" />
+			</column>
+			<column name="AD_ORG_ID" type="${id}">
+				<constraints nullable="false" references="AD_ORG(AD_ORG_ID)" foreignKeyName="C_DOCTYPE_FK1" />
+			</column>
+			<column name="TARGETTYPE" type="${varchar}(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="NAME" type="${varchar}(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="${varchar}(255)" />
+			<column name="DOCNOCONTROLLED" type="${boolean}">
+				<constraints nullable="false" />
+			</column>
+			<column name="DRAFT_SEQUENCE_ID" type="${id}">
+				<constraints references="NU_SEQUENCE(NU_SEQUENCE_ID)" foreignKeyName="C_DOCTYPE_FK2" />
+			</column>
+			<column name="FINAL_SEQUENCE_ID" type="${id}">
+				<constraints references="NU_SEQUENCE(NU_SEQUENCE_ID)" foreignKeyName="C_DOCTYPE_FK3" />
+			</column>
+		</createTable>
+	</changeSet>
+
+
+</databaseChangeLog>

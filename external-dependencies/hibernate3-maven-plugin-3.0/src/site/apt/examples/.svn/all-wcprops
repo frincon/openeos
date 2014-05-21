@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/site/apt/examples
+END
+run-multiple-goals.apt.vm
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/site/apt/examples/run-multiple-goals.apt.vm
+END
+simple-example.apt.vm
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/site/apt/examples/simple-example.apt.vm
+END
+using-envers.apt.vm
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/site/apt/examples/using-envers.apt.vm
+END

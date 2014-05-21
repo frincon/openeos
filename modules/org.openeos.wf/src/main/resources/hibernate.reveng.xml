@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+<hibernate-reverse-engineering>
+
+	<table-filter match-schema="public" match-name="wf_.*" />
+	<table schema="public" name="wf_deployment" class="org.openeos.wf.model.Deployment">
+		<column name="version">
+			<meta attribute="is-optimistic-lock-column">false</meta>
+		</column>
+	</table>
+	<table schema="public" name="wf_definition" class="org.openeos.wf.model.WorkflowDefinition">
+		<column name="version">
+			<meta attribute="is-optimistic-lock-column">false</meta>
+		</column>
+	</table>
+	<table schema="public" name="wf_definition_content" class="org.openeos.wf.model.WorkflowDefinitionContent">
+		<meta attribute="force-one-to-one">wf_definition_content_fk1</meta>
+		<foreign-key constraint-name="wf_definition_content_fk1">
+			<one-to-one />
+			<inverse-one-to-one />
+		</foreign-key>
+	</table>
+
+</hibernate-reverse-engineering>

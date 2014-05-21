@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+
+
+	<service interface="org.drools.runtime.process.WorkItemHandler" ranking="0">
+		<service-properties>
+			<entry key="org.openeos.wf.jbpm.SERVICE_WORKITEM_HANDLER_NAME" value="Human Task" />
+		</service-properties>
+		<bean class="org.openeos.usertask.wf.jbpm.internal.UserTaskHandler">
+			<argument>
+				<reference availability="mandatory" interface="org.openeos.usertask.UserTaskService" />
+			</argument>
+			<argument>
+				<reference availability="mandatory" interface="org.openeos.erp.core.dao.UserDAO" />
+			</argument>
+			<argument ref="userTaskListener" />
+		</bean>
+	</service>
+
+	<bean id="userTaskListener" class="org.openeos.usertask.wf.jbpm.internal.UserTaskListener">
+		<argument>
+			<reference availability="mandatory" interface="org.drools.runtime.StatefulKnowledgeSession" />
+		</argument>
+	</bean>
+
+	<service interface="org.osgi.service.event.EventHandler" ref="userTaskListener">
+		<service-properties>
+			<entry key="event.topics" value="org/openeos/usertask/UserTaskService/*" />
+		</service-properties>
+
+	</service>
+
+</blueprint>

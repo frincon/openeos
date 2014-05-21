@@ -1,0 +1,5 @@
+-removeheaders: Ignore-Package
+Bundle-SymbolicName: com.sun.xml.bind.jaxb-xjc
+Bundle-Version: 2.2.7
+Export-Package: com.sun.tools.xjc;version="2.2.7",com.sun.tools.xjc.model;version="2.2.7",com.sun.tools.xjc.outline;version="2.2.7",com.sun.codemodel;version="2.2.7"
+

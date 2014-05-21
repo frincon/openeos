@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+	<changeSet id="master-data-5" author="frincon">
+		<loadData tableName="c_country" encoding="UTF-8" file="OSGI-INF/liquibase/c_country.csv" />
+		<loadData tableName="c_region" encoding="UTF-8" file="OSGI-INF/liquibase/c_region.csv" />
+	</changeSet>
+	<changeSet id="master-data-6" author="frincon">
+		<insert tableName="ad_client">
+			<column name="ad_client_id" value="00000000000000000000000000000001" />
+			<column name="value" value="*" />
+			<column name="name" value="System" />
+			<column name="description" value="System Client" />
+		</insert>
+		<insert tableName="ad_contact">
+			<column name="ad_contact_id" value="00000000000000000000000000000001" />
+		</insert>
+		<insert tableName="ad_user">
+			<column name="ad_user_id" value="00000000000000000000000000000001" />
+			<column name="ad_client_id" value="00000000000000000000000000000001" />
+			<column name="username" value="superuser" />
+			<column name="usertype" value="USERNAME_PASSWORD" />
+			<column name="password" value="password" />
+			<column name="locked" valueBoolean="false" />
+			<column name="ad_contact_id" value="00000000000000000000000000000001" />
+		</insert>
+
+	</changeSet>
+
+</databaseChangeLog>

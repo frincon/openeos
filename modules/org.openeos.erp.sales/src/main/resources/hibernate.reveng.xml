@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+<hibernate-reverse-engineering>
+
+
+	<table-filter match-schema=".*" match-name="C_TAXCATEGORY" />
+	<table-filter match-schema=".*" match-name="C_BP_TAXCATEGORY" />
+	<table-filter match-schema=".*" match-name="C_TAX" />
+	<table-filter match-schema=".*" match-name="C_SALES_INVOICE" />
+	<table-filter match-schema=".*" match-name="C_SALES_INVOICE_TAX" />
+	<table-filter match-schema=".*" match-name="AD_.*" package="nottodo" />
+	<table-filter match-schema=".*" match-name="C_.*" package="nottodo" />
+	<table name="C_TAXCATEGORY" class="org.openeos.erp.sales.model.TaxCategory" />
+	<table name="C_BP_TAXCATEGORY" class="org.openeos.erp.sales.model.BPTaxCategory" />
+	<table name="C_TAX" class="org.openeos.erp.sales.model.Tax">
+		<column name="ISSUMMARY" property="summary">
+			<meta attribute="property-type">boolean</meta>
+		</column>
+		<column name="CASCADE">
+			<meta attribute="property-type">boolean</meta>
+		</column>
+		<foreign-key constraint-name="C_TAX_FK2">
+			<many-to-one property="parent" />
+			<set property="children" />
+		</foreign-key>
+	</table>
+	<table name="C_SALES_INVOICE" class="org.openeos.erp.sales.model.SalesInvoice">
+		<column name="DOCUMENTNO" property="documentNo" />
+		<column name="TRANSACTIONDATE" property="transactionDate" />
+		<column name="DRAFT">
+			<meta attribute="property-type">boolean</meta>
+		</column>
+		<column name="POSTED">
+			<meta attribute="property-type">boolean</meta>
+		</column>
+	</table>
+	<table name="C_SALES_INVOICE_TAX" class="org.openeos.erp.sales.model.SalesInvoiceTax" />
+
+	<!-- From org.openeos.erp.core TODO: Make automatic -->
+	<table name="AD_CLIENT" class="org.openeos.erp.core.model.Client" />
+	<table name="AD_ORG" class="org.openeos.erp.core.model.Organization" />
+	<table name="C_BPARTNER" class="org.openeos.erp.core.model.BusinessPartner" />
+	<table name="C_COUNTRY" class="org.openeos.erp.core.model.Country" />
+	<table name="C_REGION" class="org.openeos.erp.core.model.Region" />
+	<table name="C_LOCATION" class="org.openeos.erp.core.model.Location" />
+	<table name="C_BPARTNER_LOCATION" class="org.openeos.erp.core.model.BPLocation" />
+
+	<!-- TODO Copied from org.openeos.erp.document -->
+	<table name="C_DOCTYPE" class="org.openeos.erp.document.model.DocumentType" />
+
+
+
+</hibernate-reverse-engineering>

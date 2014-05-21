@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+<hibernate-reverse-engineering>
+
+	<table-filter match-name="C_.*" package="nottodo" />
+	<table-filter match-name="AD_.*" package="nottodo" />
+	<table name="AD_CLIENT" class="org.openeos.erp.core.model.Client" />
+	<table name="AD_ORG" class="org.openeos.erp.core.model.Organization" />
+	<table name="AD_CONTACT" class="org.openeos.erp.core.model.Contact" />
+	<table name="AD_USER" class="org.openeos.erp.core.model.User">
+		<column name="LOCKED">
+			<meta attribute="property-type">boolean</meta>
+		</column>
+		<column name="USERTYPE" property="userType">
+			<meta attribute="property-type">org.openeos.erp.core.model.list.UserType</meta>
+		</column>
+		<foreign-key constraint-name="AD_USER_FK1">
+			<many-to-one property="client" />
+			<set exclude="true" />
+		</foreign-key>
+		<foreign-key constraint-name="AD_USER_FK2">
+			<many-to-one cascade="all" property="contact" />
+		</foreign-key>
+		<foreign-key constraint-name="AD_USER_FK3">
+			<many-to-one property="defaultClient" />
+			<set exclude="true" />
+		</foreign-key>
+		<foreign-key constraint-name="AD_USER_FK4">
+			<many-to-one property="defaultOrganization" />
+			<set exclude="true" />
+		</foreign-key>
+	</table>
+	<table name="C_BPARTNER" class="org.openeos.erp.core.model.BusinessPartner" />
+	<table name="C_COUNTRY" class="org.openeos.erp.core.model.Country">
+		<column name="HASREGION" property="regionDefined">
+			<meta attribute="property-type">boolean</meta>
+		</column>
+		<column name="HASPOSTAL_ADD" property="postalAdd">
+			<meta attribute="property-type">boolean</meta>
+		</column>
+	</table>
+	<table name="C_REGION" class="org.openeos.erp.core.model.Region" />
+	<table name="C_LOCATION" class="org.openeos.erp.core.model.Location" />
+	<table name="C_BPARTNER_LOCATION" class="org.openeos.erp.core.model.BPLocation">
+		<column name="ISBILLTO" property="billTo">
+			<meta attribute="property-type">boolean</meta>
+		</column>
+	</table>
+
+
+
+</hibernate-reverse-engineering>

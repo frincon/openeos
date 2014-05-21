@@ -1,0 +1,9 @@
+K 10
+svn:ignore
+V 88
+target
+jpa-instrument-default.iml
+jpa-instrument-default.ipr
+jpa-instrument-default.iws
+
+END

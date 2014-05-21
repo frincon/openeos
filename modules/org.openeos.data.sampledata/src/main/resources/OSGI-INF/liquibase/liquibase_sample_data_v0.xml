@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+	<changeSet author="frincon" id="1">
+		<insert tableName="ad_client">
+			<column name="ad_client_id" value="1" />
+			<column name="value" value="01" />
+			<column name="name" value="Ficticio Reyes" />
+			<column name="description" value="Ficticio Reyes" />
+		</insert>
+	</changeSet>
+	<changeSet author="frincon" id="sampledata-2">
+		<insert tableName="ad_org">
+			<column name="ad_org_id" value="1" />
+			<column name="ad_client_id" value="1" />
+			<column name="value" value="1" />
+			<column name="name" value="Grupo Ficticio Reyes" />
+			<column name="description" value="Ficticio Reyes" />
+		</insert>
+	</changeSet>
+	<changeSet id="sampledata-3" author="frincon">
+		<insert tableName="nu_sequence">
+			<column name="nu_sequence_id" value="ff808181450517e20145051f0c330006" />
+			<column name="value" value="SALES_INVOICE_FINAL_SEQ" />
+			<column name="name" value="Sales Invoice Final Seq" />
+			<column name="description" value="Sales Invoice Final Seq" />
+			<column name="pattern" value="SI${entity.transactionDate?string('yyyy')}${number?string('000000')}" />
+			<column name="patternforresolver" />
+			<column name="numeration_resolver_id" value="org.openeos.numeration.freemarker.internal.FreemarkerNumerationResolver" />
+		</insert>
+		<insert tableName="nu_sequence">
+			<column name="nu_sequence_id" value="ff808181450517e20145051e41480005" />
+			<column name="value" value="SALES_INVOICE_DRAFT_SEQ" />
+			<column name="name" value="Sales Invoice Draft Sequence" />
+			<column name="description" value="Sales Invoice Draft Sequence" />
+			<column name="pattern" value="SID${.now?string('yyyyMMddHHmm')}-${number?string('00')}" />
+			<column name="patternforresolver" />
+			<column name="numeration_resolver_id" value="org.openeos.numeration.freemarker.internal.FreemarkerNumerationResolver" />
+		</insert>
+		<insert tableName="c_doctype">
+			<column name="c_doctype_id" value="ff808181450517e20145051fd5460007" />
+			<column name="ad_org_id" value="1" />
+			<column name="targettype" value="org.openeos.erp.sales.model.SalesInvoice" />
+			<column name="name" value="Sales Invoice" />
+			<column name="description" value="Sales Invoice" />
+			<column name="docnocontrolled" valueBoolean="true" />
+			<column name="draft_sequence_id" value="ff808181450517e20145051e41480005" />
+			<column name="final_sequence_id" value="ff808181450517e20145051f0c330006" />
+		</insert>
+		<insert tableName="c_bpartner">
+			<column name="c_bpartner_id" value="ff808181450517e20145051b0af00002" />
+			<column name="ad_org_id" value="1" />
+			<column name="value" value="00001" />
+			<column name="name" value="FICTICIO CONSULTING, S.L." />
+			<column name="name2" value="FICTICIO CONSULTING, S.L." />
+			<column name="description" />
+			<column name="taxid" value="B84405083" />
+			<column name="customer" valueBoolean="true" />
+			<column name="c_bp_taxcategory_id" />
+		</insert>
+		<insert tableName="c_location">
+			<column name="c_location_id" value="ff80818145052c370145052eb1250003" />
+			<column name="c_country_id" value="106" />
+			<column name="address1" value="Valle de Alcudia, 4" />
+			<column name="address2" />
+			<column name="city" value="Las Rozas de Madrid" />
+			<column name="postal" value="28232" />
+			<column name="postal_add" />
+			<column name="regionname" />
+			<column name="c_region_id" value="234" />
+		</insert>
+		<insert tableName="c_bpartner_location">
+			<column name="c_bpartner_location_id" value="ff80818145052c370145052eb1250002" />
+			<column name="ad_org_id" value="1" />
+			<column name="c_bpartner_id" value="ff808181450517e20145051b0af00002" />
+			<column name="name" value="Facturacion" />
+			<column name="isbillto" valueBoolean="true" />
+			<column name="c_location_id" value="ff80818145052c370145052eb1250003" />
+		</insert>
+		<insert tableName="nu_sequence_instance">
+			<column name="nu_sequence_instance_id" value="ff808181450fe14a01450fe276b00006" />
+			<column name="nu_sequence_id" value="ff808181450517e20145051f0c330006" />
+			<column name="pattern_resolved" value="SI2014000000" />
+			<column name="optlock" valueNumeric="2" />
+			<column name="actual_number" valueNumeric="3" />
+		</insert>
+		<insert tableName="c_sales_invoice">
+			<column name="c_sales_invoice_id" value="ff808181450fc78f01450fc8b8410006" />
+			<column name="ad_org_id" value="1" />
+			<column name="documentno" value="SI2014000001" />
+			<column name="description" value="Invoice Test 1" />
+			<column name="transactiondate" valueDate="2014-03-29" />
+			<column name="c_bpartner_id" value="ff808181450517e20145051b0af00002" />
+			<column name="c_bpartner_location_id" value="ff80818145052c370145052eb1250002" />
+			<column name="grandtotal" valueNumeric="1123" />
+			<column name="taxdate" valueDate="2014-03-29" />
+			<column name="draft" valueBoolean="false" />
+			<column name="posted" valueBoolean="true" />
+			<column name="posted_workflow_id" value="1" />
+			<column name="c_doctype_id" value="ff808181450517e20145051fd5460007" />
+		</insert>
+		<insert tableName="c_sales_invoice">
+			<column name="c_sales_invoice_id" value="ff808181450fe14a01450fe4309e0008" />
+			<column name="ad_org_id" value="1" />
+			<column name="documentno" value="SI2014000002" />
+			<column name="description" value="Test Invoice 2" />
+			<column name="transactiondate" valueDate="2014-03-29" />
+			<column name="c_bpartner_id" value="ff808181450517e20145051b0af00002" />
+			<column name="c_bpartner_location_id" value="ff80818145052c370145052eb1250002" />
+			<column name="grandtotal" valueNumeric="900" />
+			<column name="taxdate" valueDate="2014-03-29" />
+			<column name="draft" valueBoolean="false" />
+			<column name="posted" valueBoolean="true" />
+			<column name="posted_workflow_id" value="2" />
+			<column name="c_doctype_id" value="ff808181450517e20145051fd5460007" />
+		</insert>
+		<insert tableName="c_sales_invoice">
+			<column name="c_sales_invoice_id" value="ff808181450fe7e101450fe91ad80001" />
+			<column name="ad_org_id" value="1" />
+			<column name="documentno" value="SI2014000003" />
+			<column name="description" value="1234" />
+			<column name="transactiondate" valueDate="2014-03-29" />
+			<column name="c_bpartner_id" value="ff808181450517e20145051b0af00002" />
+			<column name="c_bpartner_location_id" value="ff80818145052c370145052eb1250002" />
+			<column name="grandtotal" valueNumeric="1234" />
+			<column name="taxdate" valueDate="2014-03-29" />
+			<column name="draft" valueBoolean="false" />
+			<column name="posted" valueBoolean="true" />
+			<column name="posted_workflow_id" value="3" />
+			<column name="c_doctype_id" value="ff808181450517e20145051fd5460007" />
+		</insert>
+	</changeSet>
+</databaseChangeLog>

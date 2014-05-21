@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+<hibernate-reverse-engineering>
+
+	<table-filter match-schema=".*" match-name="AD_.*" package="nottodo" />
+	<table-filter match-schema=".*" match-name="C_.*" package="nottodo" />
+	<table-filter match-schema=".*" match-name="FACT_.*" package="nottodo" />
+	<table-filter match-schema=".*" match-name="GL_.*" package="nottodo" />
+
+	<table name="C_ACCTSCHEMA" class="org.openeos.erp.acct.model.FinancialMgmtAcctSchema" />
+	<table name="C_ELEMENT" class="org.openeos.erp.acct.model.FinancialMgmtElement">
+		<column name="ELEMENTTYPE" property="elementType">
+			<meta attribute="property-type">org.openeos.erp.acct.model.list.ElementType</meta>
+		</column>
+	</table>
+	<table name="C_ELEMENTVALUE" class="org.openeos.erp.acct.model.FinancialMgmtElementValue" />
+	<table name="C_CALENDAR" class="org.openeos.erp.acct.model.FinancialMgmtCalendar" />
+	<table name="C_YEAR" class="org.openeos.erp.acct.model.FinancialMgmtYear" />
+	<table name="C_PERIOD" class="org.openeos.erp.acct.model.FinancialMgmtPeriod">
+		<column name="PERIODNO" property="periodNo" />
+		<column name="PERIODTYPE" property="periodType">
+			<meta attribute="property-type">org.openeos.erp.acct.model.list.PeriodType</meta>
+		</column>
+		<column name="STARTDATE" property="startDate" />
+		<column name="ENDDATE" property="endDate" />
+	</table>
+	<table name="C_VALIDCOMBINATION" class="org.openeos.erp.acct.model.FinancialMgmtAccountingCombination">
+		<foreign-key constraint-name="C_VALIDCOMBINATION_FK2">
+			<set exclude="true" />
+		</foreign-key>
+		<foreign-key constraint-name="C_VALIDCOMBINATION_FK3">
+			<set exclude="true" />
+		</foreign-key>
+	</table>
+	<table name="GL_CATEGORY" class="org.openeos.erp.acct.model.FinancialMgmtGLCategory">
+		<column name="CATEGORYTYPE" property="categoryType">
+			<meta attribute="property-type">org.openeos.erp.acct.model.list.CategoryType</meta>
+		</column>
+	</table>
+	<table name="GL_JOURNALBATCH" class="org.openeos.erp.acct.model.FinancialMgmtGLBatch">
+		<column name="DOCUMENTNO" property="documentNo" />
+		<column name="TRANSACTIONDATE" property="transactionDate" />
+		<column name="ACCTDATE" property="acctDate" />
+		<column name="TOTALDR" property="totalDR" />
+		<column name="TOTALCR" property="totalCR" />
+		<foreign-key constraint-name="GL_JOURNALBATCH_FK4">
+			<set exclude="true" />
+		</foreign-key>
+		<foreign-key constraint-name="GL_JOURNALBATCH_FK5">
+			<set exclude="true" />
+		</foreign-key>
+	</table>
+	<table name="GL_JOURNAL" class="org.openeos.erp.acct.model.FinancialMgmtGLJournal">
+		<column name="DOCUMENTNO" property="documentNo" />
+		<column name="TRANSACTIONDATE" property="transactionDate" />
+		<column name="ACCTDATE" property="acctDate" />
+		<column name="DRAFT">
+			<meta attribute="property-type">boolean</meta>
+		</column>
+		<column name="TOTALDR" property="totalDR" />
+		<column name="TOTALCR" property="totalCR" />
+		<foreign-key constraint-name="GL_JOURNAL_FK4">
+			<set exclude="true" />
+		</foreign-key>
+		<foreign-key constraint-name="GL_JOURNAL_FK5">
+			<set exclude="true" />
+		</foreign-key>
+	</table>
+	<table name="GL_JOURNALLINE" class="org.openeos.erp.acct.model.FinancialMgmtGLJournalLine">
+		<column name="AMTACCTDR" property="amtAcctDR" />
+		<column name="AMTACCTCR" property="amtAcctCR" />
+		<foreign-key constraint-name="GL_JOURNALLINE_FK2">
+			<set exclude="true" />
+		</foreign-key>
+	</table>
+	<table name="FACT_ACCT" class="org.openeos.erp.acct.model.FinancialMgmtAccountingFact">
+		<column name="TRANSACTIONDATE" property="transactionDate" />
+		<column name="ACCTDATE" property="acctDate" />
+		<column name="ENTITYID" property="entityId" />
+		<column name="ENTITYNAME" property="entityName" />
+		<column name="AMTACCTDR" property="amtAcctDR" />
+		<column name="AMTACCTCR" property="amtAcctCR" />
+		<column name="SEQNO" property="seqNo" />
+		<foreign-key constraint-name="FACT_ACCT_FK2">
+			<set exclude="true" />
+		</foreign-key>
+		<foreign-key constraint-name="FACT_ACCT_FK3">
+			<set exclude="true" />
+		</foreign-key>
+		<foreign-key constraint-name="FACT_ACCT_FK4">
+			<set exclude="true" />
+		</foreign-key>
+		<foreign-key constraint-name="FACT_ACCT_FK5">
+			<set exclude="true" />
+		</foreign-key>
+	</table>
+
+	<!--  Copied from erp.core -->
+	<table name="AD_CLIENT" class="org.openeos.erp.core.model.Client" />
+	<table name="AD_ORG" class="org.openeos.erp.core.model.Organization" />
+	<table name="C_BPARTNER" class="org.openeos.erp.core.model.BusinessPartner" />
+
+	<!-- Copied from erp.document -->
+	<table name="C_DOCTYPE" class="org.openeos.erp.document.model.DocumentType">
+		<column name="targettype" property="targetType">
+			<meta attribute="property-type">org.openeos.erp.document.model.list.DocumentTypeTargetType</meta>
+		</column>
+		<column name="docnocontrolled" property="docNoControlled" />
+		<foreign-key constraint-name="c_doctype_fk2">
+			<many-to-one property="draftSequence" />
+		</foreign-key>
+		<foreign-key constraint-name="c_doctype_fk3">
+			<many-to-one property="finalSequence" />
+		</foreign-key>
+	</table>
+
+
+</hibernate-reverse-engineering>

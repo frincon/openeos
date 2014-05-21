@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/util
+END
+HibernateExpressionEvaluator.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/util/HibernateExpressionEvaluator.java
+END
+PropertyUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/util/PropertyUtils.java
+END
+PlexusConfigurationUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/mojo/!svn/ver/15886/tags/hibernate3-maven-plugin-3.0/src/main/java/org/codehaus/mojo/hibernate3/util/PlexusConfigurationUtils.java
+END

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2014 Fernando Rincon Martin <frm.rincon@gmail.com>
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" factory="vaadin.app" name="org.openeos.vaadin.main.application">
+	<implementation class="org.openeos.vaadin.main.internal.MainApplication" />
+
+	<reference bind="bindVaadinMenuContributor" cardinality="0..n" interface="org.openeos.vaadin.main.IVaadinMenuContributor"
+		name="IVaadinMenuContributor" policy="dynamic" />
+	<reference cardinality="1..1" interface="org.openeos.vaadin.main.NotificationManager" name="NotificationManager" bind="setNotificationManager"
+		policy="static" />
+	<reference cardinality="1..1" interface="org.openeos.vaadin.main.ApplicationLifecycleManager" name="ApplicationLifecycleManager"
+	 	bind="setApplicationLifecycleManager" policy="static" />
+	<reference cardinality="0..1" interface="org.openeos.vaadin.main.UnoErrorHandler" name="ErrorListener" bind="setUnoErrorHandler" 
+		policy="dynamic" />
+
+</scr:component>
