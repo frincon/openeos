@@ -122,7 +122,7 @@ public class WorkItemTestCase implements Constants, org.openeos.wf.Constants {
 		def3 = workflowService.getLastWorkflowDefinitionByKey("org.openeos.jbpm.integration.test3");
 		assertEquals(deployment3.getId(), def3.getDeploymemtId());
 
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 	}
 
 	@After
@@ -145,7 +145,7 @@ public class WorkItemTestCase implements Constants, org.openeos.wf.Constants {
 		props.put(SERVICE_RANKING, Integer.MAX_VALUE);
 		props.put("org.openeos.wf.jbpm.SERVICE_WORKITEM_HANDLER_NAME", "Service Task");
 		ServiceRegistration<WorkItemHandler> registration = bc.registerService(WorkItemHandler.class, handler, props);
-		Thread.sleep(100);
+		Thread.sleep(1000);
 		engine.startProcess(def1.getId());
 
 		ArgumentCaptor<WorkItem> argumentWorkItem = ArgumentCaptor.forClass(WorkItem.class);
@@ -167,7 +167,7 @@ public class WorkItemTestCase implements Constants, org.openeos.wf.Constants {
 		props.put(SERVICE_RANKING, Integer.MAX_VALUE - 10);
 		props.put("org.openeos.wf.jbpm.SERVICE_WORKITEM_HANDLER_NAME", "Service Task");
 		ServiceRegistration<WorkItemHandler> registration1 = bc.registerService(WorkItemHandler.class, handler1, props);
-		Thread.sleep(100);
+		Thread.sleep(1000);
 		engine.startProcess(def1.getId());
 		verify(handler1).executeWorkItem(any(WorkItem.class), any(WorkItemManager.class));
 
