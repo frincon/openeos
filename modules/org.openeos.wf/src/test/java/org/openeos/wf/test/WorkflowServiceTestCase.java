@@ -184,6 +184,8 @@ public class WorkflowServiceTestCase implements Constants {
 
 		registration.unregister();
 		workflowService.revertDeployment(deploy1.getId());
+
+		SecurityContextHolder.getContext().setAuthentication(null);
 	}
 
 }
