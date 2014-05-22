@@ -139,6 +139,7 @@
 					<configuration>
 						<systemPropertyVariables>
 							<coverage.command>${coverage.command}</coverage.command>
+							<test.loglevel>${env.OPENEOS_TEST_LOGLEVEL}</test.loglevel>
 						</systemPropertyVariables>
 						<argLine>-Xmx2048m -XX:MaxPermSize=256m</argLine>
 					</configuration>

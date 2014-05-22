@@ -1,4 +1,5 @@
 language: java
+env: OPENEOS_TEST_LOGLEVEL=INFO
 jdk:
   - oraclejdk7
   - openjdk7

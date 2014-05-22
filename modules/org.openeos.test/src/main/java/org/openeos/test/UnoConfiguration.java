@@ -26,6 +26,8 @@ import org.ops4j.pax.exam.util.PathUtils;
 public class UnoConfiguration {
 
 	public static final String COVERAGE_COMMAND = "coverage.command";
+	
+	public static final String TEST_LOGLEVEL = "test.loglevel";
 
 	public static Option unoDefaultConfiguration() {
 		// @formatter:off
@@ -57,6 +59,12 @@ public class UnoConfiguration {
 	}
 
 	public static Option unoMinimalConfiguration() {
+		String logLevel = System.getProperty(TEST_LOGLEVEL);
+		if(logLevel != null) {
+			logLevel = "-" + logLevel;
+		} else {
+			logLevel = "";
+		}
 		// @formatter:off
 		return composite(
 				systemProperty(EXAM_SYSTEM_KEY).value(EXAM_SYSTEM_DEFAULT),
@@ -84,7 +92,7 @@ public class UnoConfiguration {
 				mavenBundle("org.slf4j", "log4j-over-slf4j").versionAsInProject().startLevel(START_LEVEL_SYSTEM_BUNDLES),
 				mavenBundle("org.slf4j", "jul-to-slf4j").versionAsInProject().startLevel(START_LEVEL_SYSTEM_BUNDLES),
 				systemProperty("logback.configurationFile").value(
-						"file:" + PathUtils.getBaseDir() + "/src/test/resources/logback.xml"),
+						"file:" + PathUtils.getBaseDir() + "/src/test/resources/logback" + logLevel + ".xml"),
 				systemProperty("logback.statusListenerClass").value("ch.qos.logback.core.status.OnConsoleStatusListener"),
 				
 				mavenBundle("javax.persistence", "com.springsource.javax.persistence").version("2.0.0").startLevel(
