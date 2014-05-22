@@ -46,19 +46,19 @@ org.eclipse.osgi/eclipseadaptor/converter/debug = false
 
 ### OSGi resolver options
 # Turns on debugging for the resolver
-org.eclipse.osgi/resolver/debug = true
+org.eclipse.osgi/resolver/debug = false
 # Prints out wiring information after the resolver has completed the resolve process
-org.eclipse.osgi/resolver/wiring = true
+org.eclipse.osgi/resolver/wiring = false
 # Prints out Import-Package information
 org.eclipse.osgi/resolver/imports = false
 # Prints out Require-Bundle information
-org.eclipse.osgi/resolver/requires = true
+org.eclipse.osgi/resolver/requires = false
 # Prints out debug information form the "uses" clause
 org.eclipse.osgi/resolver/uses = false
 # Prints out cycle information
-org.eclipse.osgi/resolver/cycles = true
+org.eclipse.osgi/resolver/cycles = false
 # Prints out Eclipse-GenericRequire information
-org.eclipse.osgi/resolver/generics = true
+org.eclipse.osgi/resolver/generics = false
 
 #### Profile settings
 org.eclipse.osgi/profile/startup = false
