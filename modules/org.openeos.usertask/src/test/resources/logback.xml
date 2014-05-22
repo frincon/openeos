@@ -34,11 +34,8 @@
 	<logger name="org.springframework.orm" level="DEBUG" />
 	<logger name="org.openeos.liquibase.extender" level="WARN" />
 	<logger name="org.openeos.usertask" level="DEBUG" />
-	<logger name="org.hibernate.SQL" level="DEBUG" />
-	<logger name="org.hibernate.type" level="TRACE" />
 
-
-	<root level="WARN">
+	<root level="INFO">
 		<appender-ref ref="STDOUT" />
 	</root>
 </configuration>

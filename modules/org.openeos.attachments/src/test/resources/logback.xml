@@ -37,8 +37,7 @@
 	<logger name="org.hibernate.SQL" level="WARN" />
 	<logger name="org.hibernate.type" level="WARN" />
 
-
-	<root level="WARN">
+	<root level="INFO">
 		<appender-ref ref="STDOUT" />
 	</root>
 </configuration>

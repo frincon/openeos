@@ -35,7 +35,7 @@
 	<logger name="org.openeos.liquibase.extender" level="WARN" />
 	<logger name="org.openeos" level="DEBUG" />
 
-	<root level="DEBUG">
+	<root level="INFO">
 		<appender-ref ref="STDOUT" />
 	</root>
 </configuration>
