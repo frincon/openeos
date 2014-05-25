@@ -38,7 +38,7 @@
 		<apache.commons.io.version>1.4.0</apache.commons.io.version>
 		<apache.commons.collections.version>3.2.1</apache.commons.collections.version>
 		<apache.commons.digester.version>2.1</apache.commons.digester.version>
-		<apache.commons.beanutils.version>1.8.0</apache.commons.beanutils.version>
+		<apache.commons.beanutils.version>1.9.1</apache.commons.beanutils.version>
 		<jasperreports.version>5.5.1</jasperreports.version>
 		<mvel.version>2.1.9.Final</mvel.version>
 		<hibernate.version>4.1.12.Final</hibernate.version>

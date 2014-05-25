@@ -24,7 +24,6 @@ import java.util.Map;
 import org.abstractform.binding.BBindingToolkit;
 import org.abstractform.binding.vaadin.VaadinBindingFormInstance;
 import org.abstractform.binding.vaadin.VaadinBindingFormToolkit;
-
 import org.openeos.services.dictionary.IDictionaryService;
 import org.openeos.services.ui.UIApplication;
 import org.openeos.services.ui.UIBean;
@@ -35,6 +34,7 @@ import org.openeos.services.ui.model.ITabDefinition;
 import org.openeos.services.ui.vaadin.IVaadinContainerFactory;
 import org.openeos.services.ui.vaadin.internal.AbstractVaadinTabImpl;
 import org.openeos.vaadin.main.IUnoVaadinApplication;
+
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Window.Notification;
 
@@ -83,7 +83,7 @@ public class AbstractFormVaadinTabImpl extends AbstractVaadinTabImpl {
 				AbstractFormBindingForm.class, capability);
 		Map<String, Object> extraObjects = new HashMap<String, Object>();
 		extraObjects.put(UIVaadinFormToolkit.EXTRA_OBJECT_APPLICATION, getApplication());
-		return vaadinToolKit.buildForm(bindingEditForm.getBForm(), bindingToolkit, extraObjects);
+		return vaadinToolKit.buildForm(bindingEditForm.getAbstractBForm(), bindingToolkit, extraObjects);
 	}
 
 	@Override

@@ -17,18 +17,13 @@ package org.openeos.numeration.ui;
 
 import java.util.EnumSet;
 
-import org.abstractform.binding.BForm;
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSubForm;
-
 import org.openeos.numeration.model.Sequence;
 import org.openeos.services.ui.form.BindingFormCapability;
-import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
+import org.openeos.services.ui.form.abstractform.UIAbstractForm;
 
-public class SequenceForm extends BFForm<Sequence> implements AbstractFormBindingForm<Sequence> {
-
-	public static final Integer RANKING = 100;
+public class SequenceForm extends UIAbstractForm<Sequence> {
 
 	public static final String ID = SequenceForm.class.getName();
 	public static final String NAME = "Sequence Form";
@@ -48,18 +43,8 @@ public class SequenceForm extends BFForm<Sequence> implements AbstractFormBindin
 	}
 
 	@Override
-	public Integer getRanking() {
-		return RANKING;
-	}
-
-	@Override
 	public EnumSet<BindingFormCapability> getCapabilities() {
 		return EnumSet.of(BindingFormCapability.EDIT, BindingFormCapability.NEW);
-	}
-
-	@Override
-	public BForm<Sequence> getBForm() {
-		return this;
 	}
 
 }

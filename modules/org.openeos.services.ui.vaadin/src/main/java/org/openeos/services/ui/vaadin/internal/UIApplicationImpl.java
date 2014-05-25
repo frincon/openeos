@@ -22,8 +22,6 @@ import org.abstractform.binding.BBindingToolkit;
 import org.abstractform.binding.BForm;
 import org.abstractform.binding.vaadin.VaadinBindingFormInstance;
 import org.abstractform.binding.vaadin.VaadinBindingFormToolkit;
-import org.vaadin.dialogs.ConfirmDialog;
-
 import org.openeos.services.ui.ConfirmationCallback;
 import org.openeos.services.ui.MessageType;
 import org.openeos.services.ui.UIApplication;
@@ -37,6 +35,8 @@ import org.openeos.services.ui.form.FormRegistryService;
 import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
 import org.openeos.services.ui.vaadin.internal.abstractform.UIVaadinFormToolkit;
 import org.openeos.vaadin.main.IUnoVaadinApplication;
+import org.vaadin.dialogs.ConfirmDialog;
+
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -110,7 +110,7 @@ public class UIApplicationImpl implements UIApplication<IUnoVaadinApplication> {
 	}
 
 	@Override
-	public <U> UIDialog showGenericFormDialog(BForm<U> form, U bean) {
+	public <U> UIDialog showGenericFormDialog(BForm<U, ?> form, U bean) {
 		Map<String, Object> extraObjects = new HashMap<String, Object>();
 		extraObjects.put(UIVaadinFormToolkit.EXTRA_OBJECT_APPLICATION, this);
 		VaadinBindingFormInstance formInstance = vaadinToolkit.buildForm(form, commonBindingToolkit, extraObjects, false);
@@ -142,13 +142,14 @@ public class UIApplicationImpl implements UIApplication<IUnoVaadinApplication> {
 	}
 
 	private <T> UIDialog showFormDialog(Class<T> modelClass, UIBean model, BindingFormCapability capability) {
-		AbstractFormBindingForm<T> form = formRegistryService.getDefaultForm(modelClass, AbstractFormBindingForm.class, capability);
+		AbstractFormBindingForm<T, ?> form = formRegistryService.getDefaultForm(modelClass, AbstractFormBindingForm.class,
+				capability);
 		Map<String, Object> extraObjects = new HashMap<String, Object>();
 		extraObjects.put(UIVaadinFormToolkit.EXTRA_OBJECT_APPLICATION, this);
-		VaadinBindingFormInstance formInstance = vaadinToolkit
-				.buildForm(form.getBForm(), uiBeanBindingToolkit, extraObjects, false);
+		VaadinBindingFormInstance formInstance = vaadinToolkit.buildForm(form.getAbstractBForm(), uiBeanBindingToolkit,
+				extraObjects, false);
 
-		Window window = new Window(form.getBForm().getName());
+		Window window = new Window(form.getAbstractBForm().getName());
 		window.setModal(true);
 		window.addComponent((ComponentContainer) formInstance.getImplementation());
 		formInstance.setValue(model);

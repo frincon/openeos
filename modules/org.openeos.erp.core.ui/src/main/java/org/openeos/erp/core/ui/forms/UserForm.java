@@ -15,21 +15,21 @@
  */
 package org.openeos.erp.core.ui.forms;
 
+import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.List;
 
-import org.abstractform.binding.BForm;
+import org.abstractform.binding.BFormInstance;
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSubForm;
+import org.abstractform.binding.validation.Validator;
 import org.abstractform.core.fluent.FField;
-
 import org.openeos.erp.core.model.User;
+import org.openeos.services.ui.UIBean;
 import org.openeos.services.ui.form.BindingFormCapability;
-import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
+import org.openeos.services.ui.form.abstractform.UIAbstractForm;
 
-public abstract class UserForm extends BFForm<User> implements AbstractFormBindingForm<User> {
-
-	public static final Integer RANKING = 100;
+public abstract class UserForm extends UIAbstractForm<User> {
 
 	public BFSubForm SUBFORM_MAIN = addSubForm(null, 2);
 	public BFField FIELD_CLIENT = SUBFORM_MAIN.addField(0, 0, null, "Client", User.PROPERTY_CLIENT);
@@ -46,16 +46,24 @@ public abstract class UserForm extends BFForm<User> implements AbstractFormBindi
 
 	public UserForm(String id, String name) {
 		super(id, name, User.class);
-	}
+		validator(new Validator<BFormInstance<UIBean>>() {
 
-	@Override
-	public Integer getRanking() {
-		return RANKING;
-	}
-
-	@Override
-	public BForm<User> getBForm() {
-		return this;
+			@Override
+			public List<String> validate(BFormInstance<UIBean> value) {
+				String password1 = (String) value.getFieldValue(FIELD_PASSWORD.getId());
+				String password2 = (String) value.getFieldValue(FIELD_CONFIRM_PASSWORD.getId());
+				if (password1 != null) {
+					if (!password1.equals(password2)) {
+						return Arrays.asList("The password are not equals");
+					}
+				} else {
+					if (password2 != null) {
+						return Arrays.asList("The password are not equals");
+					}
+				}
+				return null;
+			}
+		});
 	}
 
 	public static class UserEditForm extends UserForm {

@@ -15,12 +15,8 @@
  */
 package org.openeos.services.ui.internal.form.abstractform.binding.eclipse;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 import org.abstractform.binding.BField;
 import org.abstractform.binding.BFormInstance;
-import org.abstractform.binding.BPresenter;
 import org.abstractform.binding.eclipse.EclipseBindingToolkit;
 import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
@@ -30,10 +26,9 @@ import org.eclipse.core.databinding.observable.IChangeListener;
 import org.eclipse.core.databinding.observable.set.IObservableSet;
 import org.eclipse.core.databinding.observable.set.WritableSet;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
-
 import org.openeos.services.dictionary.IDictionaryService;
 import org.openeos.services.ui.form.abstractform.BFUITable;
-import org.openeos.services.ui.internal.UIBeanImpl;
+import org.openeos.services.ui.form.abstractform.UIPresenter;
 
 public class UIBeanEclipseBindingToolkit extends EclipseBindingToolkit {
 
@@ -49,10 +44,10 @@ public class UIBeanEclipseBindingToolkit extends EclipseBindingToolkit {
 
 	@Override
 	protected <S> Binding bindField(DataBindingContext dbCtx, final BField field, IObservableValue master,
-			final BFormInstance<S> formInstance, Class<S> beanClass, boolean immediate, final BPresenter<S> presenter) {
+			final BFormInstance<S> formInstance, boolean immediate, final IObservableValue presenterValue) {
 		if (BFUITable.TYPE_UITABLE.equals(field.getType())) {
-			final IObservableSet model = UIBeanProperties.set(beanClass, field.getPropertyName(), dictionaryService).observeDetail(
-					master);
+			final IObservableSet model = UIPresenterProperties.set(((UIPresenter<?>) presenterValue.getValue()).getBeanClass(),
+					field.getPropertyName(), dictionaryService).observeDetail(presenterValue);
 			final IObservableSet target = new WritableSet();
 			target.addChangeListener(new IChangeListener() {
 
@@ -74,52 +69,16 @@ public class UIBeanEclipseBindingToolkit extends EclipseBindingToolkit {
 
 				@Override
 				public void handleChange(ChangeEvent event) {
-					UIBeanImpl bean = (UIBeanImpl) formInstance.getValue();
-					presenter.modelHasChanged(field.getPropertyName(), (S) bean.getBeanWrapped());
+					UIPresenter<?> uiPresenter = (UIPresenter<?>) presenterValue.getValue();
+					uiPresenter.setPropertyValue(field.getPropertyName(), uiPresenter.getPropertyValue(field.getPropertyName()));
 				}
 			});
 
 			return binding;
 
 		} else {
-			return super.bindField(dbCtx, field, master, formInstance, beanClass, immediate, presenter);
+			return super.bindField(dbCtx, field, master, formInstance, immediate, presenterValue);
 		}
-	}
-
-	@Override
-	protected IObservableValue getObservableValue(IObservableValue master, BField field, Class<?> beanClass) {
-		return UIBeanProperties.value(beanClass, field.getPropertyName(), dictionaryService).observeDetail(master);
-	}
-
-	@Override
-	protected <S> void bindPresenter(DataBindingContext dbCtx, final BPresenter<S> presenter, BFormInstance<S> formInstance) {
-		final PropertyChangeListener listener = new PropertyChangeListener() {
-
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				presenter.modelHasChanged(evt.getPropertyName(), (S) ((UIBeanImpl) evt.getSource()).getBeanWrapped());
-			}
-		};
-		if (formInstance.getValue() != null) {
-			callAddPropertyChangeMethod(formInstance.getValue(), listener);
-		}
-		formInstance.addValuePropertyChangeListener(new PropertyChangeListener() {
-
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				S model = (S) evt.getOldValue();
-				callRemovePropertyChangeMethod(model, listener);
-				presenter.setModel((S) ((UIBeanImpl) evt.getNewValue()).getBeanWrapped());
-				model = (S) evt.getNewValue();
-				callAddPropertyChangeMethod(model, listener);
-			}
-		});
-	}
-
-	@Override
-	protected <S> void callPresenterFieldChanged(BPresenter<S> presenter, String fieldId, BFormInstance<S> formInstance) {
-		UIBeanImpl bean = (UIBeanImpl) formInstance.getValue();
-		presenter.fieldHasChanged(fieldId, (S) bean.getBeanWrapped());
 	}
 
 }

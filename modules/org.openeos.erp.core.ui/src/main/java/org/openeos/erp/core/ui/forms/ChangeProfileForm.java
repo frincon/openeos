@@ -25,15 +25,14 @@ import org.abstractform.core.selector.SelectorConstants;
 import org.abstractform.core.selector.SelectorProvider;
 import org.abstractform.core.selector.SelectorProviderFactory;
 import org.hibernate.SessionFactory;
-import org.springframework.transaction.annotation.Transactional;
-
 import org.openeos.erp.core.model.Client;
 import org.openeos.erp.core.model.Organization;
 import org.openeos.erp.core.ui.beans.ChangeProfileBean;
 import org.openeos.erp.core.ui.internal.ClientFilterProvider;
 import org.openeos.services.ui.form.abstractform.UIBeanSelectorProvider;
+import org.springframework.transaction.annotation.Transactional;
 
-public class ChangeProfileForm extends BFForm<ChangeProfileBean> {
+public class ChangeProfileForm extends BFForm<ChangeProfileBean, ChangeProfileBean> {
 
 	public static final String ID = ChangeProfileForm.class.getName();
 	public static final String NAME = "Change Profile Form";

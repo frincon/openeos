@@ -17,21 +17,17 @@ package org.openeos.erp.core.ui.forms;
 
 import java.util.EnumSet;
 
-import org.abstractform.binding.BForm;
 import org.abstractform.binding.BFormInstance;
 import org.abstractform.binding.BPresenter;
-import org.abstractform.binding.fluent.BFAbstractPresenter;
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSubForm;
-
 import org.openeos.erp.core.model.Location;
+import org.openeos.services.ui.UIBean;
 import org.openeos.services.ui.form.BindingFormCapability;
-import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
+import org.openeos.services.ui.form.abstractform.UIAbstractForm;
+import org.openeos.services.ui.form.abstractform.UIPresenter;
 
-public class LocationForm extends BFForm<Location> implements AbstractFormBindingForm<Location> {
-
-	public static final Integer RANKING = 100;
+public class LocationForm extends UIAbstractForm<Location> {
 
 	public static final String ID = LocationForm.class.getPackage().getName() + ".LOCATION_FORM";
 	public static final String NAME = "Location Form";
@@ -48,27 +44,44 @@ public class LocationForm extends BFForm<Location> implements AbstractFormBindin
 			.readOnlyPresenterProperty(Presenter.PROPERTY_REGION_NAME_VISIBLE);
 
 	// TODO This can be more easy whith expression language
-	public class Presenter extends BFAbstractPresenter<Location> {
+	public class Presenter extends UIPresenter<Location> {
+
+		/**
+		 * @param beanClass
+		 * @param uiBean
+		 */
+		public Presenter(UIBean uiBean) {
+			super(Location.class, uiBean);
+			checkCountryRegion();
+		}
 
 		private boolean regionVisible = false;
 
 		private static final String PROPERTY_REGION_VISIBLE = "regionVisible";
 		private static final String PROPERTY_REGION_NAME_VISIBLE = "regionNameVisible";
 
-		public boolean getRegionVisible() {
+		public boolean isRegionVisible() {
 			return regionVisible;
 		}
 
-		public boolean getRegionNameVisible() {
-			return !getRegionVisible();
+		public boolean isRegionNameVisible() {
+			return !isRegionVisible();
 		}
 
 		@Override
-		public void fieldHasChanged(String fieldId, Location model) {
+		public Object getPropertyValue(String propertyName) {
+			if (PROPERTY_REGION_VISIBLE.equals(propertyName)) {
+				return isRegionVisible();
+			} else if (PROPERTY_REGION_NAME_VISIBLE.equals(propertyName)) {
+				return isRegionNameVisible();
+			} else {
+				return super.getPropertyValue(propertyName);
+			}
 		}
 
 		@Override
-		public void modelHasChanged(String propertyName, Location model) {
+		public void setPropertyValue(String propertyName, Object value) {
+			super.setPropertyValue(propertyName, value);
 			if (Location.PROPERTY_COUNTRY.equals(propertyName)) {
 				checkCountryRegion();
 			}
@@ -76,17 +89,11 @@ public class LocationForm extends BFForm<Location> implements AbstractFormBindin
 
 		private void checkCountryRegion() {
 			boolean oldValue = regionVisible;
-			if (getModel() != null && getModel().getCountry() != null) {
-				regionVisible = getModel().getCountry().isRegionDefined();
+			if (getModel() != null && getBeanWrapped().getCountry() != null) {
+				regionVisible = getBeanWrapped().getCountry().isRegionDefined();
 				firePropertyChange(PROPERTY_REGION_VISIBLE, oldValue, regionVisible);
 				firePropertyChange(PROPERTY_REGION_NAME_VISIBLE, !oldValue, !regionVisible);
 			}
-		}
-
-		@Override
-		public void setModel(Location model) {
-			super.setModel(model);
-			checkCountryRegion();
 		}
 
 	}
@@ -96,25 +103,14 @@ public class LocationForm extends BFForm<Location> implements AbstractFormBindin
 	}
 
 	@Override
-	public BPresenter<Location> createPresenter(BFormInstance<Location> formInstance, Location model) {
-		Presenter presenter = new Presenter();
-		presenter.setModel(model);
+	public BPresenter createPresenter(BFormInstance<UIBean> formInstance, UIBean model) {
+		Presenter presenter = new Presenter(model);
 		return presenter;
-	}
-
-	@Override
-	public Integer getRanking() {
-		return RANKING;
 	}
 
 	@Override
 	public EnumSet<BindingFormCapability> getCapabilities() {
 		return EnumSet.of(BindingFormCapability.NEW, BindingFormCapability.EDIT);
-	}
-
-	@Override
-	public BForm<Location> getBForm() {
-		return this;
 	}
 
 }

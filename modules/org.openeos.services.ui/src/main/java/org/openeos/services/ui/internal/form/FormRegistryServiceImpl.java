@@ -20,12 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.openeos.services.ui.form.BindingForm;
 import org.openeos.services.ui.form.BindingFormCapability;
 import org.openeos.services.ui.form.FormRegistryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FormRegistryServiceImpl implements FormRegistryService {
 

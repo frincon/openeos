@@ -18,27 +18,22 @@ package org.openeos.erp.acct.gui;
 import java.math.BigDecimal;
 import java.util.EnumSet;
 
-import org.abstractform.binding.BForm;
 import org.abstractform.binding.BFormInstance;
 import org.abstractform.binding.BPresenter;
-import org.abstractform.binding.fluent.BFDefaultPresenter;
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSection;
 import org.abstractform.binding.fluent.BFSubForm;
 import org.abstractform.binding.fluent.table.BFTableField;
-
 import org.openeos.erp.acct.model.FinancialMgmtGLJournal;
 import org.openeos.erp.acct.model.FinancialMgmtGLJournalLine;
 import org.openeos.erp.document.ui.forms.DocumentTypePresenterDecorator;
+import org.openeos.services.ui.UIBean;
 import org.openeos.services.ui.form.BindingFormCapability;
-import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
 import org.openeos.services.ui.form.abstractform.BFUITable;
+import org.openeos.services.ui.form.abstractform.UIAbstractForm;
+import org.openeos.services.ui.form.abstractform.UIPresenter;
 
-public abstract class FinancialMgmtGLJournalForm extends BFForm<FinancialMgmtGLJournal> implements
-		AbstractFormBindingForm<FinancialMgmtGLJournal> {
-
-	public static final int RANKING = 0;
+public abstract class FinancialMgmtGLJournalForm extends UIAbstractForm<FinancialMgmtGLJournal> {
 
 	public BFSubForm SUBFORM_MAIN = addSubForm(null, 2);
 	public BFField FIELD_ORGANIZATION = SUBFORM_MAIN.addField(0, 0, null, "Organization",
@@ -85,39 +80,28 @@ public abstract class FinancialMgmtGLJournalForm extends BFForm<FinancialMgmtGLJ
 	}
 
 	@Override
-	public Integer getRanking() {
-		return RANKING;
-	}
-
-	@Override
-	public BForm<FinancialMgmtGLJournal> getBForm() {
-		return this;
-	}
-
-	@Override
-	public BPresenter<FinancialMgmtGLJournal> createPresenter(final BFormInstance<FinancialMgmtGLJournal> formInstance,
-			FinancialMgmtGLJournal model) {
-		return new DocumentTypePresenterDecorator<FinancialMgmtGLJournal>(new BFDefaultPresenter<FinancialMgmtGLJournal>() {
+	public BPresenter createPresenter(final BFormInstance<UIBean> formInstance, UIBean model) {
+		return new DocumentTypePresenterDecorator(new UIPresenter<FinancialMgmtGLJournal>(FinancialMgmtGLJournal.class, model) {
 
 			@Override
-			public void fieldHasChanged(String fieldId, FinancialMgmtGLJournal model) {
-				super.fieldHasChanged(fieldId, model);
+			public void fieldHasChanged(String fieldId) {
+				super.fieldHasChanged(fieldId);
 				calculateTotals();
 			}
 
 			@Override
-			public void modelHasChanged(String propertyName, FinancialMgmtGLJournal model) {
-				super.modelHasChanged(propertyName, model);
+			public void setPropertyValue(String propertyName, Object value) {
+				super.setPropertyValue(propertyName, value);
 				calculateTotals();
 			}
 
 			private void calculateTotals() {
 				if (getModel() != null) {
-					BigDecimal cr = getModel().getTotalCR();
-					BigDecimal dr = getModel().getTotalDR();
+					BigDecimal cr = getBeanWrapped().getTotalCR();
+					BigDecimal dr = getBeanWrapped().getTotalDR();
 					BigDecimal newCr, newDr;
 					newCr = newDr = BigDecimal.ZERO;
-					for (FinancialMgmtGLJournalLine line : getModel().getFinancialMgmtGLJournalLines()) {
+					for (FinancialMgmtGLJournalLine line : getBeanWrapped().getFinancialMgmtGLJournalLines()) {
 						newCr = newCr.add(line.getAmtAcctCR());
 						newDr = newDr.add(line.getAmtAcctDR());
 					}
@@ -166,8 +150,7 @@ public abstract class FinancialMgmtGLJournalForm extends BFForm<FinancialMgmtGLJ
 
 	}
 
-	public static class FinancialMgmtGLJournalLineForm extends BFForm<FinancialMgmtGLJournalLine> implements
-			AbstractFormBindingForm<FinancialMgmtGLJournalLine> {
+	public static class FinancialMgmtGLJournalLineForm extends UIAbstractForm<FinancialMgmtGLJournalLine> {
 
 		public static final String ID = FinancialMgmtGLJournalLineForm.class.getName();
 		public static final String NAME = "G/L Journal Line Form";
@@ -185,18 +168,8 @@ public abstract class FinancialMgmtGLJournalForm extends BFForm<FinancialMgmtGLJ
 		}
 
 		@Override
-		public Integer getRanking() {
-			return RANKING;
-		}
-
-		@Override
 		public EnumSet<BindingFormCapability> getCapabilities() {
 			return EnumSet.of(BindingFormCapability.EDIT, BindingFormCapability.NEW);
-		}
-
-		@Override
-		public BForm<FinancialMgmtGLJournalLine> getBForm() {
-			return this;
 		}
 
 	}

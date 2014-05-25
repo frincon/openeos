@@ -19,56 +19,42 @@ import java.beans.PropertyChangeListener;
 
 import org.abstractform.binding.BFormInstance;
 import org.abstractform.binding.BPresenter;
-
 import org.openeos.erp.document.model.DocumentType;
 
-public class DocumentTypePresenterDecorator<T> implements BPresenter<T> {
+public class DocumentTypePresenterDecorator implements BPresenter {
 
 	private boolean documentNoEstablished = false;
 
-	private BPresenter<T> delegate;
-	private BFormInstance<T> formInstance;
+	private BPresenter delegate;
+	private BFormInstance<?> formInstance;
 	private String fieldDocumentTypeId;
 	private String fieldDocumentNoId;
 
-	public DocumentTypePresenterDecorator(BPresenter<T> delegate, BFormInstance<T> formInstance, String fieldDocumentTypeId,
+	public DocumentTypePresenterDecorator(BPresenter delegate, BFormInstance<?> formInstance, String fieldDocumentTypeId,
 			String fieldDocumentNoId) {
 		this.delegate = delegate;
 		this.formInstance = formInstance;
 		this.fieldDocumentTypeId = fieldDocumentTypeId;
 		this.fieldDocumentNoId = fieldDocumentNoId;
-	}
-
-	@Override
-	public void fieldHasChanged(String fieldId, T model) {
-		delegate.fieldHasChanged(fieldId, model);
 		checkForDocumentNo();
 	}
 
 	@Override
-	public void modelHasChanged(String propertyName, T model) {
-		delegate.modelHasChanged(propertyName, model);
-		checkForDocumentNo();
-	}
-
-	@Override
-	public void setModel(T model) {
-		delegate.setModel(model);
+	public void fieldHasChanged(String fieldId) {
+		delegate.fieldHasChanged(fieldId);
 		checkForDocumentNo();
 	}
 
 	private void checkForDocumentNo() {
-		if (getModel() != null) {
-			DocumentType docType = (DocumentType) formInstance.getFieldValue(fieldDocumentTypeId);
-			if (docType != null && docType.isDocNoControlled() && !documentNoEstablished) {
-				formInstance.setFieldValue(fieldDocumentNoId, "<AUTO>");
-				formInstance.setFieldReadOnly(fieldDocumentNoId, true);
-				documentNoEstablished = true;
-			} else if ((docType == null || !docType.isDocNoControlled()) && documentNoEstablished) {
-				formInstance.setFieldReadOnly(fieldDocumentNoId, false);
-				formInstance.setFieldValue(fieldDocumentNoId, null);
-				documentNoEstablished = false;
-			}
+		DocumentType docType = (DocumentType) formInstance.getFieldValue(fieldDocumentTypeId);
+		if (docType != null && docType.isDocNoControlled() && !documentNoEstablished) {
+			formInstance.setFieldValue(fieldDocumentNoId, "<AUTO>");
+			formInstance.setFieldReadOnly(fieldDocumentNoId, true);
+			documentNoEstablished = true;
+		} else if ((docType == null || !docType.isDocNoControlled()) && documentNoEstablished) {
+			formInstance.setFieldReadOnly(fieldDocumentNoId, false);
+			formInstance.setFieldValue(fieldDocumentNoId, null);
+			documentNoEstablished = false;
 		}
 	}
 
@@ -81,9 +67,24 @@ public class DocumentTypePresenterDecorator<T> implements BPresenter<T> {
 		delegate.removePropertyChangeListener(propertyName, listener);
 	}
 
+	/**
+	 * 
+	 * @see org.abstractform.binding.BPresenter#getPropertyValue(java.lang.String)
+	 */
 	@Override
-	public T getModel() {
-		return delegate.getModel();
+	public Object getPropertyValue(String propertyName) {
+		return delegate.getPropertyValue(propertyName);
+	}
+
+	/**
+	 * 
+	 * @see org.abstractform.binding.BPresenter#setPropertyValue(java.lang.String,
+	 *      java.lang.Object)
+	 */
+	@Override
+	public void setPropertyValue(String propertyName, Object value) {
+		delegate.setPropertyValue(propertyName, value);
+		checkForDocumentNo();
 	}
 
 }

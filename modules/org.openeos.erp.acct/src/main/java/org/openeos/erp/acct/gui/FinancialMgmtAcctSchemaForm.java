@@ -17,19 +17,13 @@ package org.openeos.erp.acct.gui;
 
 import java.util.EnumSet;
 
-import org.abstractform.binding.BForm;
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSubForm;
-
 import org.openeos.erp.acct.model.FinancialMgmtAcctSchema;
 import org.openeos.services.ui.form.BindingFormCapability;
-import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
+import org.openeos.services.ui.form.abstractform.UIAbstractForm;
 
-public abstract class FinancialMgmtAcctSchemaForm extends BFForm<FinancialMgmtAcctSchema> implements
-		AbstractFormBindingForm<FinancialMgmtAcctSchema> {
-
-	public static final int RANKING = 0;
+public abstract class FinancialMgmtAcctSchemaForm extends UIAbstractForm<FinancialMgmtAcctSchema> {
 
 	public BFSubForm SUBFORM_MAIN = addSubForm(null, 2);
 	public BFField FIELD_ORGANIZATION = SUBFORM_MAIN.addField(0, 0, null, "Organization",
@@ -41,16 +35,6 @@ public abstract class FinancialMgmtAcctSchemaForm extends BFForm<FinancialMgmtAc
 
 	public FinancialMgmtAcctSchemaForm(String id, String name) {
 		super(id, name, FinancialMgmtAcctSchema.class);
-	}
-
-	@Override
-	public Integer getRanking() {
-		return RANKING;
-	}
-
-	@Override
-	public BForm<FinancialMgmtAcctSchema> getBForm() {
-		return this;
 	}
 
 	public static class FinancialMgmtAcctSchemaNewForm extends FinancialMgmtAcctSchemaForm {

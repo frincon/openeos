@@ -17,18 +17,13 @@ package org.openeos.erp.document.ui.forms;
 
 import java.util.EnumSet;
 
-import org.abstractform.binding.BForm;
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSubForm;
-
 import org.openeos.erp.document.model.DocumentType;
 import org.openeos.services.ui.form.BindingFormCapability;
-import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
+import org.openeos.services.ui.form.abstractform.UIAbstractForm;
 
-public class DocumentTypeForm extends BFForm<DocumentType> implements AbstractFormBindingForm<DocumentType> {
-
-	public static final Integer RANKING = 0;
+public class DocumentTypeForm extends UIAbstractForm<DocumentType> {
 
 	public static final String ID = DocumentTypeForm.class.getName();
 	public static final String NAME = "Document Type Form";
@@ -53,18 +48,8 @@ public class DocumentTypeForm extends BFForm<DocumentType> implements AbstractFo
 	}
 
 	@Override
-	public Integer getRanking() {
-		return RANKING;
-	}
-
-	@Override
 	public EnumSet<BindingFormCapability> getCapabilities() {
 		return EnumSet.of(BindingFormCapability.EDIT, BindingFormCapability.NEW);
-	}
-
-	@Override
-	public BForm<DocumentType> getBForm() {
-		return this;
 	}
 
 }

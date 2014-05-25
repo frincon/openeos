@@ -18,6 +18,7 @@ package org.openeos.services.ui.internal.form.abstractform.binding.eclipse;
 import java.util.Collections;
 import java.util.Set;
 
+import org.abstractform.binding.BPresenter;
 import org.eclipse.core.databinding.beans.BeanProperties;
 import org.eclipse.core.databinding.observable.Diffs;
 import org.eclipse.core.databinding.observable.IDiff;
@@ -25,17 +26,15 @@ import org.eclipse.core.databinding.observable.set.SetDiff;
 import org.eclipse.core.databinding.property.INativePropertyListener;
 import org.eclipse.core.databinding.property.ISimplePropertyListener;
 import org.eclipse.core.databinding.property.set.SimpleSetProperty;
+import org.openeos.services.ui.form.abstractform.UIPresenter;
 
-import org.openeos.services.ui.UIBean;
-import org.openeos.services.ui.internal.UIBeanImpl;
-
-public class UIBeanSetProperty extends SimpleSetProperty {
+public class UIPresenterSetProperty extends SimpleSetProperty {
 
 	private String propertyName;
 	private String parentPropertyName;
 	private Class<?> elementClass;
 
-	public UIBeanSetProperty(String propertyName, Class<?> elementClass, String parentPropertyName) {
+	public UIPresenterSetProperty(String propertyName, Class<?> elementClass, String parentPropertyName) {
 		this.propertyName = propertyName;
 		this.elementClass = elementClass;
 		this.parentPropertyName = parentPropertyName;
@@ -48,9 +47,10 @@ public class UIBeanSetProperty extends SimpleSetProperty {
 
 	@Override
 	protected Set<?> doGetSet(Object source) {
-		if (source instanceof UIBean) {
-			UIBean uiBean = (UIBean) source;
-			return (Set<?>) uiBean.get(propertyName);
+		if (source instanceof BPresenter) {
+			BPresenter presenter = (BPresenter) source;
+			Set<?> result = (Set<?>) presenter.getPropertyValue(propertyName);
+			return result == null ? Collections.emptySet() : result;
 		} else {
 			throw new UnsupportedOperationException("The source is not a UIBean");
 		}
@@ -59,16 +59,20 @@ public class UIBeanSetProperty extends SimpleSetProperty {
 	@SuppressWarnings("rawtypes")
 	@Override
 	protected void doSetSet(Object source, Set set, SetDiff diff) {
-		for (Object obj : diff.getAdditions()) {
-			BeanProperties.value(parentPropertyName).setValue(obj, ((UIBeanImpl) source).getBeanWrapped());
-			System.out.println("Falta una cosa");
+		if (source instanceof UIPresenter) {
+			for (Object obj : diff.getAdditions()) {
+				BeanProperties.value(parentPropertyName).setValue(obj, ((UIPresenter<?>) source).getBeanWrapped());
+				System.out.println("Falta una cosa");
+			}
+		} else {
+			throw new UnsupportedOperationException("TODO");
 		}
 		diff.applyTo(doGetSet(source));
 	}
 
 	@Override
 	public INativePropertyListener adaptListener(ISimplePropertyListener listener) {
-		return new UIBeanAbstractPropertyListener(this, propertyName, listener) {
+		return new UIPresenterPropertyListener(this, propertyName, listener) {
 
 			@Override
 			protected IDiff computeDiff(Object oldValue, Object newValue) {

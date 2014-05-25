@@ -39,7 +39,7 @@ public interface UIApplication<T> extends UIContext, ContextObjectContainer {
 
 	void showConfirmation(String caption, ConfirmationCallback callBack);
 
-	public <U> UIDialog showGenericFormDialog(BForm<U> form, U bean);
+	public <U> UIDialog showGenericFormDialog(BForm<U, ?> form, U bean);
 
 	public boolean restart();
 

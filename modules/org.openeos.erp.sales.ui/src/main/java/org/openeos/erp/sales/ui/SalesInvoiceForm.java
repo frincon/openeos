@@ -17,24 +17,20 @@ package org.openeos.erp.sales.ui;
 
 import java.util.EnumSet;
 
-import org.abstractform.binding.BForm;
 import org.abstractform.binding.BFormInstance;
 import org.abstractform.binding.BPresenter;
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSubForm;
 import org.abstractform.binding.fluent.table.BFTableField;
-
 import org.openeos.erp.document.ui.forms.DocumentTypePresenterDecorator;
 import org.openeos.erp.sales.model.SalesInvoice;
 import org.openeos.erp.sales.model.SalesInvoiceTax;
+import org.openeos.services.ui.UIBean;
 import org.openeos.services.ui.form.BindingFormCapability;
-import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
 import org.openeos.services.ui.form.abstractform.BFUITable;
+import org.openeos.services.ui.form.abstractform.UIAbstractForm;
 
-public abstract class SalesInvoiceForm extends BFForm<SalesInvoice> implements AbstractFormBindingForm<SalesInvoice> {
-
-	public static final int RANKING = 0;
+public abstract class SalesInvoiceForm extends UIAbstractForm<SalesInvoice> {
 
 	public BFSubForm SUBFORM_MAIN = addSubForm(null, 2);
 	public BFField FIELD_ORGANIZATION = SUBFORM_MAIN.addField(0, 0, null, "Organization", SalesInvoice.PROPERTY_ORGANIZATION);
@@ -58,16 +54,6 @@ public abstract class SalesInvoiceForm extends BFForm<SalesInvoice> implements A
 
 	public SalesInvoiceForm(String id, String name) {
 		super(id, name, SalesInvoice.class);
-	}
-
-	@Override
-	public Integer getRanking() {
-		return RANKING;
-	}
-
-	@Override
-	public BForm<SalesInvoice> getBForm() {
-		return this;
 	}
 
 	public static class SalesInvoiceEditForm extends SalesInvoiceForm {
@@ -104,13 +90,13 @@ public abstract class SalesInvoiceForm extends BFForm<SalesInvoice> implements A
 		}
 
 		@Override
-		public BPresenter<SalesInvoice> createPresenter(final BFormInstance<SalesInvoice> formInstance, SalesInvoice model) {
-			return new DocumentTypePresenterDecorator<SalesInvoice>(super.createPresenter(formInstance, model), formInstance,
+		public BPresenter createPresenter(final BFormInstance<UIBean> formInstance, UIBean model) {
+			return new DocumentTypePresenterDecorator(super.createPresenter(formInstance, model), formInstance,
 					FIELD_DOCUMENT_TYPE.getId(), FIELD_DOCUMENTNO.getId());
 		}
 	}
 
-	public static class SalesInvoiceTaxForm extends BFForm<SalesInvoiceTax> implements AbstractFormBindingForm<SalesInvoiceTax> {
+	public static class SalesInvoiceTaxForm extends UIAbstractForm<SalesInvoiceTax> {
 
 		public static final String ID = SalesInvoiceTaxForm.class.getName();
 		public static final String NAME = "Sales Invoice Tax Form";
@@ -127,16 +113,6 @@ public abstract class SalesInvoiceForm extends BFForm<SalesInvoice> implements A
 		@Override
 		public EnumSet<BindingFormCapability> getCapabilities() {
 			return EnumSet.of(BindingFormCapability.EDIT, BindingFormCapability.NEW);
-		}
-
-		@Override
-		public Integer getRanking() {
-			return RANKING;
-		}
-
-		@Override
-		public BForm<SalesInvoiceTax> getBForm() {
-			return SalesInvoiceTaxForm.this;
 		}
 
 	}

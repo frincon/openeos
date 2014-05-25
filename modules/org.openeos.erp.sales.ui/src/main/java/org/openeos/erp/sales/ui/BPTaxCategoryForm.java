@@ -17,16 +17,13 @@ package org.openeos.erp.sales.ui;
 
 import java.util.EnumSet;
 
-import org.abstractform.binding.BForm;
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSubForm;
-
 import org.openeos.erp.sales.model.BPTaxCategory;
 import org.openeos.services.ui.form.BindingFormCapability;
-import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
+import org.openeos.services.ui.form.abstractform.UIAbstractForm;
 
-public abstract class BPTaxCategoryForm extends BFForm<BPTaxCategory> implements AbstractFormBindingForm<BPTaxCategory> {
+public abstract class BPTaxCategoryForm extends UIAbstractForm<BPTaxCategory> {
 
 	public static final int RANKING = 0;
 
@@ -43,11 +40,6 @@ public abstract class BPTaxCategoryForm extends BFForm<BPTaxCategory> implements
 	@Override
 	public Integer getRanking() {
 		return RANKING;
-	}
-
-	@Override
-	public BForm<BPTaxCategory> getBForm() {
-		return this;
 	}
 
 	public static class BPTaxCategoryNewForm extends BPTaxCategoryForm {

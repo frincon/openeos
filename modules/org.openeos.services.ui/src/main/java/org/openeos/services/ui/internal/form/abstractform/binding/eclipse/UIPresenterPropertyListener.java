@@ -18,18 +18,17 @@ package org.openeos.services.ui.internal.form.abstractform.binding.eclipse;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import org.abstractform.binding.BPresenter;
 import org.eclipse.core.databinding.observable.IDiff;
 import org.eclipse.core.databinding.property.IProperty;
 import org.eclipse.core.databinding.property.ISimplePropertyListener;
 import org.eclipse.core.databinding.property.NativePropertyListener;
 
-import org.openeos.services.ui.UIBean;
-
-public abstract class UIBeanAbstractPropertyListener extends NativePropertyListener implements PropertyChangeListener {
+public abstract class UIPresenterPropertyListener extends NativePropertyListener implements PropertyChangeListener {
 
 	private String propertyName;
 
-	public UIBeanAbstractPropertyListener(IProperty property, String propertyName, ISimplePropertyListener listener) {
+	public UIPresenterPropertyListener(IProperty property, String propertyName, ISimplePropertyListener listener) {
 		super(property, listener);
 		this.propertyName = propertyName;
 	}
@@ -53,12 +52,12 @@ public abstract class UIBeanAbstractPropertyListener extends NativePropertyListe
 
 	@Override
 	protected void doAddTo(Object source) {
-		((UIBean) source).addPropertyChangeListener(propertyName, this);
+		((BPresenter) source).addPropertyChangeListener(propertyName, this);
 	}
 
 	@Override
 	protected void doRemoveFrom(Object source) {
-		((UIBean) source).removePropertyChangeListener(propertyName, this);
+		((BPresenter) source).removePropertyChangeListener(propertyName, this);
 	}
 
 }

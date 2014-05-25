@@ -19,11 +19,10 @@ import java.util.EnumSet;
 import java.util.Hashtable;
 
 import org.abstractform.binding.BForm;
+import org.openeos.services.ui.form.BindingFormCapability;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceRegistration;
-
-import org.openeos.services.ui.form.BindingFormCapability;
 
 public class AbstractFormUtils {
 
@@ -39,7 +38,7 @@ public class AbstractFormUtils {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static <S> ServiceRegistration<BForm> registerBForm(BundleContext context, BForm<? extends S> form,
+	public static <S> ServiceRegistration<BForm> registerBForm(BundleContext context, BForm<?, ? extends S> form,
 			Class<? extends S> beanClass, EnumSet<BindingFormCapability> capabilities, Integer serviceRanking) {
 		Hashtable<String, Object> properties = new Hashtable<String, Object>();
 		properties.put(Constants.SERVICE_RANKING, serviceRanking);

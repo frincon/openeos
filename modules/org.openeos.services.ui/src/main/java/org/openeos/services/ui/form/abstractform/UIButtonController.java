@@ -19,6 +19,6 @@ import org.openeos.services.ui.UIApplication;
 
 public interface UIButtonController<T> {
 
-	public void onClick(UIApplication application, T model);
+	public void onClick(UIApplication<?> application, T model);
 
 }

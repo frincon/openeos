@@ -17,18 +17,13 @@ package org.openeos.erp.core.ui.forms;
 
 import java.util.EnumSet;
 
-import org.abstractform.binding.BForm;
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSubForm;
-
 import org.openeos.erp.core.model.Organization;
 import org.openeos.services.ui.form.BindingFormCapability;
-import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
+import org.openeos.services.ui.form.abstractform.UIAbstractForm;
 
-public abstract class OrganizationForm extends BFForm<Organization> implements AbstractFormBindingForm<Organization> {
-
-	public static final Integer RANKING = 100;
+public abstract class OrganizationForm extends UIAbstractForm<Organization> {
 
 	public BFSubForm SUBFORM_MAIN = addSubForm(null, 2);
 	public BFField FIELD_CLIENT = SUBFORM_MAIN.addField(0, 0, null, "Client", Organization.PROPERTY_CLIENT);
@@ -39,16 +34,6 @@ public abstract class OrganizationForm extends BFForm<Organization> implements A
 
 	public OrganizationForm(String id, String name) {
 		super(id, name, Organization.class);
-	}
-
-	@Override
-	public Integer getRanking() {
-		return RANKING;
-	}
-
-	@Override
-	public BForm<Organization> getBForm() {
-		return this;
 	}
 
 	public static class OrganizationNewForm extends OrganizationForm {

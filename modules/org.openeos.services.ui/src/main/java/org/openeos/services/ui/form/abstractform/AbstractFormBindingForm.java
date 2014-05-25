@@ -16,11 +16,10 @@
 package org.openeos.services.ui.form.abstractform;
 
 import org.abstractform.binding.BForm;
-
 import org.openeos.services.ui.form.BindingForm;
 
-public interface AbstractFormBindingForm<T> extends BindingForm<T> {
+public interface AbstractFormBindingForm<T, U> extends BindingForm<T> {
 
-	public BForm<T> getBForm();
+	public BForm<U, T> getAbstractBForm();
 
 }

@@ -17,22 +17,16 @@ package org.openeos.erp.acct.gui;
 
 import java.util.EnumSet;
 
-import org.abstractform.binding.BForm;
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSubForm;
 import org.abstractform.binding.fluent.table.BFTableField;
-
 import org.openeos.erp.acct.model.FinancialMgmtElement;
 import org.openeos.erp.acct.model.FinancialMgmtElementValue;
 import org.openeos.services.ui.form.BindingFormCapability;
-import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
 import org.openeos.services.ui.form.abstractform.BFUITable;
+import org.openeos.services.ui.form.abstractform.UIAbstractForm;
 
-public abstract class FinancialMgmtElementForm extends BFForm<FinancialMgmtElement> implements
-		AbstractFormBindingForm<FinancialMgmtElement> {
-
-	public static final int RANKING = 0;
+public abstract class FinancialMgmtElementForm extends UIAbstractForm<FinancialMgmtElement> {
 
 	public BFSubForm SUBFORM_MAIN = addSubForm(null, 2);
 	public BFField FIELD_ORGANIZATION = SUBFORM_MAIN.addField(0, 0, null, "Organization",
@@ -52,16 +46,6 @@ public abstract class FinancialMgmtElementForm extends BFForm<FinancialMgmtEleme
 
 	public FinancialMgmtElementForm(String id, String name) {
 		super(id, name, FinancialMgmtElement.class);
-	}
-
-	@Override
-	public Integer getRanking() {
-		return RANKING;
-	}
-
-	@Override
-	public BForm<FinancialMgmtElement> getBForm() {
-		return this;
 	}
 
 	public static class FinancialMgmtElementNewForm extends FinancialMgmtElementForm {
@@ -97,8 +81,7 @@ public abstract class FinancialMgmtElementForm extends BFForm<FinancialMgmtEleme
 
 	}
 
-	public static abstract class FinancialMgmtElementValueForm extends BFForm<FinancialMgmtElementValue> implements
-			AbstractFormBindingForm<FinancialMgmtElementValue> {
+	public static abstract class FinancialMgmtElementValueForm extends UIAbstractForm<FinancialMgmtElementValue> {
 
 		public BFSubForm SUBFORM_MAIN = addSubForm(null, 2);
 		public BFField FIELD_VALUE = SUBFORM_MAIN.addField(0, 0, null, "Search Key", FinancialMgmtElementValue.PROPERTY_VALUE);
@@ -109,16 +92,6 @@ public abstract class FinancialMgmtElementForm extends BFForm<FinancialMgmtEleme
 
 		public FinancialMgmtElementValueForm(String id, String name) {
 			super(id, name, FinancialMgmtElementValue.class);
-		}
-
-		@Override
-		public Integer getRanking() {
-			return RANKING;
-		}
-
-		@Override
-		public BForm<FinancialMgmtElementValue> getBForm() {
-			return this;
 		}
 
 		public static class FinancialMgmtElementValueNewForm extends FinancialMgmtElementValueForm {

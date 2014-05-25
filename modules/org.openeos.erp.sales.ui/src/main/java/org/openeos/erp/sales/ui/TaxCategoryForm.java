@@ -17,18 +17,13 @@ package org.openeos.erp.sales.ui;
 
 import java.util.EnumSet;
 
-import org.abstractform.binding.BForm;
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSubForm;
-
 import org.openeos.erp.sales.model.TaxCategory;
 import org.openeos.services.ui.form.BindingFormCapability;
-import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
+import org.openeos.services.ui.form.abstractform.UIAbstractForm;
 
-public abstract class TaxCategoryForm extends BFForm<TaxCategory> implements AbstractFormBindingForm<TaxCategory> {
-
-	public static final int RANKING = 0;
+public abstract class TaxCategoryForm extends UIAbstractForm<TaxCategory> {
 
 	public BFSubForm SUBFORM_MAIN = addSubForm(null, 2);
 	public BFField FIELD_ORGANIZATION = SUBFORM_MAIN.addField(0, 0, null, "Organization", TaxCategory.PROPERTY_ORGANIZATION);
@@ -38,16 +33,6 @@ public abstract class TaxCategoryForm extends BFForm<TaxCategory> implements Abs
 
 	public TaxCategoryForm(String id, String name) {
 		super(id, name, TaxCategory.class);
-	}
-
-	@Override
-	public Integer getRanking() {
-		return RANKING;
-	}
-
-	@Override
-	public BForm<TaxCategory> getBForm() {
-		return this;
 	}
 
 	public static class TaxCategoryNewForm extends TaxCategoryForm {

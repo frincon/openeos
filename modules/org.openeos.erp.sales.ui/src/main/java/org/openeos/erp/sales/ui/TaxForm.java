@@ -17,42 +17,42 @@ package org.openeos.erp.sales.ui;
 
 import java.util.EnumSet;
 
-import org.abstractform.binding.BForm;
 import org.abstractform.binding.BFormInstance;
 import org.abstractform.binding.BPresenter;
-import org.abstractform.binding.fluent.BFAbstractPresenter;
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSection;
 import org.abstractform.binding.fluent.BFSubForm;
-
 import org.openeos.erp.core.model.Country;
 import org.openeos.erp.sales.model.Tax;
+import org.openeos.services.ui.UIBean;
 import org.openeos.services.ui.form.BindingFormCapability;
-import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
+import org.openeos.services.ui.form.abstractform.UIAbstractForm;
+import org.openeos.services.ui.form.abstractform.UIPresenter;
 
-public abstract class TaxForm extends BFForm<Tax> implements AbstractFormBindingForm<Tax> {
-
-	public static final int RANKING = 0;
+public abstract class TaxForm extends UIAbstractForm<Tax> {
 
 	public static final String PROPERTY_LINE_READ_ONLY = "lineReadOnly";
 	public static final String PROPERTY_FROM_REGION_READ_ONLY = "fromRegionReadOnly";
 	public static final String PROPERTY_TO_REGION_READ_ONLY = "toRegionReadOnly";
 
-	public class Presenter extends BFAbstractPresenter<Tax> {
+	public class Presenter extends UIPresenter<Tax> {
 
-		private BFormInstance<Tax> formInstance;
+		private BFormInstance<UIBean> formInstance;
 
 		private boolean lineReadOnly = true;
 		private boolean fromRegionReadOnly = true;
 		private boolean toRegionReadOnly = true;
 
-		public Presenter(BFormInstance<Tax> formInstance) {
+		public Presenter(BFormInstance<UIBean> formInstance, UIBean uiBean) {
+			super(Tax.class, uiBean);
 			this.formInstance = formInstance;
+			checkFromRegionReadOnly();
+			checkToRegionReadOnly();
+			checkLineReadOnly();
 		}
 
 		@Override
-		public void fieldHasChanged(String fieldId, Tax model) {
+		public void fieldHasChanged(String fieldId) {
 			if (fieldId.equals(FIELD_PARENT.getId())) {
 				checkLineReadOnly();
 			} else if (fieldId.equals(FIELD_FROM_COUNTRY.getId())) {
@@ -79,12 +79,6 @@ public abstract class TaxForm extends BFForm<Tax> implements AbstractFormBinding
 					lineReadOnly = formInstance.getFieldValue(FIELD_PARENT.getId()) == null);
 		}
 
-		@Override
-		public void modelHasChanged(String propertyName, Tax model) {
-			// TODO Auto-generated method stub
-
-		}
-
 		public boolean isLineReadOnly() {
 			return lineReadOnly;
 		}
@@ -98,11 +92,16 @@ public abstract class TaxForm extends BFForm<Tax> implements AbstractFormBinding
 		}
 
 		@Override
-		public void setModel(Tax model) {
-			super.setModel(model);
-			checkFromRegionReadOnly();
-			checkToRegionReadOnly();
-			checkLineReadOnly();
+		public Object getPropertyValue(String propertyName) {
+			if (PROPERTY_FROM_REGION_READ_ONLY.equals(propertyName)) {
+				return isFromRegionReadOnly();
+			} else if (PROPERTY_TO_REGION_READ_ONLY.equals(propertyName)) {
+				return isToRegionReadOnly();
+			} else if (PROPERTY_LINE_READ_ONLY.equals(propertyName)) {
+				return isLineReadOnly();
+			} else {
+				return super.getPropertyValue(propertyName);
+			}
 		}
 
 	}
@@ -134,18 +133,8 @@ public abstract class TaxForm extends BFForm<Tax> implements AbstractFormBinding
 	}
 
 	@Override
-	public Integer getRanking() {
-		return RANKING;
-	}
-
-	@Override
-	public BForm<Tax> getBForm() {
-		return this;
-	}
-
-	@Override
-	public BPresenter<Tax> createPresenter(BFormInstance<Tax> formInstance, Tax model) {
-		return new Presenter(formInstance);
+	public BPresenter createPresenter(BFormInstance<UIBean> formInstance, UIBean model) {
+		return new Presenter(formInstance, model);
 	}
 
 	public static class TaxNewForm extends TaxForm {

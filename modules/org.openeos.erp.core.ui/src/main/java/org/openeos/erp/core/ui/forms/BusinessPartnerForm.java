@@ -17,27 +17,22 @@ package org.openeos.erp.core.ui.forms;
 
 import java.util.EnumSet;
 
-import org.abstractform.binding.BForm;
 import org.abstractform.binding.fluent.BFDrawer;
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSubForm;
 import org.abstractform.binding.fluent.table.BFTable;
 import org.abstractform.binding.fluent.table.BFTableField;
-
 import org.openeos.erp.core.model.BPLocation;
 import org.openeos.erp.core.model.BusinessPartner;
 import org.openeos.erp.core.model.Location;
 import org.openeos.services.ui.UIApplication;
 import org.openeos.services.ui.form.BindingFormCapability;
-import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
 import org.openeos.services.ui.form.abstractform.BFUIButton;
 import org.openeos.services.ui.form.abstractform.BFUITable;
+import org.openeos.services.ui.form.abstractform.UIAbstractForm;
 import org.openeos.services.ui.form.abstractform.UIButtonController;
 
-public abstract class BusinessPartnerForm extends BFForm<BusinessPartner> implements AbstractFormBindingForm<BusinessPartner> {
-
-	public static final Integer RANKING = 100;
+public abstract class BusinessPartnerForm extends UIAbstractForm<BusinessPartner> {
 
 	public BFSubForm SUBFORM_MAIN = addSubForm(null, 2);
 	public BFField FIELD_ORGAINZATION = SUBFORM_MAIN.addField(0, 0, null, "Organization", BusinessPartner.PROPERTY_ORGANIZATION);
@@ -61,16 +56,6 @@ public abstract class BusinessPartnerForm extends BFForm<BusinessPartner> implem
 
 	public BusinessPartnerForm(String id, String name) {
 		super(id, name, BusinessPartner.class);
-	}
-
-	@Override
-	public Integer getRanking() {
-		return RANKING;
-	}
-
-	@Override
-	public BForm<BusinessPartner> getBForm() {
-		return this;
 	}
 
 	public static class BusinessPartnerNewForm extends BusinessPartnerForm {
@@ -106,7 +91,7 @@ public abstract class BusinessPartnerForm extends BFForm<BusinessPartner> implem
 		}
 	}
 
-	public static abstract class BPLocationForm extends BFForm<BPLocation> implements AbstractFormBindingForm<BPLocation> {
+	public static abstract class BPLocationForm extends UIAbstractForm<BPLocation> {
 
 		public BFSubForm SUBFORM_MAIN = addSubForm(null, 1);
 		public BFField FIELD_ORGANIZATION = SUBFORM_MAIN.addField(0, 0, null, "Organization", BPLocation.PROPERTY_ORGANIZATION);
@@ -116,23 +101,13 @@ public abstract class BusinessPartnerForm extends BFForm<BusinessPartner> implem
 				BFUIButton.class).buttonController(new UIButtonController<Location>() {
 
 			@Override
-			public void onClick(UIApplication application, Location model) {
+			public void onClick(UIApplication<?> application, Location model) {
 				application.showEditFormDialog(Location.class, model);
 			}
 		});
 
 		public BPLocationForm(String id, String name) {
 			super(id, name, BPLocation.class);
-		}
-
-		@Override
-		public Integer getRanking() {
-			return RANKING;
-		}
-
-		@Override
-		public BForm<BPLocation> getBForm() {
-			return this;
 		}
 
 		public static class New extends BPLocationForm {

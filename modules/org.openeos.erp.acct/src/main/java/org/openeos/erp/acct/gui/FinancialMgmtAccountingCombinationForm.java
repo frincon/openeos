@@ -17,19 +17,13 @@ package org.openeos.erp.acct.gui;
 
 import java.util.EnumSet;
 
-import org.abstractform.binding.BForm;
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSubForm;
-
 import org.openeos.erp.acct.model.FinancialMgmtAccountingCombination;
 import org.openeos.services.ui.form.BindingFormCapability;
-import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
+import org.openeos.services.ui.form.abstractform.UIAbstractForm;
 
-public abstract class FinancialMgmtAccountingCombinationForm extends BFForm<FinancialMgmtAccountingCombination> implements
-		AbstractFormBindingForm<FinancialMgmtAccountingCombination> {
-
-	public static final int RANKING = 0;
+public abstract class FinancialMgmtAccountingCombinationForm extends UIAbstractForm<FinancialMgmtAccountingCombination> {
 
 	public BFSubForm SUBFORM_MAIN = addSubForm(null, 2);
 	public BFField FIELD_ORGANIZATION = SUBFORM_MAIN.addField(0, 0, null, "Organization",
@@ -45,16 +39,6 @@ public abstract class FinancialMgmtAccountingCombinationForm extends BFForm<Fina
 
 	public FinancialMgmtAccountingCombinationForm(String id, String name) {
 		super(id, name, FinancialMgmtAccountingCombination.class);
-	}
-
-	@Override
-	public Integer getRanking() {
-		return RANKING;
-	}
-
-	@Override
-	public BForm<FinancialMgmtAccountingCombination> getBForm() {
-		return this;
 	}
 
 	public static class FinancialMgmtAccountingCombinationNewForm extends FinancialMgmtAccountingCombinationForm {

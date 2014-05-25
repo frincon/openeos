@@ -15,46 +15,22 @@
  */
 package org.openeos.services.ui.internal.form.abstractform.binding.eclipse;
 
-import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.databinding.property.set.ISetProperty;
-import org.eclipse.core.databinding.property.value.IValueProperty;
-
 import org.openeos.services.dictionary.IDictionaryService;
 import org.openeos.services.dictionary.model.ICollectionPropertyDefinition;
 
-public class UIBeanProperties {
+public class UIPresenterProperties {
 
-	private UIBeanProperties() {
-	}
-
-	public static IValueProperty value(Class beanClass, String propertyName, IDictionaryService dictionaryService) {
-		String[] propertyNames = split(propertyName);
-
-		PropertyDescriptor propertyDescriptor;
-		IValueProperty property;
-		propertyDescriptor = null;
-		property = new UIBeanValueProperty(propertyName, dictionaryService.getClassDefinition(beanClass)
-				.getPropertyDefinition(propertyName).getPropertyClass());
-
-		return property;
-		/*
-		 * IBeanValueProperty beanProperty = new
-		 * BeanValuePropertyDecorator(property, propertyDescriptor);
-		 * 
-		 * for (int i = 1; i < propertyNames.length; i++) {
-		 * beanProperty = beanProperty.value(propertyNames[i]);
-		 * }
-		 * return beanProperty;
-		 */
+	private UIPresenterProperties() {
 	}
 
 	public static ISetProperty set(Class<?> beanClass, String propertyName, IDictionaryService dictionaryService) {
 		ICollectionPropertyDefinition colDef = dictionaryService.getClassDefinition(beanClass).getCollectionPropertyDefinition(
 				propertyName);
-		return new UIBeanSetProperty(propertyName, colDef.getElementClass(), colDef.getParentPropertyName());
+		return new UIPresenterSetProperty(propertyName, colDef.getElementClass(), colDef.getParentPropertyName());
 	}
 
 	private static String[] split(String propertyName) {
