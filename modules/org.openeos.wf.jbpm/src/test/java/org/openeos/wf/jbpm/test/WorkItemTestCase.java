@@ -15,12 +15,13 @@
  */
 package org.openeos.wf.jbpm.test;
 
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 import static org.openeos.jbpm.integration.test.JbpmIntegrationConfiguration.*;
 import static org.openeos.test.UnoConfiguration.*;
 import static org.openeos.wf.test.WorkflowConfiguration.*;
 import static org.ops4j.pax.exam.CoreOptions.*;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 import java.net.URL;
 import java.util.Hashtable;
@@ -37,6 +38,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.openeos.wf.Deployment;
+import org.openeos.wf.JavaServiceTaskService;
+import org.openeos.wf.WorkflowDefinition;
+import org.openeos.wf.WorkflowEngine;
+import org.openeos.wf.WorkflowService;
+import org.openeos.wf.jbpm.internal.JbpmJavaServiceTaskHandler;
 import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.PaxExam;
@@ -50,13 +57,6 @@ import org.osgi.framework.ServiceRegistration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.openeos.wf.Deployment;
-import org.openeos.wf.JavaServiceTaskService;
-import org.openeos.wf.WorkflowDefinition;
-import org.openeos.wf.WorkflowEngine;
-import org.openeos.wf.WorkflowService;
-import org.openeos.wf.jbpm.internal.JbpmJavaServiceTaskHandler;
-
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
 public class WorkItemTestCase implements Constants, org.openeos.wf.Constants {
@@ -64,22 +64,22 @@ public class WorkItemTestCase implements Constants, org.openeos.wf.Constants {
 	private static final Logger LOG = LoggerFactory.getLogger(WorkItemTestCase.class);
 
 	@Inject
-	@Filter(timeout = 10000)
+	@Filter(timeout = 20000)
 	private WorkflowService workflowService;
 
 	@Inject
 	private BundleContext bc;
 
 	@Inject
-	@Filter(timeout = 10000)
+	@Filter(timeout = 20000)
 	private WorkflowEngine engine;
 
 	@Inject
-	@Filter(timeout = 10000)
+	@Filter(timeout = 20000)
 	private StatefulKnowledgeSession session;
 
 	@Inject
-	@Filter(timeout = 10000)
+	@Filter(timeout = 20000)
 	private JavaServiceTaskService javaServiceTaskService;
 
 	private WorkflowDefinition def1;
