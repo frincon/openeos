@@ -17,17 +17,17 @@ package org.openeos.services.ui.internal.form.abstractform;
 
 import java.util.EnumSet;
 
-import org.abstractform.binding.BForm;
 import org.openeos.services.ui.form.BindingFormCapability;
 import org.openeos.services.ui.form.abstractform.AbstractFormBindingForm;
+import org.openeos.services.ui.form.abstractform.UIBForm;
 
-public class AbstractFormBindingFormImpl<T> implements AbstractFormBindingForm<T, T> {
+public class AbstractFormBindingFormImpl<T> implements AbstractFormBindingForm<T> {
 
-	private BForm<T, T> bForm;
+	private UIBForm<T> bForm;
 	private Integer ranking;
 	private EnumSet<BindingFormCapability> capabilities;
 
-	public AbstractFormBindingFormImpl(BForm<T, T> bForm, Integer ranking, EnumSet<BindingFormCapability> capabilities) {
+	public AbstractFormBindingFormImpl(UIBForm<T> bForm, Integer ranking, EnumSet<BindingFormCapability> capabilities) {
 		this.bForm = bForm;
 		this.capabilities = capabilities;
 	}
@@ -48,7 +48,7 @@ public class AbstractFormBindingFormImpl<T> implements AbstractFormBindingForm<T
 	}
 
 	@Override
-	public BForm<T, T> getAbstractBForm() {
+	public UIBForm<T> getAbstractBForm() {
 		return bForm;
 	}
 

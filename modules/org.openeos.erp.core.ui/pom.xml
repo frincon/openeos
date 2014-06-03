@@ -75,7 +75,11 @@
 			<groupId>org.abstractform</groupId>
 			<artifactId>org.abstractform.binding</artifactId>
 			<version>${abstractform.version}</version>
-			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.abstractform</groupId>
+			<artifactId>org.abstractform.binding.fluent</artifactId>
+			<version>${abstractform.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>

@@ -16,17 +16,17 @@
 
 package org.openeos.services.ui.form.abstractform;
 
-import org.abstractform.binding.BForm;
 import org.abstractform.binding.BFormInstance;
 import org.abstractform.binding.BPresenter;
 import org.abstractform.binding.fluent.BFForm;
+import org.abstractform.binding.fluent.BeanConstants;
 import org.openeos.services.ui.UIBean;
 
 /**
  * @author Fernando Rincon Martin <frm.rincon@gmail.com>
  * 
  */
-public abstract class UIAbstractForm<T> extends BFForm<UIBean, T> implements AbstractFormBindingForm<T, UIBean> {
+public abstract class UIAbstractForm<T> extends BFForm<UIBean> implements UIBForm<T>, AbstractFormBindingForm<T> {
 
 	public static final Integer DEFAULT_RANKING = 0;
 
@@ -36,7 +36,8 @@ public abstract class UIAbstractForm<T> extends BFForm<UIBean, T> implements Abs
 	 * @param beanClass
 	 */
 	protected UIAbstractForm(String id, String name, Class<T> uiBeanClass) {
-		super(id, name, uiBeanClass);
+		super(id, name);
+		putExtraFormObject(BeanConstants.EXTRA_OBJECT_BEAN_CLASS, uiBeanClass);
 	}
 
 	/*
@@ -56,13 +57,19 @@ public abstract class UIAbstractForm<T> extends BFForm<UIBean, T> implements Abs
 	 * getAbstractBForm()
 	 */
 	@Override
-	public BForm<UIBean, T> getAbstractBForm() {
+	public UIBForm<T> getAbstractBForm() {
 		return this;
 	}
 
 	@Override
-	public BPresenter createPresenter(BFormInstance<UIBean> formInstance, UIBean model) {
+	public BPresenter createPresenter(BFormInstance<UIBean, ?> formInstance, UIBean model) {
 		return new UIPresenter<T>(getBeanClass(), model);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Class<T> getBeanClass() {
+		return (Class<T>) getExtraFormObject(BeanConstants.EXTRA_OBJECT_BEAN_CLASS);
 	}
 
 }

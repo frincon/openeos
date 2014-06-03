@@ -26,11 +26,11 @@ public class DocumentTypePresenterDecorator implements BPresenter {
 	private boolean documentNoEstablished = false;
 
 	private BPresenter delegate;
-	private BFormInstance<?> formInstance;
+	private BFormInstance<?, ?> formInstance;
 	private String fieldDocumentTypeId;
 	private String fieldDocumentNoId;
 
-	public DocumentTypePresenterDecorator(BPresenter delegate, BFormInstance<?> formInstance, String fieldDocumentTypeId,
+	public DocumentTypePresenterDecorator(BPresenter delegate, BFormInstance<?, ?> formInstance, String fieldDocumentTypeId,
 			String fieldDocumentNoId) {
 		this.delegate = delegate;
 		this.formInstance = formInstance;

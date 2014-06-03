@@ -18,8 +18,8 @@ package org.openeos.erp.core.ui.forms;
 import java.util.SortedSet;
 
 import org.abstractform.binding.fluent.BFField;
-import org.abstractform.binding.fluent.BFForm;
 import org.abstractform.binding.fluent.BFSubForm;
+import org.abstractform.binding.fluent.BeanBasedBFForm;
 import org.abstractform.core.FormInstance;
 import org.abstractform.core.selector.SelectorConstants;
 import org.abstractform.core.selector.SelectorProvider;
@@ -32,7 +32,7 @@ import org.openeos.erp.core.ui.internal.ClientFilterProvider;
 import org.openeos.services.ui.form.abstractform.UIBeanSelectorProvider;
 import org.springframework.transaction.annotation.Transactional;
 
-public class ChangeProfileForm extends BFForm<ChangeProfileBean, ChangeProfileBean> {
+public class ChangeProfileForm extends BeanBasedBFForm<ChangeProfileBean> {
 
 	public static final String ID = ChangeProfileForm.class.getName();
 	public static final String NAME = "Change Profile Form";

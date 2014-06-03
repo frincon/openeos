@@ -27,7 +27,7 @@ import java.util.TreeSet;
 
 import org.abstractform.binding.BFormInstance;
 import org.abstractform.core.FormInstance;
-import org.abstractform.core.selector.AbstractSelectorProvider;
+import org.abstractform.core.fluent.selector.AbstractSelectorProvider;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
@@ -37,12 +37,11 @@ import org.hibernate.type.StringType;
 import org.hibernate.type.Type;
 import org.mvel2.CompileException;
 import org.mvel2.MVEL;
+import org.openeos.services.dictionary.IIdentificationCapable;
+import org.openeos.services.ui.internal.UIBeanImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
-
-import org.openeos.services.dictionary.IIdentificationCapable;
-import org.openeos.services.ui.internal.UIBeanImpl;
 
 public class UIBeanSelectorProvider<T> extends AbstractSelectorProvider<T> {
 
@@ -59,7 +58,7 @@ public class UIBeanSelectorProvider<T> extends AbstractSelectorProvider<T> {
 		this.beanClass = beanClass;
 		this.formInstance = formInstance;
 		this.sqlRestriction = sqlRestriction;
-		if (sqlRestriction != null && formInstance instanceof BFormInstance<?>) {
+		if (sqlRestriction != null && formInstance instanceof BFormInstance<?, ?>) {
 
 			this.formInstance.addFieldChangeListener(new PropertyChangeListener() {
 
@@ -76,8 +75,8 @@ public class UIBeanSelectorProvider<T> extends AbstractSelectorProvider<T> {
 	@Transactional(readOnly = true)
 	public SortedSet<T> getElements() {
 		Criteria crit = sessionFactory.getCurrentSession().createCriteria(beanClass);
-		if (sqlRestriction != null && formInstance instanceof BFormInstance<?>) {
-			Object value = ((BFormInstance<?>) formInstance).getValue();
+		if (sqlRestriction != null && formInstance instanceof BFormInstance<?, ?>) {
+			Object value = ((BFormInstance<?, ?>) formInstance).getValue();
 			if (value instanceof UIBeanImpl) {
 				value = ((UIBeanImpl) value).getBeanWrapped();
 			}

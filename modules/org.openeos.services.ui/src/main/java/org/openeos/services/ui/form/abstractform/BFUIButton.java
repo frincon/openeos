@@ -23,8 +23,8 @@ public class BFUIButton extends BFField {
 	public static final String TYPE_UI_BUTTON = BFUIButton.class.getPackage().getName() + ".TYPE_UI_BUTTON";
 	public static final String EXTRA_UI_BUTTON_CONTROLLER = BFUIButton.class.getPackage().getName() + ".EXTRA_UI_BUTTON_CONTROLLER";
 
-	public BFUIButton(String id, String name, Class<?> beanClass, String propertyName) {
-		super(id, name, beanClass, propertyName);
+	public BFUIButton(String id, String name, String propertyName) {
+		super(id, name, propertyName);
 		setType(TYPE_UI_BUTTON);
 	}
 
@@ -59,8 +59,8 @@ public class BFUIButton extends BFField {
 	}
 
 	@Override
-	public BFUIButton readOnlyPresenterProperty(String readOnlyPresenterProperty) {
-		return (BFUIButton) super.readOnlyPresenterProperty(readOnlyPresenterProperty);
+	public BFUIButton readOnlyPropertyName(String readOnlyPropertyName) {
+		return (BFUIButton) super.readOnlyPropertyName(readOnlyPropertyName);
 	}
 
 	@Override

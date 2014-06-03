@@ -17,14 +17,14 @@ package org.openeos.services.ui.vaadin.internal.abstractform;
 
 import org.abstractform.binding.vaadin.VaadinBindingFormToolkit;
 import org.abstractform.core.FormToolkit;
-import org.abstractform.vaadin.VaadinFormInstance;
+
+import com.vaadin.ui.Component;
 
 // This class is built because the blueprint container not find the constructor
 public class AbstractFormVaadinBuilder {
 
-	
 	@SuppressWarnings("unchecked")
 	public VaadinBindingFormToolkit createFormToolkit(Object formToolkitDelegate) {
-		return new VaadinBindingFormToolkit((FormToolkit<VaadinFormInstance>) formToolkitDelegate);
+		return new VaadinBindingFormToolkit((FormToolkit<Component>) formToolkitDelegate);
 	}
 }

@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.abstractform.binding.BBindingToolkit;
+import org.abstractform.binding.BindingToolkit;
 import org.abstractform.binding.vaadin.VaadinBindingFormInstance;
 import org.abstractform.binding.vaadin.VaadinBindingFormToolkit;
 import org.openeos.services.dictionary.IDictionaryService;
@@ -42,7 +42,7 @@ import com.vaadin.ui.Window.Notification;
 public class AbstractFormVaadinTabImpl extends AbstractVaadinTabImpl {
 
 	private VaadinBindingFormToolkit vaadinToolKit;
-	private BBindingToolkit bindingToolkit;
+	private BindingToolkit bindingToolkit;
 	private FormRegistryService formRegistryService;
 	private IDictionaryService dictionaryService;
 
@@ -53,7 +53,7 @@ public class AbstractFormVaadinTabImpl extends AbstractVaadinTabImpl {
 
 	public AbstractFormVaadinTabImpl(ITabDefinition tabDefinition, IVaadinContainerFactory containerFactory,
 			UIApplication<IUnoVaadinApplication> application, IDictionaryService dictionaryService,
-			VaadinBindingFormToolkit vaadinToolKit, BBindingToolkit bindingToolkit, FormRegistryService formRegistryService) {
+			VaadinBindingFormToolkit vaadinToolKit, BindingToolkit bindingToolkit, FormRegistryService formRegistryService) {
 		super(tabDefinition, containerFactory, application);
 		this.vaadinToolKit = vaadinToolKit;
 		this.bindingToolkit = bindingToolkit;

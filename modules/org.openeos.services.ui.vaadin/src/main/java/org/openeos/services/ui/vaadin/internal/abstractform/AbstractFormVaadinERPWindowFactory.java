@@ -15,9 +15,8 @@
  */
 package org.openeos.services.ui.vaadin.internal.abstractform;
 
-import org.abstractform.binding.BBindingToolkit;
+import org.abstractform.binding.BindingToolkit;
 import org.abstractform.binding.vaadin.VaadinBindingFormToolkit;
-
 import org.openeos.services.dictionary.IDictionaryService;
 import org.openeos.services.ui.UIApplication;
 import org.openeos.services.ui.action.UIEntityActionManager;
@@ -27,18 +26,19 @@ import org.openeos.services.ui.vaadin.IVaadinContainerFactory;
 import org.openeos.services.ui.vaadin.VaadinWindow;
 import org.openeos.services.ui.vaadin.internal.DefaultVaadinERPWindowFactory;
 import org.openeos.vaadin.main.IUnoVaadinApplication;
+
 import com.vaadin.ui.Component;
 import com.vaadin.ui.FormFieldFactory;
 
 public class AbstractFormVaadinERPWindowFactory extends DefaultVaadinERPWindowFactory {
 
 	private VaadinBindingFormToolkit vaadinToolkit;
-	private BBindingToolkit bindingToolkit;
+	private BindingToolkit bindingToolkit;
 	private FormRegistryService formRegistryService;
 	private UIEntityActionManager uiEntityActionManager;
 
 	public AbstractFormVaadinERPWindowFactory(IDictionaryService dictionaryService, IVaadinContainerFactory containerFactory,
-			FormFieldFactory formFieldFactory, VaadinBindingFormToolkit vaadinToolkit, BBindingToolkit bindingToolkit,
+			FormFieldFactory formFieldFactory, VaadinBindingFormToolkit vaadinToolkit, BindingToolkit bindingToolkit,
 			FormRegistryService formRegistryService, UIEntityActionManager uiEntityActionManager) {
 		super(dictionaryService, containerFactory, formFieldFactory);
 		this.vaadinToolkit = vaadinToolkit;

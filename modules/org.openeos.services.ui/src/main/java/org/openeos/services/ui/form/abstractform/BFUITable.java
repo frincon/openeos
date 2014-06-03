@@ -17,7 +17,6 @@ package org.openeos.services.ui.form.abstractform;
 
 import org.abstractform.binding.fluent.table.BFTable;
 import org.abstractform.binding.validation.Validator;
-
 import org.openeos.services.ui.UIDAOService;
 import org.openeos.services.ui.internal.form.abstractform.UITableControllerImpl;
 
@@ -27,7 +26,7 @@ public class BFUITable extends BFTable {
 	public static final String EXTRA_TABLE_CONTROLLER = BFUITable.class.getPackage().getName() + ".EXTRA_TABLE_CONTROLLER";
 
 	public BFUITable(String id, String name, Class<?> beanClass, String propertyName, UIDAOService uidaoService) {
-		super(id, name, beanClass, propertyName);
+		super(id, name, propertyName);
 		setType(TYPE_UITABLE);
 		setTableController(new UITableControllerImpl(uidaoService, beanClass, null));
 	}
@@ -81,8 +80,8 @@ public class BFUITable extends BFTable {
 	}
 
 	@Override
-	public BFUITable readOnlyPresenterProperty(String readOnlyPresenterProperty) {
-		return (BFUITable) super.readOnlyPresenterProperty(readOnlyPresenterProperty);
+	public BFUITable readOnlyPropertyName(String readOnlyPropertyName) {
+		return (BFUITable) super.readOnlyPropertyName(readOnlyPropertyName);
 	}
 
 	@Override

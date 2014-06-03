@@ -13,12 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.openeos.services.ui.form.abstractform;
 
-import org.openeos.services.ui.form.BindingForm;
+import org.abstractform.binding.BForm;
+import org.openeos.services.ui.UIBean;
 
-public interface AbstractFormBindingForm<T> extends BindingForm<T> {
+/**
+ * @author Fernando Rincon Martin <frm.rincon@gmail.com>
+ * 
+ */
+public interface UIBForm<S> extends BForm<UIBean> {
 
-	public UIBForm<T> getAbstractBForm();
+	public Class<S> getBeanClass();
 
 }

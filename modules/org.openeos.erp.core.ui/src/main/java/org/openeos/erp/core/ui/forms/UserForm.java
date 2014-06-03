@@ -46,10 +46,10 @@ public abstract class UserForm extends UIAbstractForm<User> {
 
 	public UserForm(String id, String name) {
 		super(id, name, User.class);
-		validator(new Validator<BFormInstance<UIBean>>() {
+		validator(new Validator<BFormInstance<UIBean, ?>>() {
 
 			@Override
-			public List<String> validate(BFormInstance<UIBean> value) {
+			public List<String> validate(BFormInstance<UIBean, ?> value) {
 				String password1 = (String) value.getFieldValue(FIELD_PASSWORD.getId());
 				String password2 = (String) value.getFieldValue(FIELD_CONFIRM_PASSWORD.getId());
 				if (password1 != null) {

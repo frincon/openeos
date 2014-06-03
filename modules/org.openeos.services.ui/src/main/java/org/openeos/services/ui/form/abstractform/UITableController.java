@@ -18,15 +18,14 @@ package org.openeos.services.ui.form.abstractform;
 import java.util.Collection;
 
 import org.abstractform.binding.BFormInstance;
-
 import org.openeos.services.ui.UIApplication;
 
 public interface UITableController<T> {
 
-	public void onEdit(UIApplication<?> application, BFormInstance<?> formInstance, Collection<T> collection, T model);
+	public void onEdit(UIApplication<?> application, BFormInstance<?, ?> formInstance, Collection<T> collection, T model);
 
-	public void onNew(UIApplication<?> application, BFormInstance<?> formInstance, Collection<T> collection);
+	public void onNew(UIApplication<?> application, BFormInstance<?, ?> formInstance, Collection<T> collection);
 
-	public void onDelete(UIApplication<?> application, BFormInstance<?> formInstance, Collection<T> collection, T model);
+	public void onDelete(UIApplication<?> application, BFormInstance<?, ?> formInstance, Collection<T> collection, T model);
 
 }

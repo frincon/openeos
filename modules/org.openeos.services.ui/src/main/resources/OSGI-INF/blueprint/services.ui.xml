@@ -44,7 +44,7 @@
 	<bean id="formRegistryService" class="org.openeos.services.ui.internal.form.FormRegistryServiceImpl" />
 	<service interface="org.openeos.services.ui.form.FormRegistryService" ref="formRegistryService" />
 
-	<reference-list availability="optional" interface="org.abstractform.binding.BForm">
+	<reference-list availability="optional" interface="org.openeos.services.ui.form.abstractform.UIBForm">
 		<reference-listener bind-method="bindAbstractBForm" unbind-method="unbindAbstractBForm">
 			<bean class="org.openeos.services.ui.internal.form.abstractform.AbstractFormRegistry">
 				<property name="formRegistryService" ref="formRegistryService" />

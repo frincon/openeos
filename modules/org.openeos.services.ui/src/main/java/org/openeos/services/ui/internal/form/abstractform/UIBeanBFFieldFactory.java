@@ -15,15 +15,17 @@
  */
 package org.openeos.services.ui.internal.form.abstractform;
 
+import java.util.Map;
+
 import org.abstractform.binding.BField;
 import org.abstractform.binding.fluent.BFField;
 import org.abstractform.binding.fluent.BFFieldFactory;
+import org.abstractform.binding.fluent.BeanConstants;
 import org.abstractform.core.FormInstance;
 import org.abstractform.core.selector.SelectorConstants;
 import org.abstractform.core.selector.SelectorProvider;
 import org.abstractform.core.selector.SelectorProviderFactory;
 import org.hibernate.SessionFactory;
-
 import org.openeos.dao.ListType;
 import org.openeos.dao.ListTypeService;
 import org.openeos.services.dictionary.IDictionaryService;
@@ -64,57 +66,84 @@ public class UIBeanBFFieldFactory implements BFFieldFactory {
 		this.listTypeService = listTypeService;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.abstractform.binding.fluent.BFFieldFactory#buildBFField(java.lang
+	 * .String, java.lang.String, java.lang.String, java.util.Map)
+	 */
 	@Override
-	public BFField buildBFField(String id, String name, Class<?> beanClass, String propertyName) {
-		BFField field = delegateFieldFactory.buildBFField(id, name, beanClass, propertyName);
-		IClassDefinition classDef = dictionaryService.getClassDefinition(beanClass);
-		if (classDef != null) {
-			IPropertyDefinition propertyDef = classDef.getPropertyDefinition(propertyName);
-			field.setRequired(propertyDef.isRequired());
+	public BFField buildBFField(String id, String name, String propertyName, Map<String, Object> extraFormObjects) {
+		BFField field = delegateFieldFactory.buildBFField(id, name, propertyName, extraFormObjects);
+		if (extraFormObjects.containsKey(BeanConstants.EXTRA_OBJECT_BEAN_CLASS)) {
+			Class<?> beanClass = (Class<?>) extraFormObjects.get(BeanConstants.EXTRA_OBJECT_BEAN_CLASS);
+			IClassDefinition classDef = dictionaryService.getClassDefinition(beanClass);
+			if (classDef != null) {
+				IPropertyDefinition propertyDef = classDef.getPropertyDefinition(propertyName);
+				field.setRequired(propertyDef.isRequired());
+			}
+			checkField(beanClass, field);
 		}
-		checkField(beanClass, field);
 		return field;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.abstractform.binding.fluent.BFFieldFactory#buildBFField(java.lang
+	 * .String, java.lang.String, java.lang.String, java.lang.Class,
+	 * java.util.Map)
+	 */
 	@Override
-	public <T extends BFField> T buildBFField(String id, String name, Class<?> beanClass, String propertyName, Class<T> fieldClass) {
-		if (fieldClass.equals(BFUITable.class)) {
+	public <T extends BFField> T buildBFField(String id, String name, String propertyName, Class<T> fieldClass,
+			Map<String, Object> extraFormObjects) {
+		Class<?> beanClass = (Class<?>) extraFormObjects.get(BeanConstants.EXTRA_OBJECT_BEAN_CLASS);
+		if (beanClass != null && fieldClass.equals(BFUITable.class)) {
 			return (T) new BFUITable(id, name, beanClass, propertyName, uidaoService);
-		} else if (fieldClass.equals(BFUIButton.class)) {
-			return (T) new BFUIButton(id, name, beanClass, propertyName);
+		} else if (beanClass != null && fieldClass.equals(BFUIButton.class)) {
+			return (T) new BFUIButton(id, name, propertyName);
+		} else {
+			T field = delegateFieldFactory.buildBFField(id, name, propertyName, fieldClass, extraFormObjects);
+			if (beanClass != null) {
+				checkField(beanClass, field);
+			}
+			return field;
 		}
-		T field = delegateFieldFactory.buildBFField(id, name, beanClass, propertyName, fieldClass);
-		checkField(beanClass, field);
-		return field;
 	}
 
 	private void checkField(Class<?> beanClass, BFField field) {
 		if (field.getType() == null) {
-			final Class<?> propertyClass = field.getPropertyDescriptor().getPropertyType();
-			if (dictionaryService.getClassDefinition(propertyClass) != null) {
-				field.setType(SelectorConstants.TYPE_SELECTOR);
-				if (field.getExtra(SelectorConstants.EXTRA_SELECTOR_PROVIDER_FACTORY) == null) {
-					final String sqlValidation = checkForSqlValidation(beanClass, field);
-					SelectorProviderFactory factory = new SelectorProviderFactory() {
+			IClassDefinition beanClassDef = dictionaryService.getClassDefinition(beanClass);
+			IPropertyDefinition fieldPropertyDef = beanClassDef.getPropertyDefinition(field.getPropertyName());
+			if (fieldPropertyDef != null) {
+				final Class<?> propertyClass = fieldPropertyDef.getPropertyClass();
+				if (dictionaryService.getClassDefinition(propertyClass) != null) {
+					field.setType(SelectorConstants.TYPE_SELECTOR);
+					if (field.getExtra(SelectorConstants.EXTRA_SELECTOR_PROVIDER_FACTORY) == null) {
+						final String sqlValidation = checkForSqlValidation(beanClass, field);
+						SelectorProviderFactory factory = new SelectorProviderFactory() {
 
-						@Override
-						public SelectorProvider<?> createSelectorProvider(FormInstance formInstance) {
-							return new UIBeanSelectorProvider(sessionFactory, propertyClass, formInstance, sqlValidation);
-						}
-					};
-					field.setExtra(SelectorConstants.EXTRA_SELECTOR_PROVIDER_FACTORY, factory);
-				}
-			} else if (ListType.class.isAssignableFrom(propertyClass)) {
-				field.setType(SelectorConstants.TYPE_SELECTOR);
-				if (field.getExtra(SelectorConstants.EXTRA_SELECTOR_PROVIDER_FACTORY) == null) {
-					SelectorProviderFactory factory = new SelectorProviderFactory() {
+							@Override
+							public SelectorProvider<?> createSelectorProvider(FormInstance formInstance) {
+								return new UIBeanSelectorProvider(sessionFactory, propertyClass, formInstance, sqlValidation);
+							}
+						};
+						field.setExtra(SelectorConstants.EXTRA_SELECTOR_PROVIDER_FACTORY, factory);
+					}
+				} else if (ListType.class.isAssignableFrom(propertyClass)) {
+					field.setType(SelectorConstants.TYPE_SELECTOR);
+					if (field.getExtra(SelectorConstants.EXTRA_SELECTOR_PROVIDER_FACTORY) == null) {
+						SelectorProviderFactory factory = new SelectorProviderFactory() {
 
-						@Override
-						public SelectorProvider<?> createSelectorProvider(FormInstance formInstance) {
-							return new ListTypeSelectorProvider<ListType>(listTypeService, (Class<ListType>) propertyClass);
-						}
-					};
-					field.setExtra(SelectorConstants.EXTRA_SELECTOR_PROVIDER_FACTORY, factory);
+							@Override
+							public SelectorProvider<?> createSelectorProvider(FormInstance formInstance) {
+								return new ListTypeSelectorProvider<ListType>(listTypeService, (Class<ListType>) propertyClass);
+							}
+						};
+						field.setExtra(SelectorConstants.EXTRA_SELECTOR_PROVIDER_FACTORY, factory);
+					}
 				}
 			}
 		}

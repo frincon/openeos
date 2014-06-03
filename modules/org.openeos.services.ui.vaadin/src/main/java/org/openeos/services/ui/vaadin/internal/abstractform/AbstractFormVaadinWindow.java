@@ -15,9 +15,8 @@
  */
 package org.openeos.services.ui.vaadin.internal.abstractform;
 
-import org.abstractform.binding.BBindingToolkit;
+import org.abstractform.binding.BindingToolkit;
 import org.abstractform.binding.vaadin.VaadinBindingFormToolkit;
-
 import org.openeos.services.dictionary.IDictionaryService;
 import org.openeos.services.ui.UIApplication;
 import org.openeos.services.ui.form.FormRegistryService;
@@ -30,6 +29,7 @@ import org.openeos.services.ui.model.ViewChangeListener;
 import org.openeos.services.ui.vaadin.IVaadinContainerFactory;
 import org.openeos.services.ui.vaadin.internal.AbstractVaadinWindowImpl;
 import org.openeos.vaadin.main.IUnoVaadinApplication;
+
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.VerticalLayout;
 
@@ -37,12 +37,12 @@ public class AbstractFormVaadinWindow extends AbstractVaadinWindowImpl implement
 
 	private AbstractFormVaadinTabImpl tab;
 	private VaadinBindingFormToolkit vaadinToolkit;
-	private BBindingToolkit bindingToolkit;
+	private BindingToolkit bindingToolkit;
 	private FormRegistryService formRegistryService;
 
 	public AbstractFormVaadinWindow(IWindowDefinition windowDefinition, IVaadinContainerFactory containerFactory,
 			IDictionaryService dictionaryService, UIApplication<IUnoVaadinApplication> application,
-			VaadinBindingFormToolkit vaadinToolkit, BBindingToolkit bindingToolkit, FormRegistryService formRegistryService) {
+			VaadinBindingFormToolkit vaadinToolkit, BindingToolkit bindingToolkit, FormRegistryService formRegistryService) {
 		super(windowDefinition, containerFactory, dictionaryService, application);
 		this.vaadinToolkit = vaadinToolkit;
 		this.bindingToolkit = bindingToolkit;

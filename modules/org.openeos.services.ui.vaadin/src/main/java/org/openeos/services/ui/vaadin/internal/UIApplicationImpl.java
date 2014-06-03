@@ -18,8 +18,8 @@ package org.openeos.services.ui.vaadin.internal;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.abstractform.binding.BBindingToolkit;
 import org.abstractform.binding.BForm;
+import org.abstractform.binding.BindingToolkit;
 import org.abstractform.binding.vaadin.VaadinBindingFormInstance;
 import org.abstractform.binding.vaadin.VaadinBindingFormToolkit;
 import org.openeos.services.ui.ConfirmationCallback;
@@ -51,13 +51,13 @@ public class UIApplicationImpl implements UIApplication<IUnoVaadinApplication> {
 
 	private IUnoVaadinApplication vaadinApplication;
 	private FormRegistryService formRegistryService;
-	private BBindingToolkit uiBeanBindingToolkit;
-	private BBindingToolkit commonBindingToolkit;
+	private BindingToolkit uiBeanBindingToolkit;
+	private BindingToolkit commonBindingToolkit;
 	private VaadinBindingFormToolkit vaadinToolkit;
 	private UIDAOService uidaoService;
 
-	public UIApplicationImpl(FormRegistryService formRegistryService, BBindingToolkit uiBeanBindingToolkit,
-			BBindingToolkit commonBindingToolkit, VaadinBindingFormToolkit vaadinToolkit, UIDAOService uidaoService) {
+	public UIApplicationImpl(FormRegistryService formRegistryService, BindingToolkit uiBeanBindingToolkit,
+			BindingToolkit commonBindingToolkit, VaadinBindingFormToolkit vaadinToolkit, UIDAOService uidaoService) {
 		this.formRegistryService = formRegistryService;
 		this.uiBeanBindingToolkit = uiBeanBindingToolkit;
 		this.commonBindingToolkit = commonBindingToolkit;
@@ -110,7 +110,7 @@ public class UIApplicationImpl implements UIApplication<IUnoVaadinApplication> {
 	}
 
 	@Override
-	public <U> UIDialog showGenericFormDialog(BForm<U, ?> form, U bean) {
+	public <U> UIDialog showGenericFormDialog(BForm<U> form, U bean) {
 		Map<String, Object> extraObjects = new HashMap<String, Object>();
 		extraObjects.put(UIVaadinFormToolkit.EXTRA_OBJECT_APPLICATION, this);
 		VaadinBindingFormInstance formInstance = vaadinToolkit.buildForm(form, commonBindingToolkit, extraObjects, false);
@@ -142,8 +142,7 @@ public class UIApplicationImpl implements UIApplication<IUnoVaadinApplication> {
 	}
 
 	private <T> UIDialog showFormDialog(Class<T> modelClass, UIBean model, BindingFormCapability capability) {
-		AbstractFormBindingForm<T, ?> form = formRegistryService.getDefaultForm(modelClass, AbstractFormBindingForm.class,
-				capability);
+		AbstractFormBindingForm<T> form = formRegistryService.getDefaultForm(modelClass, AbstractFormBindingForm.class, capability);
 		Map<String, Object> extraObjects = new HashMap<String, Object>();
 		extraObjects.put(UIVaadinFormToolkit.EXTRA_OBJECT_APPLICATION, this);
 		VaadinBindingFormInstance formInstance = vaadinToolkit.buildForm(form.getAbstractBForm(), uiBeanBindingToolkit,

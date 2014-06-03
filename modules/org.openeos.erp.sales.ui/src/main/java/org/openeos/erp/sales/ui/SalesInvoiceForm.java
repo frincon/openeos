@@ -90,7 +90,7 @@ public abstract class SalesInvoiceForm extends UIAbstractForm<SalesInvoice> {
 		}
 
 		@Override
-		public BPresenter createPresenter(final BFormInstance<UIBean> formInstance, UIBean model) {
+		public BPresenter createPresenter(final BFormInstance<UIBean, ?> formInstance, UIBean model) {
 			return new DocumentTypePresenterDecorator(super.createPresenter(formInstance, model), formInstance,
 					FIELD_DOCUMENT_TYPE.getId(), FIELD_DOCUMENTNO.getId());
 		}

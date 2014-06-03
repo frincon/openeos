@@ -25,17 +25,17 @@ import org.abstractform.binding.BFormInstance;
 import org.abstractform.binding.vaadin.TableContainer;
 import org.abstractform.core.Field;
 import org.abstractform.core.FormInstance;
-import org.abstractform.core.table.IFTable;
+import org.abstractform.core.table.TableConstants;
 import org.abstractform.vaadin.VaadinDataObject;
 import org.abstractform.vaadin.VaadinFieldValueAccessor;
 import org.abstractform.vaadin.VaadinFormToolkit;
-
 import org.openeos.services.ui.UIApplication;
 import org.openeos.services.ui.form.abstractform.BFUIButton;
 import org.openeos.services.ui.form.abstractform.BFUITable;
 import org.openeos.services.ui.form.abstractform.UIButtonController;
 import org.openeos.services.ui.form.abstractform.UITableController;
 import org.openeos.services.ui.vaadin.internal.UIApplicationImpl;
+
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Button;
@@ -130,10 +130,9 @@ public class UIVaadinFormToolkit extends VaadinFormToolkit {
 				@Override
 				public void setFieldValue(FormInstance formInstance, AbstractComponent field, Object value) {
 					Table t = (Table) ((HorizontalLayout) field).getComponent(0);
-					t.setContainerDataSource(new UITableContainer(
-							(BFormInstance<?>) formInstance,
-							(List<BField>) ((VaadinDataObject) field.getData()).getField().getExtra(IFTable.EXTRA_TABLE_FIELD_LIST),
-							(Collection<Object>) value));
+					t.setContainerDataSource(new UITableContainer((BFormInstance<?, ?>) formInstance,
+							(List<BField>) ((VaadinDataObject) field.getData()).getField().getExtra(
+									TableConstants.EXTRA_TABLE_FIELD_LIST), (Collection<Object>) value));
 
 				}
 

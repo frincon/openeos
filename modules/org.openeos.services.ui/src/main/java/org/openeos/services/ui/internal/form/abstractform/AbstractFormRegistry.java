@@ -18,12 +18,11 @@ package org.openeos.services.ui.internal.form.abstractform;
 import java.util.EnumSet;
 import java.util.Map;
 
-import org.abstractform.binding.BForm;
-import org.osgi.framework.Constants;
-
 import org.openeos.services.ui.form.BindingFormCapability;
 import org.openeos.services.ui.form.FormRegistryService;
 import org.openeos.services.ui.form.abstractform.AbstractFormUtils;
+import org.openeos.services.ui.form.abstractform.UIBForm;
+import org.osgi.framework.Constants;
 
 public class AbstractFormRegistry {
 
@@ -36,7 +35,7 @@ public class AbstractFormRegistry {
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void bindAbstractBForm(BForm form, Map properties) {
+	public void bindAbstractBForm(UIBForm form, Map properties) {
 		EnumSet<BindingFormCapability> capabilities = (EnumSet<BindingFormCapability>) properties
 				.get(AbstractFormUtils.SERVICE_CAPABILITIES);
 		Integer formRanking = (Integer) properties.get(Constants.SERVICE_RANKING);
@@ -45,7 +44,7 @@ public class AbstractFormRegistry {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public void unbindAbstractBForm(BForm form) {
+	public void unbindAbstractBForm(UIBForm form) {
 		if (form != null) {
 			formRegistryService.unregisterForm(PREFIX + form.getId());
 		}

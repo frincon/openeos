@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.Set;
 
 import org.abstractform.binding.BFormInstance;
-
 import org.openeos.services.ui.MessageType;
 import org.openeos.services.ui.UIApplication;
 import org.openeos.services.ui.UIBean;
@@ -53,7 +52,7 @@ public class UITableControllerImpl<T> implements UITableController<T> {
 	}
 
 	@Override
-	public void onEdit(UIApplication<?> application, BFormInstance<?> formInstance, Collection<T> collection, T model) {
+	public void onEdit(UIApplication<?> application, BFormInstance<?, ?> formInstance, Collection<T> collection, T model) {
 		if (model instanceof Set<?>) {
 			model = (T) ((Set<T>) model).iterator().next();
 		}
@@ -68,7 +67,7 @@ public class UITableControllerImpl<T> implements UITableController<T> {
 	}
 
 	@Override
-	public void onNew(UIApplication<?> application, BFormInstance<?> formInstance, final Collection<T> collection) {
+	public void onNew(UIApplication<?> application, BFormInstance<?, ?> formInstance, final Collection<T> collection) {
 		final UIBean bean = uidaoService.create(elementsClass, new FormInstanceContext(application, formInstance));
 		//bean.set(childPropertyName, parent);
 		UIDialog dialog = application.showNewFormDialog(bean);
@@ -84,7 +83,7 @@ public class UITableControllerImpl<T> implements UITableController<T> {
 	}
 
 	@Override
-	public void onDelete(UIApplication<?> application, BFormInstance<?> formInstance, Collection<T> collection, T model) {
+	public void onDelete(UIApplication<?> application, BFormInstance<?, ?> formInstance, Collection<T> collection, T model) {
 		application.showMessage(MessageType.INFO, "On Delete!!");
 	}
 

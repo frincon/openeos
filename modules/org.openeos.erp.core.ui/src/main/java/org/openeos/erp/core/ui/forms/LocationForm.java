@@ -38,10 +38,10 @@ public class LocationForm extends UIAbstractForm<Location> {
 	public BFField FIELD_ADDRESS2 = SUBFORM_FIRST.addField(2, 0, null, "Address 2", Location.PROPERTY_ADDRESS2);
 	public BFField FIELD_CITY = SUBFORM_FIRST.addField(3, 0, null, "City", Location.PROPERTY_CITY);
 	public BFField FIELD_POSTAL = SUBFORM_FIRST.addField(4, 0, null, "ZIP", Location.PROPERTY_POSTAL);
-	public BFField FIELD_REGION = SUBFORM_FIRST.addField(5, 0, null, "Region", Location.PROPERTY_REGION).readOnlyPresenterProperty(
+	public BFField FIELD_REGION = SUBFORM_FIRST.addField(5, 0, null, "Region", Location.PROPERTY_REGION).readOnlyPropertyName(
 			Presenter.PROPERTY_REGION_VISIBLE);
 	public BFField FIELD_REGIONNAME = SUBFORM_FIRST.addField(6, 0, null, "Region Name", Location.PROPERTY_REGIONNAME)
-			.readOnlyPresenterProperty(Presenter.PROPERTY_REGION_NAME_VISIBLE);
+			.readOnlyPropertyName(Presenter.PROPERTY_REGION_NAME_VISIBLE);
 
 	// TODO This can be more easy whith expression language
 	public class Presenter extends UIPresenter<Location> {
@@ -103,7 +103,7 @@ public class LocationForm extends UIAbstractForm<Location> {
 	}
 
 	@Override
-	public BPresenter createPresenter(BFormInstance<UIBean> formInstance, UIBean model) {
+	public BPresenter createPresenter(BFormInstance<UIBean, ?> formInstance, UIBean model) {
 		Presenter presenter = new Presenter(model);
 		return presenter;
 	}

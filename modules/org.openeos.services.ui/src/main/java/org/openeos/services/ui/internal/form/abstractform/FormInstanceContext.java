@@ -16,7 +16,6 @@
 package org.openeos.services.ui.internal.form.abstractform;
 
 import org.abstractform.binding.BFormInstance;
-
 import org.openeos.services.ui.UIContext;
 import org.openeos.services.ui.internal.UIBeanImpl;
 
@@ -25,9 +24,9 @@ public class FormInstanceContext implements UIContext {
 	private static final String PARENT_NAME = "parent";
 
 	private UIContext parentContextObject;
-	private BFormInstance<?> formInstance;
+	private BFormInstance<?, ?> formInstance;
 
-	public FormInstanceContext(UIContext parentContextObject, BFormInstance<?> formInstance) {
+	public FormInstanceContext(UIContext parentContextObject, BFormInstance<?, ?> formInstance) {
 		this.parentContextObject = parentContextObject;
 		this.formInstance = formInstance;
 	};

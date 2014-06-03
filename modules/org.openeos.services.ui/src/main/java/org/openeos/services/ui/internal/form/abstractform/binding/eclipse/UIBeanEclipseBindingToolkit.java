@@ -44,7 +44,7 @@ public class UIBeanEclipseBindingToolkit extends EclipseBindingToolkit {
 
 	@Override
 	protected <S> Binding bindField(DataBindingContext dbCtx, final BField field, IObservableValue master,
-			final BFormInstance<S> formInstance, boolean immediate, final IObservableValue presenterValue) {
+			final BFormInstance<S, ?> formInstance, boolean immediate, final IObservableValue presenterValue) {
 		if (BFUITable.TYPE_UITABLE.equals(field.getType())) {
 			final IObservableSet model = UIPresenterProperties.set(((UIPresenter<?>) presenterValue.getValue()).getBeanClass(),
 					field.getPropertyName(), dictionaryService).observeDetail(presenterValue);

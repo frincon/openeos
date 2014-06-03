@@ -26,14 +26,14 @@ public class UITableContainer extends TableContainer {
 
 	private static final long serialVersionUID = -6469658317746309917L;
 
-	private BFormInstance<?> formInstance;
+	private BFormInstance<?, ?> formInstance;
 
-	public UITableContainer(BFormInstance<?> formInstance, List<BField> fields, Collection<Object> values) {
+	public UITableContainer(BFormInstance<?, ?> formInstance, List<BField> fields, Collection<Object> values) {
 		super(fields, values);
 		this.formInstance = formInstance;
 	}
 
-	public BFormInstance<?> getFormInstance() {
+	public BFormInstance<?, ?> getFormInstance() {
 		return formInstance;
 	}
 

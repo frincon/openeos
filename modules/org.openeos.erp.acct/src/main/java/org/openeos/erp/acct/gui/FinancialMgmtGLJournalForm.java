@@ -80,7 +80,7 @@ public abstract class FinancialMgmtGLJournalForm extends UIAbstractForm<Financia
 	}
 
 	@Override
-	public BPresenter createPresenter(final BFormInstance<UIBean> formInstance, UIBean model) {
+	public BPresenter createPresenter(final BFormInstance<UIBean, ?> formInstance, UIBean model) {
 		return new DocumentTypePresenterDecorator(new UIPresenter<FinancialMgmtGLJournal>(FinancialMgmtGLJournal.class, model) {
 
 			@Override

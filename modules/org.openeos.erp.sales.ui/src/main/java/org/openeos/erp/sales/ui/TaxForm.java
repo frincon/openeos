@@ -37,13 +37,13 @@ public abstract class TaxForm extends UIAbstractForm<Tax> {
 
 	public class Presenter extends UIPresenter<Tax> {
 
-		private BFormInstance<UIBean> formInstance;
+		private BFormInstance<UIBean, ?> formInstance;
 
 		private boolean lineReadOnly = true;
 		private boolean fromRegionReadOnly = true;
 		private boolean toRegionReadOnly = true;
 
-		public Presenter(BFormInstance<UIBean> formInstance, UIBean uiBean) {
+		public Presenter(BFormInstance<UIBean, ?> formInstance, UIBean uiBean) {
 			super(Tax.class, uiBean);
 			this.formInstance = formInstance;
 			checkFromRegionReadOnly();
@@ -110,7 +110,7 @@ public abstract class TaxForm extends UIAbstractForm<Tax> {
 	public BFField FIELD_ORGANIZATION = SUBFORM_MAIN.addField(0, 0, null, "Organization", Tax.PROPERTY_ORGANIZATION);
 	public BFField FIELD_NAME = SUBFORM_MAIN.addField(1, 0, null, "Name", Tax.PROPERTY_NAME);
 	public BFField FIELD_PARENT = SUBFORM_MAIN.addField(2, 0, null, "Parent", Tax.PROPERTY_PARENT);
-	public BFField FIELD_LINE = SUBFORM_MAIN.addField(2, 1, null, "Line", Tax.PROPERTY_LINE).readOnlyPresenterProperty(
+	public BFField FIELD_LINE = SUBFORM_MAIN.addField(2, 1, null, "Line", Tax.PROPERTY_LINE).readOnlyPropertyName(
 			PROPERTY_LINE_READ_ONLY);
 	public BFField FIELD_RATE = SUBFORM_MAIN.addField(3, 0, null, "Rate", Tax.PROPERTY_RATE);
 	public BFField FIELD_VALID_FROM = SUBFORM_MAIN.addField(3, 1, null, "Valid From", Tax.PROPERTY_VALIDFROM);
@@ -120,10 +120,10 @@ public abstract class TaxForm extends UIAbstractForm<Tax> {
 	public BFSubForm SUBFORM_DETAIL = SECTION_DETAIL.addSubForm(null, 2);
 	public BFField FIELD_FROM_COUNTRY = SUBFORM_DETAIL.addField(0, 0, null, "From Country", Tax.PROPERTY_COUNTRY_BY_C_COUNTRY_ID);
 	public BFField FIELD_FROM_REGION = SUBFORM_DETAIL.addField(0, 1, null, "From Region", Tax.PROPERTY_REGION_BY_C_REGION_ID)
-			.readOnlyPresenterProperty(PROPERTY_FROM_REGION_READ_ONLY);
+			.readOnlyPropertyName(PROPERTY_FROM_REGION_READ_ONLY);
 	public BFField FIELD_TO_COUNTRY = SUBFORM_DETAIL.addField(1, 0, null, "To Country", Tax.PROPERTY_COUNTRY_BY_TO_C_COUNTRY_ID);
 	public BFField FIELD_TO_REGION = SUBFORM_DETAIL.addField(1, 1, null, "To Region", Tax.PROPERTY_REGION_BY_TO_C_REGION_ID)
-			.readOnlyPresenterProperty(PROPERTY_TO_REGION_READ_ONLY);
+			.readOnlyPropertyName(PROPERTY_TO_REGION_READ_ONLY);
 	public BFField FIELD_TAX_CATEGORY = SUBFORM_DETAIL.addField(2, 0, null, "Tax Category", Tax.PROPERTY_TAX_CATEGORY);
 	public BFField FIELD_BP_TAX_CATEGORY = SUBFORM_DETAIL.addField(2, 1, null, "Business Partner Tax Category",
 			Tax.PROPERTY__B_P_TAX_CATEGORY);
@@ -133,7 +133,7 @@ public abstract class TaxForm extends UIAbstractForm<Tax> {
 	}
 
 	@Override
-	public BPresenter createPresenter(BFormInstance<UIBean> formInstance, UIBean model) {
+	public BPresenter createPresenter(BFormInstance<UIBean, ?> formInstance, UIBean model) {
 		return new Presenter(formInstance, model);
 	}
 
