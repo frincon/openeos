@@ -28,7 +28,7 @@
 		<logback.version>1.0.7</logback.version>
 		<slf4j.version>1.6.6</slf4j.version>
 		<osgi.version>5.0.0</osgi.version>
-		<abstractform.version>0.1.1</abstractform.version>
+		<abstractform.version>0.2.0</abstractform.version>
 		<eclipse.weaving.hook.version>1.0.200.I20130319-1000</eclipse.weaving.hook.version>
 		<vaadin.version>6.8.14</vaadin.version>
 		<freemarker.version>2.3.20</freemarker.version>

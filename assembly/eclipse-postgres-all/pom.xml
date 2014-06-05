@@ -58,7 +58,6 @@
 						<param>mvn:org.openeos/org.openeos.hibernate/${project.version}@4</param>
 						<param>mvn:org.openeos/org.openeos.liquibase.extender/${project.version}@3</param>
 						<param>mvn:org.openeos/org.openeos.erp.core.ui/${project.version}@6</param>
-						<param>mvn:org.abstractform/org.abstractform.binding/${project.version}@3</param>
 						<param>wrap:mvn:org.vaadin.addons.lazyquerycontainer/vaadin-lazyquerycontainer/1.2.11@3</param>
 						<param>wrap:mvn:com.sun.xml.bind/jaxb-xjc/2.2.7,file://${project.basedir}/conf/jaxb-xjc.bnd</param>
 						<param>wrap:mvn:jfree/jcommon/1.0.15</param>
